@@ -2,7 +2,6 @@
 
 namespace Betfair\Event;
 
-
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Credentials;
@@ -49,7 +48,6 @@ class EventType extends AbstractBetfair
         $param = $this->buildParam($filter);
         $response = $this->buildSportApiNgRequest(self::METHOD, json_encode($param));
         return $this->adapter->adaptResponse($response);
-
     }
 
 } 

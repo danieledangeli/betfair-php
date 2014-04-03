@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ ."/autoload.php";
+require_once __DIR__ . "/src/autoload.php";
 
 $credential = new \Betfair\Credentials("PuJtD2nA9b8IQEkI", "S28x1R7RSiPFF59s8t3WkRRSu70WI4EgeGvjLxWvS04=");
 $jsonRpcClient = new \Betfair\JsonRPCClient(\Betfair\AbstractBetfair::END_POINT_URL, false);
