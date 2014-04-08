@@ -29,7 +29,8 @@ namespace Betfair;
  *
  * @author sergio <jsonrpcphp@inservibile.org>
  */
-class JsonRPCClient {
+class JsonRpcClient
+{
 
     /**
      * Debug state

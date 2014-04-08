@@ -38,7 +38,7 @@ class Betfair
     protected $adapter;
 
 
-    public function __construct(Credentials $credentials, AdapterInterface $adapter = null, JsonRPCClient $client)
+    public function __construct(Credentials $credentials, AdapterInterface $adapter = null, JsonRpcClient $client)
     {
         $this->credentials = $credentials;
         $this->setAdapter($adapter);
@@ -55,4 +55,4 @@ class Betfair
     }
 
 
-} 
+}
