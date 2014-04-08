@@ -14,11 +14,6 @@ use Betfair\Helper\FilterHelper;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\Param;
 
-/**
- * Credentials class.
- *
- * @author Daniele D'Angeli <dangeli88.daniele@gmail.com>
- */
 abstract class AbstractBetfair
 {
     const END_POINT_URL = "https://api.betfair.com/exchange/betting/json-rpc/v1";

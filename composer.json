@@ -15,7 +15,12 @@
         }
     ],
 
-
+    "require-dev": {
+        "phpspec/phpspec": "2.0.*@dev"
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
 
     "require": {
         "php"                : ">=5.4.0"

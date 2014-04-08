@@ -32,15 +32,21 @@ class Credentials
      */
     private $sessionToken;
 
+    private $passowrd;
+
+    private $username;
+
 
     /**
      * @param $applicationKey
-     * @param $sessionToken
+     * @param $username
+     * @param $password
      */
-    public function __construct($applicationKey, $sessionToken)
+    public function __construct($applicationKey, $username, $password)
     {
         $this->applicationKey = $applicationKey;
-        $this->sessionToken   = $sessionToken;
+        $this->username = $username;
+        $this->passowrd = $password;
     }
 
     /**
@@ -57,5 +63,15 @@ class Credentials
     public function getSessionToken()
     {
         return $this->sessionToken;
+    }
+
+    public function getPassword()
+    {
+        return $this->passowrd;
+    }
+
+    public function getUsername()
+    {
+       return $this->username;
     }
 }

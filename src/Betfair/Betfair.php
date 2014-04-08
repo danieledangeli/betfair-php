@@ -10,6 +10,10 @@
  */
 namespace Betfair;
 
+use Betfair\Adapter\AdapterInterface;
+use Betfair\Adapter\ArrayAdapter;
+use Betfair\Event\EventType;
+
 class Betfair
 {
     /**
@@ -29,9 +33,26 @@ class Betfair
     /**
      * The adapter to use.
      *
-     * @var HttpAdapterInterface
+     * @var AdapterInterface
      */
     protected $adapter;
+
+
+    public function __construct(Credentials $credentials, AdapterInterface $adapter = null, JsonRPCClient $client)
+    {
+        $this->credentials = $credentials;
+        $this->setAdapter($adapter);
+    }
+
+    public function setAdapter($adapter = null)
+    {
+        $this->adapter = $adapter ?: new ArrayAdapter();
+    }
+
+    public function eventType()
+    {
+        return new EventType($this->credentials, null, null);
+    }
 
 
 } 

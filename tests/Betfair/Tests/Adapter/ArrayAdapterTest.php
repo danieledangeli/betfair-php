@@ -26,6 +26,7 @@ class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
     {
         $response = $this->arrayAdapter
             ->adaptResponse(ResponseServiceMock::getJsonRpcBetfairGenericaResponse());
+
         $this->assertTrue(is_array($response));
         $this->assertEquals(1, $response['id']);
         $this->assertEquals('2.0', $response['jsonrpc']);
