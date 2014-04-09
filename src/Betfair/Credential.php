@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Betfair library.
  *
@@ -16,7 +15,7 @@ namespace Betfair;
  *
  * @author Daniele D'Angeli <dangeli88.daniele@gmail.com>
  */
-class Credentials
+class Credential implements CredentialInterface
 {
     /**
      * The application KEY.
@@ -32,9 +31,9 @@ class Credentials
      */
     private $sessionToken;
 
-    private $passowrd;
+    protected $username;
 
-    private $username;
+    protected $password;
 
 
     /**
@@ -44,9 +43,9 @@ class Credentials
      */
     public function __construct($applicationKey, $username, $password)
     {
-        $this->applicationKey = $applicationKey;
-        $this->username = $username;
-        $this->passowrd = $password;
+        $this->applicationKey   = $applicationKey;
+        $this->password         = $password;
+        $this->username         = $username;
     }
 
     /**
@@ -65,13 +64,13 @@ class Credentials
         return $this->sessionToken;
     }
 
-    public function getPassword()
-    {
-        return $this->passowrd;
-    }
-
     public function getUsername()
     {
        return $this->username;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
     }
 }

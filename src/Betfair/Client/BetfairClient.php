@@ -2,14 +2,14 @@
 
 namespace Betfair\Client;
 
-use Betfair\Credentials;
+use Betfair\CredentialInterface;
 
 class BetfairClient
 {
 
     protected $credential;
 
-    public function __construct(Credentials $credential)
+    public function __construct(CredentialInterface $credential)
     {
         $this->credential = $credential;
 

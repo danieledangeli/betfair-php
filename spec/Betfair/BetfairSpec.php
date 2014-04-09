@@ -3,6 +3,9 @@
 namespace spec\Betfair;
 
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BetfairJsonRpcClientInterface;
+use Betfair\Credential;
+use Betfair\CredentialInterface;
 use Betfair\Credentials;
 use Betfair\JsonRpcClient;
 use PhpSpec\ObjectBehavior;
@@ -11,9 +14,9 @@ class BetfairSpec extends ObjectBehavior
 {
 
     function let(
-        Credentials $credentials,
+        CredentialInterface $credentials,
         AdapterInterface $adapterInterface,
-        JsonRpcClient $jsonRPCClient
+        BetfairJsonRpcClientInterface $jsonRPCClient
     )
     {
 

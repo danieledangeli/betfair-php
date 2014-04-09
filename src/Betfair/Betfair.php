@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Betfair library.
  *
@@ -26,7 +25,7 @@ class Betfair
     /**
      * The credentials instance to use.
      *
-     * @var Credentials
+     * @var CredentialInterface
      */
     protected $credentials;
 
@@ -37,10 +36,13 @@ class Betfair
      */
     protected $adapter;
 
+    protected $client;
 
-    public function __construct(Credentials $credentials, AdapterInterface $adapter = null, JsonRpcClient $client)
+
+    public function __construct(CredentialInterface $credentials,  BetfairJsonRpcClientInterface $client, AdapterInterface $adapter = null)
     {
-        $this->credentials = $credentials;
+        $this->credentials  = $credentials;
+        $this->client       = $client;
         $this->setAdapter($adapter);
     }
 

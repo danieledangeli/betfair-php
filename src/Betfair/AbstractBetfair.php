@@ -27,16 +27,17 @@ abstract class AbstractBetfair
     protected $adapter;
 
     /**
-     * @param Credentials $credential
-     * @param JsonRPCClient $jsonRpcClient
+     * @param Credential $credential
+     * @param BetfairJsonRpcClientInterface $jsonRpcClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(Credentials $credential, JsonRPCClient $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(Credential $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
     {
         $this->credential = $credential;
         $this->httpClient = $jsonRpcClient;
-        $this->endPointUrl = self::END_POINT_URL;
         $this->adapter = $adapter;
+
+        $this->endPointUrl = self::END_POINT_URL;
     }
 
     /**
@@ -54,13 +55,14 @@ abstract class AbstractBetfair
      * @param $params
      * @return mixed
      */
-    public function buildSportApiNgRequest($method, $params)
+    public function doSportApiNgRequest($method, $params)
     {
         $requestContent = $this->httpClient->sportsApingRequest(
             $this->credential->getApplicationKey(),
             $this->credential->getSessionToken(),
             $method,
-            $params
+            $params,
+            $this->endPointUrl
         );
         return $requestContent;
     }

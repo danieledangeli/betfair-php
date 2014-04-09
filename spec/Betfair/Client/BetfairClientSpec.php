@@ -2,13 +2,15 @@
 
 namespace spec\Betfair\Client;
 
+use Betfair\Credential;
+use Betfair\CredentialInterface;
 use Betfair\Credentials;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class BetfairClientSpec extends ObjectBehavior
 {
-    function let(Credentials $credential)
+    function let(CredentialInterface $credential)
     {
         $this->beConstructedWith($credential);
     }
@@ -18,13 +20,13 @@ class BetfairClientSpec extends ObjectBehavior
         $this->shouldHaveType('Betfair\Client\BetfairClient');
     }
 
-    function it_is_have_getTitle(Credentials $credential)
+    function it_is_have_getTitle(CredentialInterface $credential)
     {
         $credential->getUsername()->willReturn('username');
         $this->getUsername()->shouldReturn('username');
     }
 
-    function it_is_have_getPassword(Credentials $credential)
+    function it_is_have_getPassword(CredentialInterface $credential)
     {
         $credential->getPassword()->willReturn('pwd');
         $this->getPassword()->shouldReturn('pwd');
