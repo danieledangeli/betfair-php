@@ -3,7 +3,7 @@
 namespace Betfair\Model;
 
 
-class MarketFilter extends BetfairSerializable
+class MarketFilter extends BetfairSerializable implements MarketFilterInterface
 {
     /**
      * @var string

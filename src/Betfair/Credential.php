@@ -73,4 +73,9 @@ class Credential implements CredentialInterface
     {
         return $this->password;
     }
+
+    public function setSessionToken($sessionToken)
+    {
+        $this->sessionToken = $sessionToken;
+    }
 }

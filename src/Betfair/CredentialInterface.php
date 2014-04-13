@@ -16,5 +16,6 @@ interface CredentialInterface
     public function getApplicationKey();
     public function getUsername();
     public function getPassword();
+    public function setSessionToken($sessionToken);
 
 } 

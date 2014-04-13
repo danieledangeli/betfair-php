@@ -2,12 +2,22 @@
 
 require_once __DIR__ . "/src/autoload.php";
 
-ob_start();
-$sessionToken = getACookie();
-ob_end_clean();
-$credential = new \Betfair\Credentials("PuJtD2nA9b8IQEkI", $sessionToken);
-$jsonRpcClient = new \Betfair\JsonRPCClient(\Betfair\AbstractBetfair::END_POINT_URL, false);
+//ob_start();
+//$sessionToken = getACookie();
+//ob_end_clean();
+$credential = new \Betfair\Credential("PuJtD2nA9b8IQEkI", "erlangb88", 'annarita05011988');
+$betFairClient = new \Betfair\Client\BetfairClient($credential);
+$betFairClient->login();
+$jsonRpcClient = new \Betfair\Client\JsonRpcClient();
+$betFair = new \Betfair\Betfair($credential, $jsonRpcClient, new \Betfair\Adapter\ArrayRpcAdapter());
 
+$eventType = $betFair->eventType();
+$result = $eventType->getAllEventTypeFilterByIds(array(1));
+
+$event = $betFair->event();
+
+$events = $event->getAllEventFilteredByEventTypeIds(array($result[0]['eventType']['id']));
+$ciaos = $events;
 /*$eventType = new \Betfair\Event\EventType($credential, $jsonRpcClient, new \Betfair\Adapter\ArrayRpcAdapter());
 $eventBetfair = new \Betfair\MarketCatalogue\MarketCatalogue($credential, $jsonRpcClient, new \Betfair\Adapter\ArrayRpcAdapter());
 $eventTypes = $eventType->getAllEventType();
@@ -18,7 +28,7 @@ foreach($eventTypes as $eventType) {
   //echo count($events) . $eventType['eventType']['name']. "\n";
 }*/
 
-$eventBetfair = new \Betfair\MarketCatalogue\MarketCatalogue($credential, $jsonRpcClient, new \Betfair\Adapter\ArrayAdapter());
+/*$eventBetfair = new \Betfair\MarketCatalogue\MarketCatalogue($credential, $jsonRpcClient, new \Betfair\Adapter\ArrayAdapter());
 $filter = new \Betfair\Model\MarketFilter();
 $filter->setEventTypeIds(array(1));
 $timeRange = new \Betfair\Model\TimeRange();

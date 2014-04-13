@@ -11,7 +11,16 @@ namespace Betfair;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
+use Betfair\Client\BetfairJsonRpcClientInterface;
+use Betfair\Competition\Competition;
+use Betfair\Country\Country;
+use Betfair\Event\Event;
 use Betfair\Event\EventType;
+use Betfair\MarketBook\MarketBook;
+use Betfair\MarketCatalogue\MarketCatalogue;
+use Betfair\Model\Param;
+use Betfair\Model\ParamInterface;
+use Betfair\TimeRange\TimeRange;
 
 class Betfair
 {
@@ -36,7 +45,10 @@ class Betfair
      */
     protected $adapter;
 
+    /** @var \Betfair\Client\BetfairJsonRpcClientInterface  */
     protected $client;
+
+    protected $genericBetfair;
 
 
     public function __construct(CredentialInterface $credentials,  BetfairJsonRpcClientInterface $client, AdapterInterface $adapter = null)
@@ -44,6 +56,7 @@ class Betfair
         $this->credentials  = $credentials;
         $this->client       = $client;
         $this->setAdapter($adapter);
+        $this->genericBetfair = new BetfairGeneric($credentials, $client, $adapter);
     }
 
     public function setAdapter($adapter = null)
@@ -51,10 +64,50 @@ class Betfair
         $this->adapter = $adapter ?: new ArrayAdapter();
     }
 
-    public function eventType()
+    /**
+     * @return EventType
+     */
+    public function getBetfairEventType()
     {
-        return new EventType($this->credentials, null, null);
+        return new EventType($this->credentials, $this->client, $this->adapter);
+    }
+
+    /**
+     * @return Event
+     */
+    public function getBetfairEvent()
+    {
+        return new Event($this->credentials, $this->client, $this->adapter);
+    }
+
+    public function doCustomRequest(ParamInterface $param, $method)
+    {
+        return $this->genericBetfair->executeCustomQuery($param, $method);
     }
 
 
+    public function getBetfairMarketCatalogue()
+    {
+        return new MarketCatalogue($this->credentials, $this->client, $this->adapter);
+    }
+
+    public function getBetfairMarketBook()
+    {
+        return new MarketBook($this->credentials, $this->client, $this->adapter);
+    }
+
+    public function getBetfairCountry()
+    {
+       return new Country($this->credentials, $this->client, $this->adapter);
+    }
+
+    public function getBetfairCompetition()
+    {
+        return new Competition($this->credentials, $this->client, $this->adapter);
+    }
+
+    public function getBetfairTimeRange()
+    {
+        return new TimeRange($this->credentials, $this->client, $this->adapter);
+    }
 }

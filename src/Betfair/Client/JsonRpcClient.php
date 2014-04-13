@@ -21,7 +21,9 @@ along with JSON-RPC PHP; if not, write to the Free Software
 Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-namespace Betfair;
+namespace Betfair\Client;
+use Betfair\Client\BetfairJsonRpcClientInterface;
+use Betfair\CredentialInterface;
 use Betfair\Exception\BetfairRequestException;
 
 /**
@@ -32,7 +34,6 @@ use Betfair\Exception\BetfairRequestException;
  */
 class JsonRpcClient implements BetfairJsonRpcClientInterface
 {
-
     function sportsApiNgRequest(CredentialInterface $credential, $operation, $params, $endPointUrl)
     {
         $ch = curl_init();
@@ -59,4 +60,3 @@ class JsonRpcClient implements BetfairJsonRpcClientInterface
         }
     }
 }
-?>

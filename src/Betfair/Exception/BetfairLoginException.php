@@ -4,7 +4,7 @@ namespace Betfair\Exception;
 
 use Betfair\Exception;
 
-class BetfairRequestException
+class BetfairLoginException
     extends \HttpRequestException
     implements Exception
 {}

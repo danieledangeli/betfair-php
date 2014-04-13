@@ -12,8 +12,8 @@ namespace Betfair\MarketCatalogue;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
-use Betfair\Credentials;
-use Betfair\JsonRPCClient;
+use Betfair\Client\BetfairJsonRpcClientInterface;
+use Betfair\CredentialInterface;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\Param;
 
@@ -28,11 +28,11 @@ class MarketCatalogue extends AbstractBetfair
 
 
     /**
-     * @param Credentials $credential
-     * @param JsonRPCClient $jsonRpcClient
+     * @param CredentialInterface $credential
+     * @param BetfairJsonRpcClientInterface $jsonRpcClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(Credentials $credential, JsonRPCClient $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
     {
         parent::__construct($credential, $jsonRpcClient, $adapter);
     }
@@ -44,13 +44,8 @@ class MarketCatalogue extends AbstractBetfair
         $param = $this->buildParam($filter);
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
-        $response = $this->buildSportApiNgRequest(self::METHOD, json_encode($param));
+        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
         return $this->adapter->adaptResponse($response);
-    }
-
-    public function executeCustomQuery(Param $param)
-    {
-        return parent::executeCustomQuery($param, self::METHOD);
     }
 
 } 

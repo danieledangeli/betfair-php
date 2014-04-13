@@ -3,12 +3,12 @@
 namespace Betfair\Model;
 
 
-class Param implements \JsonSerializable
+class Param implements \JsonSerializable, ParamInterface
 {
     /**
-     * @param MarketFilter $filter
+     * @param MarketFilterInterface $filter
      */
-    public function __construct(MarketFilter $filter)
+    public function __construct(MarketFilterInterface $filter)
     {
         $this->filter = $filter;
     }
@@ -77,4 +77,5 @@ class Param implements \JsonSerializable
 
         return $array;
     }
+
 }

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * This file is part of the Betfair library.
  *
@@ -10,9 +9,11 @@
  */
 namespace Betfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Helper\FilterHelper;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\Param;
+use Betfair\Model\ParamInterface;
 
 abstract class AbstractBetfair
 {
@@ -31,7 +32,7 @@ abstract class AbstractBetfair
      * @param BetfairJsonRpcClientInterface $jsonRpcClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(Credential $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
     {
         $this->credential = $credential;
         $this->httpClient = $jsonRpcClient;
@@ -58,8 +59,7 @@ abstract class AbstractBetfair
     public function doSportApiNgRequest($method, $params)
     {
         $requestContent = $this->httpClient->sportsApingRequest(
-            $this->credential->getApplicationKey(),
-            $this->credential->getSessionToken(),
+            $this->credential,
             $method,
             $params,
             $this->endPointUrl
@@ -69,13 +69,13 @@ abstract class AbstractBetfair
 
     public function getAll($method)
     {
-        $response = $this->buildSportApiNgRequest($method, FilterHelper::getEmptyFilter());
+        $response = $this->doSportApiNgRequest($method, FilterHelper::getEmptyFilter());
         return $this->adapter->adaptResponse($response);
     }
 
-    public function executeCustomQuery(Param $param, $method)
+    public function executeCustomQuery(ParamInterface $param, $method)
     {
-        $response = $this->buildSportApiNgRequest($method, json_encode($param));
+        $response = $this->doSportApiNgRequest($method, json_encode($param));
         return $this->adapter->adaptResponse($response);
     }
 

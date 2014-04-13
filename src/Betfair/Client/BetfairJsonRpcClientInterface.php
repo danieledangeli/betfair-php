@@ -13,6 +13,10 @@ namespace Betfair\Client;
 
 use Betfair\CredentialInterface;
 
+/**
+ * Interface BetfairJsonRpcClientInterface
+ * @package Betfair\Client
+ */
 interface BetfairJsonRpcClientInterface
 {
     public function sportsApiNgRequest(CredentialInterface $credential, $operation, $params, $endPointUrl);
