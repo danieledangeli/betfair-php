@@ -5,3 +5,4 @@ composer.phar
 phpunit.xml
 php-cs-fixer.phar
 credentials.yml
+test.php

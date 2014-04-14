@@ -22,6 +22,7 @@ class CredentialsSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Credential');
+        $this->shouldImplement('Betfair\CredentialInterface');
     }
 
     function it_is_have_getPassword()
