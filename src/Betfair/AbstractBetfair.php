@@ -10,10 +10,13 @@
 namespace Betfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
+use Betfair\Dependency\BetfairContainer;
 use Betfair\Helper\FilterHelper;
 use Betfair\Model\MarketFilter;
+use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
+use Betfair\Model\QueryManager;
 
 abstract class AbstractBetfair
 {
@@ -27,8 +30,14 @@ abstract class AbstractBetfair
 
     protected $adapter;
 
+    /** @var \Betfair\Model\QueryManager  */
+    protected $queryManager;
+
+
+    protected $container;
+
     /**
-     * @param Credential $credential
+     * @param CredentialInterface $credential
      * @param BetfairJsonRpcClientInterface $jsonRpcClient
      * @param AdapterInterface $adapter
      */
@@ -36,16 +45,16 @@ abstract class AbstractBetfair
     {
         $this->credential = $credential;
         $this->httpClient = $jsonRpcClient;
-        $this->adapter = $adapter;
-
+        $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
+        $this->container = new BetfairContainer();
     }
 
     /**
-     * @param MarketFilter $filter
+     * @param MarketFilterInterface $filter
      * @return Param
      */
-    public function buildParam(MarketFilter $filter)
+    public function buildParam(MarketFilterInterface $filter)
     {
         $param = new Param($filter);
         return $param;

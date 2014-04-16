@@ -52,9 +52,11 @@ class EventType extends AbstractBetfair
      */
     public function getAllEventFilterByIds($eventTypeIds)
     {
-        $filter = new MarketFilter();
-        $filter->setEventTypeIds($eventTypeIds);
-        $param = $this->buildParam($filter);
+        $marketFilter = $this->container['betfair.market.filter.factory']->create();
+        $marketFilter->setEventTypeIds($eventTypeIds);
+
+        $param = $this->container['betfair.param.filter.factory']->create($marketFilter);
+
         $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
         return $this->adapter->adaptResponse($response);
     }

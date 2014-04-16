@@ -20,6 +20,7 @@ use Betfair\MarketBook\MarketBook;
 use Betfair\MarketCatalogue\MarketCatalogue;
 use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
+use Betfair\Model\QueryManager;
 use Betfair\TimeRange\TimeRange;
 
 class Betfair
@@ -48,10 +49,15 @@ class Betfair
     /** @var \Betfair\Client\BetfairJsonRpcClientInterface  */
     protected $client;
 
+    /** @var \Betfair\BetfairGeneric  */
     protected $genericBetfair;
 
 
-    public function __construct(CredentialInterface $credentials,  BetfairJsonRpcClientInterface $client, AdapterInterface $adapter = null)
+
+    public function __construct(
+        CredentialInterface $credentials,
+        BetfairJsonRpcClientInterface $client,
+        AdapterInterface $adapter = null)
     {
         $this->credentials  = $credentials;
         $this->client       = $client;
