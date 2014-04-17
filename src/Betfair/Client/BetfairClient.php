@@ -9,22 +9,32 @@ class BetfairClient
 {
     const LOGIN_ENDPOINT = "https://identitysso.betfair.com/api/login";
 
+    /** @var \Betfair\CredentialInterface  */
     protected $credential;
+    /** @var  BetfairJsonRpcClientInterface */
+    protected $httpClient;
 
-    public function __construct(CredentialInterface $credential)
+    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClientInterface)
     {
         $this->credential = $credential;
+        $this->httpClient = $httpClientInterface;
 
     }
 
-    public function getUsername()
+    public function sportsApiNgRequest($operation, $params, $endPointUrl)
     {
-        return $this->credential->getUsername();
-    }
+        if(!$this->credential->getSessionToken()) {
+            $sessionToken = $this->login();
+            $this->credential->setSessionToken($sessionToken);
+        }
+        return $this->httpClient->sportsApiNgRequest(
+            $this->credential,
+            $operation,
+            $params,
+            $endPointUrl
+        );
 
-    public function getPassword()
-    {
-       return $this->credential->getPassword();
+
     }
 
     public function login()
@@ -36,8 +46,8 @@ class BetfairClient
 
         $fields = array
         (
-            'username'       => urlencode($this->getUsername()),
-            'password'       => urlencode($this->getPassword()),
+            'username'       => urlencode($this->credential->getUsername()),
+            'password'       => urlencode($this->credential->getPassword()),
             'login'          => urlencode($login),
             'redirectmethod' => urlencode($redirectmethod),
             'product'        => urlencode($product),

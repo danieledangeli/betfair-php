@@ -4,15 +4,18 @@ namespace Betfair;
 
 
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
 
 class BetfairGeneric extends AbstractBetfair
 {
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter)
     {
-        parent::__construct($credential, $jsonRpcClient, $adapter);
+        parent::__construct($betfairClient, $credential);
     }
 
     public function executeCustomQuery(ParamInterface $param, $method)

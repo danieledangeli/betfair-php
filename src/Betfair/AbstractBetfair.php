@@ -9,6 +9,8 @@
  */
 namespace Betfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClient;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Dependency\BetfairContainer;
 use Betfair\Helper\FilterHelper;
@@ -22,9 +24,7 @@ abstract class AbstractBetfair
 {
     const END_POINT_URL = "https://api.betfair.com/exchange/betting/json-rpc/v1";
 
-    protected $credential;
-
-    protected $httpClient;
+    protected $betfairClient;
 
     protected $endPointUrl;
 
@@ -37,39 +37,28 @@ abstract class AbstractBetfair
     protected $container;
 
     /**
-     * @param CredentialInterface $credential
-     * @param BetfairJsonRpcClientInterface $jsonRpcClient
+     * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter)
     {
-        $this->credential = $credential;
-        $this->httpClient = $jsonRpcClient;
+        $this->betfairClient = $betfairClient;
         $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
         $this->container = new BetfairContainer();
     }
 
     /**
-     * @param MarketFilterInterface $filter
-     * @return Param
-     */
-    public function buildParam(MarketFilterInterface $filter)
-    {
-        $param = new Param($filter);
-        return $param;
-    }
-
-    /**
-     * @param $method
+     * @param $operation
      * @param $params
      * @return mixed
      */
-    public function doSportApiNgRequest($method, $params)
+    public function doSportApiNgRequest($operation, $params)
     {
-        $requestContent = $this->httpClient->sportsApingRequest(
-            $this->credential,
-            $method,
+        $requestContent = $this->betfairClient->sportsApingRequest(
+            $operation,
             $params,
             $this->endPointUrl
         );

@@ -11,6 +11,7 @@ namespace Betfair\Event;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Credentials;
@@ -29,13 +30,12 @@ class EventType extends AbstractBetfair
     const EVENT_TYPE_IDS_FILTER = "eventTypeIds";
 
     /**
-     * @param CredentialInterface $credential
-     * @param BetfairJsonRpcClientInterface $jsonRpcClient
+     * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
     {
-        parent::__construct($credential, $jsonRpcClient, $adapter);
+        parent::__construct($betfairClient, $adapter);
     }
 
     /**
