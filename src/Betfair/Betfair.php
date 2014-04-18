@@ -11,6 +11,7 @@ namespace Betfair;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Competition\Competition;
 use Betfair\Country\Country;
@@ -46,7 +47,7 @@ class Betfair
      */
     protected $adapter;
 
-    /** @var \Betfair\Client\BetfairJsonRpcClientInterface  */
+    /** @var  BetfairClientInterface */
     protected $betfairClient;
 
     /** @var \Betfair\BetfairGeneric  */
@@ -54,9 +55,7 @@ class Betfair
 
 
 
-    public function __construct(
-        BetfairJsonRpcClientInterface $client,
-        AdapterInterface $adapter = null)
+    public function __construct(BetfairClientInterface $client, AdapterInterface $adapter = null)
     {
         $this->betfairClient = $client;
         $this->setAdapter($adapter);
@@ -77,38 +76,38 @@ class Betfair
 
     public function getBetfairGeneric()
     {
-        return new BetfairGeneric($this->adapter)
+        return new BetfairGeneric($this->betfairClient, $this->adapter);
     }
     /**
      * @return Event
      */
     public function getBetfairEvent()
     {
-        return new Event($this->credentials, $this->betfairClient, $this->adapter);
+        return new Event($this->betfairClient, $this->adapter);
     }
 
     public function getBetfairMarketCatalogue()
     {
-        return new MarketCatalogue($this->credentials, $this->betfairClient, $this->adapter);
+        return new MarketCatalogue($this->betfairClient, $this->adapter);
     }
 
     public function getBetfairMarketBook()
     {
-        return new MarketBook($this->credentials, $this->betfairClient, $this->adapter);
+        return new MarketBook($this->betfairClient, $this->adapter);
     }
 
     public function getBetfairCountry()
     {
-       return new Country($this->credentials, $this->betfairClient, $this->adapter);
+       return new Country($this->betfairClient, $this->adapter);
     }
 
     public function getBetfairCompetition()
     {
-        return new Competition($this->credentials, $this->betfairClient, $this->adapter);
+        return new Competition($this->betfairClient, $this->adapter);
     }
 
     public function getBetfairTimeRange()
     {
-        return new TimeRange($this->credentials, $this->betfairClient, $this->adapter);
+        return new TimeRange($this->betfairClient, $this->adapter);
     }
 }

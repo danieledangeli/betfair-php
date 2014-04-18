@@ -3,6 +3,7 @@
 namespace spec\Betfair\Event;
 
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Client\JsonRpcClient;
 use Betfair\CredentialInterface;
@@ -14,19 +15,18 @@ use Prophecy\Argument;
 
 class EventSpec extends ObjectBehavior
 {
-    protected $credentials;
+    protected $client;
     protected $adapterInterface;
     function let(
-        CredentialInterface $credentials,
-        AdapterInterface $adapterInterface,
-        BetfairJsonRpcClientInterface $jsonRPCClient
+        BetfairClientInterface $client,
+        AdapterInterface $adapterInterface
     )
     {
-        $this->credentials = $credentials;
+        $this->client = $client;
         $this->adapterInterface = $adapterInterface;
 
 
-        $this->beConstructedWith($this->credentials, $jsonRPCClient, $this->adapterInterface);
+        $this->beConstructedWith($this->client, $this->adapterInterface);
     }
 
     function it_is_initializable()
@@ -35,13 +35,11 @@ class EventSpec extends ObjectBehavior
     }
 
     function it_has_list_events(
-        BetfairJsonRpcClientInterface $jsonRPCClient,
-        CredentialInterface $credential,
+        BetfairClientInterface $client,
         AdapterInterface $adapter
     )
     {
-        $jsonRPCClient->sportsApiNgRequest(
-            $this->credentials,
+        $client->sportsApiNgRequest(
             Event::METHOD,
             FilterHelper::getEmptyFilter(),
             'https://api.betfair.com/exchange/betting/json-rpc/v1')

@@ -2,6 +2,7 @@
 
 namespace spec\Betfair\Client;
 
+use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Credential;
 use Betfair\CredentialInterface;
 use Betfair\Credentials;
@@ -10,27 +11,13 @@ use Prophecy\Argument;
 
 class BetfairClientSpec extends ObjectBehavior
 {
-    function let(CredentialInterface $credential)
+    function let(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClient)
     {
-        $this->beConstructedWith($credential);
+        $this->beConstructedWith($credential, $httpClient);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Client\BetfairClient');
     }
-
-    function it_is_have_getTitle(CredentialInterface $credential)
-    {
-        $credential->getUsername()->willReturn('username');
-        $this->getUsername()->shouldReturn('username');
-    }
-
-    function it_is_have_getPassword(CredentialInterface $credential)
-    {
-        $credential->getPassword()->willReturn('pwd');
-        $this->getPassword()->shouldReturn('pwd');
-    }
-
-
 }

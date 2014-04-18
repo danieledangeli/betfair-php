@@ -4,6 +4,7 @@ namespace Betfair\MarketBook;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 

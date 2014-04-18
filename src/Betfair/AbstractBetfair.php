@@ -40,9 +40,7 @@ abstract class AbstractBetfair
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(
-        BetfairClientInterface $betfairClient,
-        AdapterInterface $adapter)
+    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
     {
         $this->betfairClient = $betfairClient;
         $this->adapter    = $adapter;

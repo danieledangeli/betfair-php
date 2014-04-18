@@ -5,7 +5,7 @@ namespace Betfair\Client;
 use Betfair\CredentialInterface;
 use Betfair\Exception\BetfairLoginException;
 
-class BetfairClient
+class BetfairClient implements BetfairClientInterface
 {
     const LOGIN_ENDPOINT = "https://identitysso.betfair.com/api/login";
 

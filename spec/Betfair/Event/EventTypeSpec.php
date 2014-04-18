@@ -3,6 +3,7 @@
 namespace spec\Betfair\Event;
 
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use PhpSpec\ObjectBehavior;
@@ -11,12 +12,11 @@ use Prophecy\Argument;
 class EventTypeSpec extends ObjectBehavior
 {
     function let(
-        CredentialInterface $credentials,
-        AdapterInterface $adapterInterface,
-        BetfairJsonRpcClientInterface $jsonRPCClient
+        BetfairClientInterface $client,
+        AdapterInterface $adapterInterface
     )
     {
-        $this->beConstructedWith($credentials, $jsonRPCClient, $adapterInterface);
+        $this->beConstructedWith($client, $adapterInterface);
     }
 
     function it_is_initializable()

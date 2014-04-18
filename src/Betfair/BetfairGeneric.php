@@ -13,9 +13,10 @@ class BetfairGeneric extends AbstractBetfair
 {
     public function __construct(
         BetfairClientInterface $betfairClient,
-        AdapterInterface $adapter)
+        AdapterInterface $adapter
+    )
     {
-        parent::__construct($betfairClient, $credential);
+        parent::__construct($betfairClient, $adapter);
     }
 
     public function executeCustomQuery(ParamInterface $param, $method)

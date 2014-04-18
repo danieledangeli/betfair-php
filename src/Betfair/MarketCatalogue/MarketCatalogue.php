@@ -12,6 +12,7 @@ namespace Betfair\MarketCatalogue;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Model\MarketFilter;
@@ -32,9 +33,9 @@ class MarketCatalogue extends AbstractBetfair
      * @param BetfairJsonRpcClientInterface $jsonRpcClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $jsonRpcClient, AdapterInterface $adapter)
+    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
     {
-        parent::__construct($credential, $jsonRpcClient, $adapter);
+        parent::__construct($betfairClient, $adapter);
     }
 
     public function listMarketCatalogue()
