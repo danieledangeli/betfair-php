@@ -2,7 +2,7 @@
     "name"       : "erlangb/betfair",
     "type"       : "library",
     "description": "Betfair API PHP 5.4+ library",
-    "keywords"   : ["Betfair", "API", "betiing api", "betting", "bet"],
+    "keywords"   : ["Betfair", "API", "betting api", "betting", "bet"],
     "homepage"   : "http://www.danieledangeli.com",
     "license"    : "MIT",
 
