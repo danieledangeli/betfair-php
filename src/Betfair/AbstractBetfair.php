@@ -33,19 +33,19 @@ abstract class AbstractBetfair
     /** @var \Betfair\Model\QueryManager  */
     protected $queryManager;
 
-
+    /** @var \Betfair\Dependency\BetfairContainer  */
     protected $container;
 
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
+    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
     {
         $this->betfairClient = $betfairClient;
         $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
-        $this->container = new BetfairContainer();
+        $this->container = $container;
     }
 
     /**

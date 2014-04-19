@@ -7,6 +7,7 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Client\JsonRpcClient;
 use Betfair\CredentialInterface;
+use Betfair\Dependency\BetfairContainer;
 use Betfair\Event\Event;
 use Betfair\Helper\FilterHelper;
 use PhpSpec\ObjectBehavior;
@@ -19,14 +20,15 @@ class EventSpec extends ObjectBehavior
     protected $adapterInterface;
     function let(
         BetfairClientInterface $client,
-        AdapterInterface $adapterInterface
+        AdapterInterface $adapterInterface,
+        BetfairContainer $container
     )
     {
         $this->client = $client;
         $this->adapterInterface = $adapterInterface;
 
 
-        $this->beConstructedWith($this->client, $this->adapterInterface);
+        $this->beConstructedWith($this->client, $this->adapterInterface, $container);
     }
 
     function it_is_initializable()

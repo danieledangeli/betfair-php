@@ -15,6 +15,7 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Credentials;
+use Betfair\Dependency\BetfairContainer;
 use Betfair\Helper\FilterHelper;
 use Betfair\JsonRPCClient;
 use Betfair\Model\MarketFilter;
@@ -33,9 +34,9 @@ class EventType extends AbstractBetfair
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
+    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
     {
-        parent::__construct($betfairClient, $adapter);
+        parent::__construct($betfairClient, $adapter, $container);
     }
 
     /**

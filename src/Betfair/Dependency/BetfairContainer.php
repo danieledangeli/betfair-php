@@ -12,14 +12,22 @@ class BetfairContainer extends Pimple
     {
         parent::__construct();
 
-        $this['name'] = 'daniele dangeli';
-
         $this['betfair.market.filter.factory'] = function () {
             return new MarketFilterFactory();
         };
         $this['betfair.param.filter.factory'] = function () {
             return new ParamFactory();
         };
+    }
+
+    public function get($label)
+    {
+        return $this[$label];
+    }
+
+    public function set($label, $object)
+    {
+        $this[$label] = $object;
     }
 
 } 

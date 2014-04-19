@@ -6,6 +6,7 @@ use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
+use Betfair\Dependency\BetfairContainer;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -13,11 +14,12 @@ class MarketCatalogueSpec extends ObjectBehavior
 {
     function let(
         BetfairClientInterface $client,
-        AdapterInterface $adapterInterface
+        AdapterInterface $adapterInterface,
+        BetfairContainer $container
     )
     {
 
-        $this->beConstructedWith($client, $adapterInterface);
+        $this->beConstructedWith($client, $adapterInterface, $container);
     }
     function it_is_initializable()
     {
