@@ -78,8 +78,30 @@ $betfairClient = new BetfairClient($credential, new JsonRpcClient());
 $betfair = new Betfair($betfairClient, $container, new ArrayAdapter());
 ```
 With the **Betfair** object you can access to the API model to execute some query.
-For example, considering the Betfair __EventType__ API, you can access to the relative object model by typing:
+For example, considering the Betfair __Event__ API, you can access to the relative object model by typing:
 ```php
-$betfairEventType = $betfair->getBetfairEventType()
+$betfairEvent = $betfair->getBetfairEvent();
 ```
-Now we have an helper to access to EventTy
+Now we have an helper to access to list event API. 
+By typing:
+```php
+$result = $betfairEvent->getAllEventFilteredByEventTypeIds(array(1));
+```
+we can access to all betfair event with event type = 1 ( Soccer )
+
+If we want to build a custom query ( a query without an helper ) we can use the **GenericBetfair**
+```php
+$generic = $betfair->getBetfairGeneric();
+$filter = $betfair->getContainer()->get('betfair.market.filter.factory')->create();
+$filter->setEventTypeIds(array(1));
+$to = new \DateTime('now');
+$from = new \DateTime('now + 3 days');
+$filter->setMarketStartTime(new \Betfair\Model\TimeRange($to, $from));
+$param = $betfair->getContainer()->get('betfair.param.filter.factory')->create($filter);
+$result = $generic->executeCustomQuery($param, 'listEvents'); // or $generic->executeCustomQuery($param, Event::METHOD);  
+```
+this second snippet is equivalent to the first one, but we have added a new Filter, given by a time range of events.
+Actually there isn't an helper function in the **Event** object that retrieve all the events filtered by time range and event type, so we need to use the **GenericBetfair** object. ( Please helps me to add more helper :D )
+To execute a custom query, we need two important object: the *marketFilter* and the *Param*.
+To create this object we can use the factory method by calling the "Factory" from the container and obtaining a new instance of this objects. 
+Why a container and a factory method? It's explained in the next section.
