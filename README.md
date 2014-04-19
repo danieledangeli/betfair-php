@@ -21,14 +21,14 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "erlangb/betfair-php": "@stable"
+        "erlangb/betfair": "@dev-master"
     }
 }
 ```
 
 **Protip:** you should browse the
-[`erlangb/betfair-php`](https://packagist.org/packages/erlangb/betfair-php)
-page to choose a stable version to use, avoid the `@stable` meta constraint.
+[`erlangb/betfair`](https://packagist.org/packages/erlangb/betfair)
+page to choose a stable version to use, instead of dev-master
 
 And install dependencies:
 
@@ -55,8 +55,11 @@ require_once 'src/autoload.php';
 
 Usage
 ------------
+To use this library you must obtain an APP_KEY from [Betfair](https://developer.betfair.com/)
 
-Obtain a **Betfair** object
+The first step is setting up the library and obtain **Betfair** object.
+The **Betfair** object take in input a *BetfairClient*, *BetfairContainer* and an *Adapter*. 
+Later is explained how to customize the library and why we need to build ( apparentely ) so much objects.
 
 ```php
 <?php
@@ -71,8 +74,12 @@ use Betfair\Adapter\ArrayAdapter;
 $credential = new Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
 $container = new BetfairContainer();
 $betfairClient = new BetfairClient($credential, new JsonRpcClient());
+
 $betfair = new Betfair($betfairClient, $container, new ArrayAdapter());
 ```
-
-With the **Betfair** object you can access to the API model in order to execute some query.
-For example, considering the Betfair __EventType__ API, you can access
+With the **Betfair** object you can access to the API model to execute some query.
+For example, considering the Betfair __EventType__ API, you can access to the relative object model by typing:
+```php
+$betfairEventType = $betfair->getBetfairEventType()
+```
+Now we have an helper to access to EventTy
