@@ -33,18 +33,4 @@ class ArrayAdapterTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('2.0', $response['jsonrpc']);
         $this->assertTrue(is_array($response['result']));
     }
-
-    public function testexampleApp()
-    {
-        $credential = new \Betfair\Credential("PuJtD2nA9b8IQEkI", "erlangb88", 'annarita05011988');
-        $jsonRpcClient = new JsonRpcClient();
-
-        $betFairClient = new \Betfair\Client\BetfairClient($credential, $jsonRpcClient);
-
-        $betFair = new \Betfair\Betfair($betFairClient, new \Betfair\Adapter\ArrayRpcAdapter());
-
-        $eventType = $betFair->getBetfairEventType();
-        $result = $eventType->getAllEventFilterByIds(array(1));
-    }
-
 }

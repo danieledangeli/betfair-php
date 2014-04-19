@@ -9,6 +9,11 @@ class TimeRange extends BetfairSerializable
 
     protected $to;
 
+    public function __construct($from, $to)
+    {
+        $this->from = $from;
+        $this->to = $to;
+    }
     /**
      * @param mixed $from
      */
