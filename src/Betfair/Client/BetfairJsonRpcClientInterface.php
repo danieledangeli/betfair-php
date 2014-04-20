@@ -10,7 +10,6 @@
 
 namespace Betfair\Client;
 
-
 use Betfair\CredentialInterface;
 
 /**

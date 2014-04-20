@@ -9,7 +9,6 @@
  */
 namespace Betfair\MarketCatalogue;
 
-
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
@@ -28,11 +27,10 @@ class MarketCatalogue extends AbstractBetfair
 
     const DEFAULT_MAX_RESULT = "10";
 
-
     /**
-     * @param CredentialInterface $credential
-     * @param BetfairJsonRpcClientInterface $jsonRpcClient
+     * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
+     * @param BetfairContainer $container
      */
     public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
     {

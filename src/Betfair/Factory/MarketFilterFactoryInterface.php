@@ -10,12 +10,12 @@
 namespace Betfair\Factory;
 
 use Betfair\Model\MarketFilterInterface;
-use Betfair\Model\Param;
 
-class ParamFactory implements ParamFactoryInterface
+interface MarketFilterFactoryInterface
 {
-    public function create(MarketFilterInterface $marketFilter)
-    {
-       return new Param($marketFilter);
-    }
-}
+    /**
+     * @return MarketFilterInterface
+     */
+    public function create();
+
+} 

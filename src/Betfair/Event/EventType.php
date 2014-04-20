@@ -12,14 +12,7 @@ namespace Betfair\Event;
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Credentials;
 use Betfair\Dependency\BetfairContainer;
-use Betfair\Helper\FilterHelper;
-use Betfair\JsonRPCClient;
-use Betfair\Model\MarketFilter;
-use Betfair\Model\Param;
 
 class EventType extends AbstractBetfair
 {

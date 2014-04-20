@@ -14,7 +14,7 @@ interface AdapterInterface
 {
     /**
      * @param $response
-     * @return adapted response ( json rpc format )
+     * @return mixed response
      */
     public function adaptResponse($response);
 

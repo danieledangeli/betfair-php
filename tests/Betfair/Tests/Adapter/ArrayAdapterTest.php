@@ -9,9 +9,7 @@
  */
 namespace Betfair\Tests\Adapter;
 
-
 use Betfair\Adapter\ArrayAdapter;
-use Betfair\Client\JsonRpcClient;
 use Betfair\Tests\ResponseServiceMock;
 
 class ArrayAdapterTest extends \PHPUnit_Framework_TestCase

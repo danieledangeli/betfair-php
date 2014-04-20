@@ -39,6 +39,7 @@ abstract class AbstractBetfair
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
+     * @param BetfairContainer $container
      */
     public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
     {
