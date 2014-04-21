@@ -1,8 +1,13 @@
 betfair-php
 ===========
+[![Latest Stable Version](https://poser.pugx.org/erlangb/betfair/v/stable.png)](https://packagist.org/packages/erlangb/betfair)
+[![Total Downloads](https://poser.pugx.org/erlangb/betfair/downloads.png)](https://packagist.org/packages/erlangb/betfair)
+[![Latest Unstable Version](https://poser.pugx.org/erlangb/betfair/v/unstable.png)](https://packagist.org/packages/erlangb/betfair)
+[![License](https://poser.pugx.org/erlangb/betfair/license.png)](https://packagist.org/packages/erlangb/betfair)
+[![Monthly Downloads](https://poser.pugx.org/erlangb/betfair/d/monthly.png)](https://packagist.org/packages/erlangb/betfair)
+[![Daily Downloads](https://poser.pugx.org/erlangb/betfair/d/daily.png)](https://packagist.org/packages/erlangb/betfair)
 
 This PHP 5.4+ library helps you to interact with the Betfair API via PHP.
-
 Menù
 ------------
 * [Main](README.md)
