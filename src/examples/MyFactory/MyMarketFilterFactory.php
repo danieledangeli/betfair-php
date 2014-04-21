@@ -1,12 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: danieledangeli
- * Date: 19/04/14
- * Time: 19:18
- */
+namespace examples\MyFactory;
 
-class MyMarketFilterFactory
+use  examples\Model\CustomMarketFilterObject;
+use Betfair\Factory\MarketFilterFactoryInterface;
+
+class MyMarketFilterFactory implements MarketFilterFactoryInterface
 {
 
-} 
+    /**
+     * @return \Betfair\Model\MarketFilterInterface
+     */
+    public function create()
+    {
+        return new CustomMarketFilterObject();
+    }
+}

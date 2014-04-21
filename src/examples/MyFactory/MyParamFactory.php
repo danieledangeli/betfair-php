@@ -1,13 +1,18 @@
 <?php
+namespace examples\MyFactory;
 
-class MyParamFactory  implements \Betfair\Factory\ParamFactoryInterface
+use \examples\Model\CustomParamObject;
+use Betfair\Factory\ParamFactoryInterface;
+use Betfair\Model\MarketFilterInterface;
+
+class MyParamFactory  implements ParamFactoryInterface
 {
     /**
      * @param \Betfair\Model\MarketFilterInterface $marketFilter
-     * @return \Betfair\Model\ParamInterface|void
+     * @return \Betfair\Model\ParamInterface|CustomParamObject
      */
-    public function create(\Betfair\Model\MarketFilterInterface $marketFilter)
+    public function create(MarketFilterInterface $marketFilter)
     {
-       return new CustomParamObject();
+        return new CustomParamObject($marketFilter);
     }
 }

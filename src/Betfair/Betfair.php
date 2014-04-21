@@ -29,14 +29,6 @@ class Betfair
      */
     const VERSION = '1.0.0-dev';
 
-
-    /**
-     * The credentials instance to use.
-     *
-     * @var CredentialInterface
-     */
-    protected $credentials;
-
     /**
      * The adapter to use.
      *
