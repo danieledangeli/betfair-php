@@ -373,4 +373,29 @@ If you want you can redefine the __jsonSerialize()__ method in the new objects.
 
 Now we can built a **Betfair** object with our new personalized classes.
 ```php
+require '../autoload.php';
+use examples\MyFactory\MyMarketFilterFactory;
+use Betfair\Client\JsonRpcClient;
+use examples\Adapter\CustomAdapter;
+
+$credential = new \Betfair\Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
+$container = new \Betfair\Dependency\BetfairContainer();
+//betfair.market.filter.factory
+//betfair.param.filter.factory
+
+//define new custom function
+$myFactoryFunction = function () {
+    return new MyMarketFilterFactory();
+};
+//define new custom function
+$myParamFactory = function () {
+    return new \examples\MyFactory\MyParamFactory();
+};
+//override container's old functions with the new one 
+$container->set('betfair.market.filter.factory', $myFactoryFunction);
+$container->set('betfair.param.filter.factory', $myParamFactory);
+
+$betfairClient = new \Betfair\Client\BetfairClient($credential, new JsonRpcClient());
+
+$betfair = new \Betfair\Betfair($betfairClient, $container, new CustomAdapter());
 ```
