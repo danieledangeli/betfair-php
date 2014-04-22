@@ -25,7 +25,7 @@ Run these commands to install composer, the library and its dependencies:
 
 ```bash
 $ curl -sS https://getcomposer.org/installer | php
-$ php composer.phar require erlangb/betfair-php:@dev-master
+$ php composer.phar require erlangb/betfair-php:dev-master
 ```
 
 Or edit `composer.json` and add:
@@ -33,7 +33,7 @@ Or edit `composer.json` and add:
 ```json
 {
     "require": {
-        "erlangb/betfair": "@dev-master"
+        "erlangb/betfair": "dev-master"
     }
 }
 ```
