@@ -4,7 +4,7 @@ use examples\MyFactory\MyMarketFilterFactory;
 use Betfair\Client\JsonRpcClient;
 use examples\Adapter\CustomAdapter;
 
-$credential = new \Betfair\Credential("PuJtD2nA9b8IQEkI", "erlangb88", 'annarita05011988');
+$credential = new \Betfair\Credential("PuJtD2nA9b8IQEkI", "erlangb88", 'pwdpwdpwd');
 $container = new \Betfair\Dependency\BetfairContainer();
 //betfair.market.filter.factory
 //betfair.param.filter.factory
