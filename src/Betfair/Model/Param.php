@@ -29,6 +29,32 @@ class Param extends BetfairSerializable implements ParamInterface
      */
     protected $maxResults;
 
+    /**
+     * @var array
+     */
+    protected $marketProjection;
+
+    /**
+     * @param array $marketProjection
+     */
+    public function setMarketProjection($marketProjection)
+    {
+        $this->marketProjection = $marketProjection;
+    }
+
+    public function addMarketProjection($marketProjection)
+    {
+        $this->marketProjection[] = $marketProjection;
+    }
+
+    /**
+     * @return array
+     */
+    public function getMarketProjection()
+    {
+        return $this->marketProjection;
+    }
+
 
     /**
      * @param MarketFilter $filter

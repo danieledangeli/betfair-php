@@ -13,9 +13,13 @@ use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Model\MarketFilter;
+use Betfair\Model\Param;
+use Betfair\Model\ParamMarketBook;
 
 class MarketBook extends AbstractBetfair
 {
+    const METHOD = "listMarketBook";
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
@@ -24,6 +28,14 @@ class MarketBook extends AbstractBetfair
     public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
     {
         parent::__construct($betfairClient, $adapter, $container);
+    }
+
+    public function getMarketBookFilterByMarketIds(array $marketIds)
+    {
+        $param = new ParamMarketBook();
+        $param->setMarketIds($marketIds);
+        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
+        return $this->adapter->adaptResponse($response);
     }
 
 }

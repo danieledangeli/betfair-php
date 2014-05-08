@@ -16,6 +16,7 @@ use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Dependency\BetfairContainer;
 use Betfair\Model\MarketFilter;
+use Betfair\Model\MarketProjection;
 use Betfair\Model\Param;
 
 class MarketCatalogue extends AbstractBetfair
@@ -25,7 +26,7 @@ class MarketCatalogue extends AbstractBetfair
      */
     const METHOD = "listMarketCatalogue";
 
-    const DEFAULT_MAX_RESULT = "10";
+    const DEFAULT_MAX_RESULT = "100";
 
     /**
      * @param BetfairClientInterface $betfairClient
@@ -44,6 +45,20 @@ class MarketCatalogue extends AbstractBetfair
         $param = $this->buildParam($filter);
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
+        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
+        return $this->adapter->adaptResponse($response);
+    }
+
+    public function getMarketCatalogueFilteredBy(array $eventIds, array $marketTypes)
+    {
+        $marketFilter = $this->container['betfair.market.filter.factory']->create();
+        $marketFilter->setEventIds($eventIds);
+        $marketFilter->setMarketTypeCodes($marketTypes);
+
+        /** @var Param $param */
+        $param = $this->container['betfair.param.filter.factory']->create($marketFilter);
+        $param->setMarketProjection(MarketProjection::getAll());
+        $param->setMaxResults(self::DEFAULT_MAX_RESULT);
         $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
         return $this->adapter->adaptResponse($response);
     }
