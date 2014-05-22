@@ -150,3 +150,11 @@ Issue Tracker](https://github.com/danieledangeli/betfair-php/issues) or email me
 [dangeli88.daniele@gmail.com](mailto:dangeli88.daniele@gmail.com).
 
 
+Todo
+===========
+The library is actually "in dev" state and a lot of things to be done. 
+*   Enabling guzzle library
+*   Implements more "Betfair object" to extend the API wrapping
+*   Add more PHPspec test
+*   PHPspec test refactoring
+*   Guzzle client side caching system
