@@ -11,11 +11,17 @@ namespace Betfair\Factory;
 
 use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\Param;
+use Betfair\Model\ParamMarketBook;
 
 class ParamFactory implements ParamFactoryInterface
 {
     public function create(MarketFilterInterface $marketFilter)
     {
        return new Param($marketFilter);
+    }
+
+    public function createParamMarketBook()
+    {
+        return new ParamMarketBook();
     }
 }

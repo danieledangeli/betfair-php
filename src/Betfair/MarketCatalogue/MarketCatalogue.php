@@ -15,6 +15,10 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
+use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\MarketProjection;
 use Betfair\Model\Param;
@@ -25,42 +29,66 @@ class MarketCatalogue extends AbstractBetfair
      * The API METHOD NAME
      */
     const METHOD = "listMarketCatalogue";
-
     const DEFAULT_MAX_RESULT = "100";
 
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param BetfairContainer $container
+     * @param ParamFactory $paramFactory
+     * @param MarketFilterFactory $marketFilterFactory
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
+    )
     {
-        parent::__construct($betfairClient, $adapter, $container);
+        parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
 
-    public function listMarketCatalogue()
+    public function listMarketCatalogue(array $eventTypes)
     {
-        $filter = new MarketFilter();
-        $filter->setEventTypeIds(array(1));
-        $param = $this->buildParam($filter);
+        $filter = $this->getMarketFilter();
+        $filter->setEventTypeIds($eventTypes);
+
+        $param = $this->getParamFilter($filter);
+        $param->setMarketProjection(MarketProjection::getAll());
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
-        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
-        return $this->adapter->adaptResponse($response);
+        return $this->adapter->adaptResponse(
+            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+        );
+    }
+
+    public function getMarketCatalogueFilteredByEvent(array $eventIds)
+    {
+        $marketFilter = $this->getMarketFilter();
+        $marketFilter->setEventIds($eventIds);
+
+        $param = $this->getParamFilter($marketFilter);
+        $param->setMarketProjection(MarketProjection::getAll());
+        $param->setMaxResults(self::DEFAULT_MAX_RESULT);
+
+        return $this->adapter->adaptResponse(
+            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+        );
     }
 
     public function getMarketCatalogueFilteredBy(array $eventIds, array $marketTypes)
     {
-        $marketFilter = $this->container['betfair.market.filter.factory']->create();
+        $marketFilter = $this->getMarketFilter();
         $marketFilter->setEventIds($eventIds);
         $marketFilter->setMarketTypeCodes($marketTypes);
 
         /** @var Param $param */
-        $param = $this->container['betfair.param.filter.factory']->create($marketFilter);
+        $param = $this->getParamFilter($marketFilter);
         $param->setMarketProjection(MarketProjection::getAll());
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
-        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
-        return $this->adapter->adaptResponse($response);
+
+        return $this->adapter->adaptResponse(
+            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+        );
     }
 
 } 

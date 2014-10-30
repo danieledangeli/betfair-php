@@ -12,6 +12,7 @@ namespace Betfair\Factory;
 
 use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\ParamInterface;
+use Betfair\Model\ParamMarketBook;
 
 interface ParamFactoryInterface
 {
@@ -20,4 +21,9 @@ interface ParamFactoryInterface
      * @return ParamInterface
      */
     public function create(MarketFilterInterface $marketFilter);
+
+    /**
+     * @return ParamMarketBook
+     */
+    public function createParamMarketBook();
 } 

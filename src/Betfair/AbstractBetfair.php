@@ -13,6 +13,10 @@ use Betfair\Client\BetfairClient;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
+use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Helper\FilterHelper;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\MarketFilterInterface;
@@ -33,20 +37,28 @@ abstract class AbstractBetfair
     /** @var \Betfair\Model\QueryManager  */
     protected $queryManager;
 
-    /** @var \Betfair\Dependency\BetfairContainer  */
-    protected $container;
+    protected $marketFilterFactory;
+
+    protected $paramFilterFactory;
 
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param BetfairContainer $container
+     * @param ParamFactoryInterface $paramFactory
+     * @param MarketFilterFactoryInterface $marketFilterFactory
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
+    )
     {
         $this->betfairClient = $betfairClient;
         $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
-        $this->container = $container;
+        $this->marketFilterFactory = $marketFilterFactory;
+        $this->paramFilterFactory =  $paramFactory;
     }
 
     /**
@@ -76,5 +88,19 @@ abstract class AbstractBetfair
         return $this->adapter->adaptResponse($response);
     }
 
+    public function getMarketFilter()
+    {
+        return $this->marketFilterFactory->create();
+    }
+
+    public function getParamFilter(MarketFilterInterface $marketFilterInterface)
+    {
+        return $this->paramFilterFactory->create($marketFilterInterface);
+    }
+
+    public function getParamMarketBook()
+    {
+        return $this->paramFilterFactory->createParamMarketBook();
+    }
 
 } 

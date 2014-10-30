@@ -7,20 +7,40 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\CredentialInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactoryInterface;
+use Betfair\Model\MarketFilterInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class CompetitionSpec extends ObjectBehavior
 {
+    protected $client;
+    protected $adapterInterface;
+    protected $paramFactory;
+    protected $marketFilterFactory;
+
     function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface,
-        BetfairContainer $container
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
     )
     {
+        $this->client = $client;
+        $this->adapterInterface =  $adapterInterface;
+        $this->paramFactory = $paramFactory;
+        $this->marketFilterFactory = $marketFilterFactory;
 
-        $this->beConstructedWith($client, $adapterInterface, $container);
+        $this->beConstructedWith(
+            $this->client,
+            $this->adapterInterface,
+            $this->paramFactory,
+            $this->marketFilterFactory
+        );
     }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Competition\Competition');

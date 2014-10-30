@@ -13,16 +13,26 @@ use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
+use Betfair\Factory\ParamFactoryInterface;
 
 class TimeRange extends AbstractBetfair
 {
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param BetfairContainer $container
+     * @param ParamFactoryInterface $paramFactory
+     * @param MarketFilterFactoryInterface $marketFilterFactory
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
+    )
     {
-        parent::__construct($betfairClient, $adapter, $container);
+        parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
 }

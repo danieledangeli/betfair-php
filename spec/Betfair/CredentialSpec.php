@@ -7,11 +7,7 @@ use Prophecy\Argument;
 
 class CredentialsSpec extends ObjectBehavior
 {
-    function let(
-        $applicationKey,
-        $username,
-        $password
-    )
+    function let()
     {
         $applicationKey = '5s4a5';
         $username = 'daniele';
@@ -39,6 +35,4 @@ class CredentialsSpec extends ObjectBehavior
     {
         $this->getUsername()->shouldReturn('5s4a5');
     }
-
-
 }

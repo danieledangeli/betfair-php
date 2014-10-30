@@ -7,9 +7,11 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Client\JsonRpcClient;
 use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Event\Event;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Helper\FilterHelper;
+use Betfair\Model\MarketFilterInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -18,17 +20,27 @@ class EventSpec extends ObjectBehavior
 {
     protected $client;
     protected $adapterInterface;
+    protected $paramFactory;
+    protected $marketFilterFactory;
+
     function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface,
-        BetfairContainer $container
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
     )
     {
         $this->client = $client;
-        $this->adapterInterface = $adapterInterface;
+        $this->adapterInterface =  $adapterInterface;
+        $this->paramFactory = $paramFactory;
+        $this->marketFilterFactory = $marketFilterFactory;
 
-
-        $this->beConstructedWith($this->client, $this->adapterInterface, $container);
+        $this->beConstructedWith(
+            $this->client,
+            $this->adapterInterface,
+            $this->paramFactory,
+            $this->marketFilterFactory
+        );
     }
 
     function it_is_initializable()

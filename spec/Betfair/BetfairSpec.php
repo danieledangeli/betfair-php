@@ -14,12 +14,11 @@ class BetfairSpec extends ObjectBehavior
 
     function let(
         BetfairClientInterface $client,
-        AdapterInterface $adapterInterface,
-        BetfairContainer $container
+        AdapterInterface $adapterInterface
     )
     {
 
-        $this->beConstructedWith($client, $container, $adapterInterface);
+        $this->beConstructedWith($client, $adapterInterface);
     }
 
     function it_is_initializable()
@@ -27,32 +26,32 @@ class BetfairSpec extends ObjectBehavior
         $this->shouldHaveType('Betfair\Betfair');
     }
 
-    function it_is_factory_event()
+    function it_has_factory_event()
     {
         $this->getBetfairEvent()->shouldReturnAnInstanceOf('Betfair\Event\Event');
     }
 
-    function it_is_factory_generic()
+    function it_has_factory_generic()
     {
         $this->getBetfairGeneric()->shouldReturnAnInstanceOf('Betfair\BetfairGeneric');
     }
 
-    function it_is_factory_eventType()
+    function it_has_factory_eventType()
     {
         $this->getBetfairEventType()->shouldReturnAnInstanceOf('Betfair\Event\EventType');
     }
 
-    function it_is_factory_MarketCatalogue()
+    function it_has_factory_MarketCatalogue()
     {
         $this->getBetfairMarketCatalogue()->shouldReturnAnInstanceOf('Betfair\MarketCatalogue\MarketCatalogue');
     }
 
-    function it_is_factory_MarketBook()
+    function it_has_factory_MarketBook()
     {
         $this->getBetfairMarketBook()->shouldReturnAnInstanceOf('Betfair\MarketBook\MarketBook');
     }
 
-    function it_is_factory_Country()
+    function it_has_factory_Country()
     {
         $this->getBetfairCountry()->shouldReturnAnInstanceOf('Betfair\Country\Country');
     }

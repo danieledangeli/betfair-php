@@ -13,6 +13,10 @@ use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
+use Betfair\Factory\ParamFactoryInterface;
 
 class EventType extends AbstractBetfair
 {
@@ -26,10 +30,17 @@ class EventType extends AbstractBetfair
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
+     * @param ParamFactory $paramFactory
+     * @param MarketFilterFactory $marketFilterFactory
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
+    )
     {
-        parent::__construct($betfairClient, $adapter, $container);
+        parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
 
     /**
@@ -46,13 +57,14 @@ class EventType extends AbstractBetfair
      */
     public function getAllEventFilterByIds($eventTypeIds)
     {
-        $marketFilter = $this->container['betfair.market.filter.factory']->create();
+        $marketFilter = $this->getMarketFilter();
         $marketFilter->setEventTypeIds($eventTypeIds);
 
-        $param = $this->container['betfair.param.filter.factory']->create($marketFilter);
+        $param = $this->getParamFilter($marketFilter);
 
-        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
-        return $this->adapter->adaptResponse($response);
+        return $this->adapter->adaptResponse(
+            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+        );
     }
 
 } 

@@ -13,6 +13,10 @@ use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Dependency\BetfairContainer;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
+use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Model\MarketFilter;
 use Betfair\Model\Param;
 use Betfair\Model\ParamMarketBook;
@@ -20,22 +24,30 @@ use Betfair\Model\ParamMarketBook;
 class MarketBook extends AbstractBetfair
 {
     const METHOD = "listMarketBook";
+
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param BetfairContainer $container
+     * @param ParamFactory $paramFactory
+     * @param MarketFilterFactory $marketFilterFactory
      */
-    public function __construct(BetfairClientInterface $betfairClient, AdapterInterface $adapter, BetfairContainer $container)
+    public function __construct(
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapter,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory
+    )
     {
-        parent::__construct($betfairClient, $adapter, $container);
+        parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
-
     public function getMarketBookFilterByMarketIds(array $marketIds)
     {
-        $param = new ParamMarketBook();
+        $param = $this->getParamMarketBook();
         $param->setMarketIds($marketIds);
-        $response = $this->doSportApiNgRequest(self::METHOD, json_encode($param));
-        return $this->adapter->adaptResponse($response);
+
+        return $this->adapter->adaptResponse(
+            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+        );
     }
 
 }

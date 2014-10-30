@@ -23,7 +23,7 @@ class BetfairSerializable implements \JsonSerializable
         $array = array();
         $properties = get_object_vars($this);
         foreach($properties as $key => $value) {
-            if($value != NULL) {
+            if(null !== $value) {
                 $array[$key] = $value;
             }
         }

@@ -17,6 +17,8 @@ use Betfair\Country\Country;
 use Betfair\Dependency\BetfairContainer;
 use Betfair\Event\Event;
 use Betfair\Event\EventType;
+use Betfair\Factory\MarketFilterFactory;
+use Betfair\Factory\ParamFactory;
 use Betfair\MarketBook\MarketBook;
 use Betfair\MarketCatalogue\MarketCatalogue;
 use Betfair\TimeRange\TimeRange;
@@ -42,19 +44,20 @@ class Betfair
     /** @var \Betfair\BetfairGeneric  */
     protected $genericBetfair;
 
-    /** @var  BetfairContainer */
-    protected $container;
+    /** @var \Betfair\BetfairGeneric  */
+    protected $paramFactory;
 
-    public function __construct(BetfairClientInterface $client, BetfairContainer $container, AdapterInterface $adapter = null)
+    protected $marketFilterFactory;
+
+    public function __construct(
+        BetfairClientInterface $client,
+        AdapterInterface $adapter = null
+    )
     {
         $this->betfairClient = $client;
-        $this->container = $container;
-        $this->setAdapter($adapter);
-    }
-
-    public function setAdapter($adapter = null)
-    {
-        $this->adapter = $adapter ?: new ArrayAdapter();
+        $this->adapter = (null !== $adapter) ? $adapter : new ArrayAdapter();
+        $this->paramFactory = new ParamFactory();
+        $this->marketFilterFactory = new MarketFilterFactory();
     }
 
     /**
@@ -62,48 +65,43 @@ class Betfair
      */
     public function getBetfairEventType()
     {
-        return new EventType($this->betfairClient, $this->adapter, $this->container);
+        return new EventType($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairGeneric()
     {
-        return new BetfairGeneric($this->betfairClient, $this->adapter, $this->container);
+        return new BetfairGeneric($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
     /**
      * @return Event
      */
     public function getBetfairEvent()
     {
-        return new Event($this->betfairClient, $this->adapter, $this->container);
+        return new Event($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairMarketCatalogue()
     {
-        return new MarketCatalogue($this->betfairClient, $this->adapter, $this->container);
+        return new MarketCatalogue($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairMarketBook()
     {
-        return new MarketBook($this->betfairClient, $this->adapter, $this->container);
+        return new MarketBook($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairCountry()
     {
-       return new Country($this->betfairClient, $this->adapter, $this->container);
+       return new Country($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairCompetition()
     {
-        return new Competition($this->betfairClient, $this->adapter, $this->container);
+        return new Competition($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairTimeRange()
     {
-        return new TimeRange($this->betfairClient, $this->adapter, $this->container);
-    }
-
-    public function getContainer()
-    {
-        return $this->container;
+        return new TimeRange($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 }
