@@ -6,7 +6,6 @@ use Betfair\Factory\MarketFilterFactoryInterface;
 
 class MyMarketFilterFactory implements MarketFilterFactoryInterface
 {
-
     /**
      * @return \Betfair\Model\MarketFilterInterface
      */

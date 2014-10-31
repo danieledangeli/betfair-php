@@ -33,7 +33,7 @@ class CustomAdapter implements AdapterInterface
             return $object;
         }
         else {
-            return FALSE;
+            return false;
         }
     }
 }

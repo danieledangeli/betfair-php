@@ -86,17 +86,14 @@ In the __how to customize__ section you will be explained how to do it.
 <?php
 require 'vendor/autoload.php';
 use Betfair\Credential;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Betfair;
 use Betfair\Client\BetfairClient;
 use Betfair\Client\JsonRpcClient;
 use Betfair\Adapter\ArrayAdapter;
 
 $credential = new Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
-$container = new BetfairContainer();
 $betfairClient = new BetfairClient($credential, new JsonRpcClient());
-
-$betfair = new Betfair($betfairClient, $container, new ArrayAdapter());
+$betfair = new Betfair($betfairClient, new ArrayAdapter());
 ```
 With the **Betfair** object you can access to the API model to execute some query.
 For example, considering the Betfair __Event__ API, you can access to the relative object model by typing:
@@ -109,32 +106,14 @@ $result = $betfairEvent->getAllEventFilteredByEventTypeIds(array(1));
 ```
 The result object  is a list of betfair events with event type = 1 (Soccer)
 
-The custom usage
-------------
-With the simple usage you can use the already existing query helper. 
-If you want to run a more specific API query, that is not present on the helpers, you can use a custom query  by using the **GenericBetfair** object.
-
-```php
-$generic = $betfair->getBetfairGeneric();
-$filter = $betfair->getContainer()->get('betfair.market.filter.factory')->create();
-$filter->setEventTypeIds(array(1));
-$to = new \DateTime('now');
-$from = new \DateTime('now + 3 days');
-$filter->setMarketStartTime(new \Betfair\Model\TimeRange($to, $from));
-$param = $betfair->getContainer()->get('betfair.param.filter.factory')->create($filter);
-$result = $generic->executeCustomQuery($param, 'listEvents'); // or $generic->executeCustomQuery($param, Event::METHOD);  
-```
-
-This snippet is similar to the simple usage one with a little difference in the filter object, where we have added a constraint that filters the events into a specific time range.
-
-To execute a custom query we need two important objects: 
-
-*   *MarketFilter* 
-*   *Param*
-
-By using the simple container, we can access to the factories MarketFactory and ParamFactory. 
-This factory creates a Param and a MarketFilter object. With this two objects we can built a custom Filter and a custom Param and passing it to the __executeCustomQuery__ method.
-
+The following object are available:
+*   Competition: get betfair competition list
+*   Country: get the betfair country list
+*   Event: query the betfair events
+*   EventType: obtain the betfair's event type
+*   MarketBook: query the betfair market
+*   Market Catalogue: query the betfair market catalogue
+*   Time range: query teh betfair time range
 
 How to contribute
 ===========
