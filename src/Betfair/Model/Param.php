@@ -57,9 +57,9 @@ class Param extends BetfairSerializable implements ParamInterface
 
 
     /**
-     * @param MarketFilter $filter
+     * @param MarketFilterInterface $filter
      */
-    public function setFilter(MarketFilter $filter)
+    public function setFilter(MarketFilterInterface $filter)
     {
         $this->filter = $filter;
     }

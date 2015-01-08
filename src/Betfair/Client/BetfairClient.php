@@ -21,10 +21,10 @@ class BetfairClient implements BetfairClientInterface
     /** @var  BetfairJsonRpcClientInterface */
     protected $httpClient;
 
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClientInterface)
+    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClientInterface = null)
     {
         $this->credential = $credential;
-        $this->httpClient = $httpClientInterface;
+        $this->httpClient = $httpClientInterface !== null ? $httpClientInterface : new JsonRpcClient();
 
     }
 

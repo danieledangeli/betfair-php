@@ -12,6 +12,5 @@ namespace Betfair\Model;
 
 interface ParamInterface
 {
-    public function getFilter();
-    public function getMaxResults();
+    public function jsonSerialize();
 } 
