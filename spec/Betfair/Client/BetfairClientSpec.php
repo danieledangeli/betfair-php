@@ -20,4 +20,17 @@ class BetfairClientSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Betfair\Client\BetfairClient');
     }
+
+    function it_has_sport_api_ng_request(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClient)
+    {
+        $credential->getSessionToken()
+            ->shouldBeCalled()
+            ->willReturn("abc");
+
+        $httpClient->sportsApiNgRequest($credential, 'op1', array(1,2), "url.com")
+            ->shouldBeCalled()
+            ->willReturn("HTTP response");
+
+        $this->sportsApiNgRequest("op1", array(1,2), "url.com")->shouldReturn("HTTP response");
+    }
 }

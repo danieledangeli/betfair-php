@@ -73,6 +73,7 @@ abstract class AbstractBetfair
             $params,
             $this->endPointUrl
         );
+
         return $requestContent;
     }
 

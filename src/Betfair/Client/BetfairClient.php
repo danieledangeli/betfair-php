@@ -34,6 +34,7 @@ class BetfairClient implements BetfairClientInterface
             $sessionToken = $this->login();
             $this->credential->setSessionToken($sessionToken);
         }
+
         return $this->httpClient->sportsApiNgRequest(
             $this->credential,
             $operation,
@@ -50,6 +51,7 @@ class BetfairClient implements BetfairClientInterface
         $redirectmethod = "POST";
         $product = "home.betfair.int";
         $url = "https://www.betfair.com/";
+        $cookie = null;
 
         $fields = array
         (
@@ -90,22 +92,24 @@ class BetfairClient implements BetfairClientInterface
 
         $result = curl_exec($ch);
 
-        if($result == false) {
-           throw new BetfairLoginException;
-        } else {
+        if($result) {
             $temp = explode(";", $result);
             $result = $temp[0];
 
             $end = strlen($result);
             $start = strpos($result, 'ssoid=');
-            $start = $start + 6;
-            $cookie = substr($result, $start, $end);
 
+            //needs to be refactored
+            if($start && $end) {
+                $start = $start + 6;
+                $cookie = substr($result, $start, $end);
+                $this->credential->setSessionToken($cookie);
+                curl_close($ch);
+                return $cookie;
+            }
         }
+
         curl_close($ch);
-
-        $this->credential->setSessionToken($cookie);
-
-        return $cookie;
+        throw new BetfairLoginException(sprintf("Error during credentials verification."));
     }
 }
