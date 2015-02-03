@@ -135,5 +135,6 @@ The library is actually "in dev" state and a lot of things to be done.
 *   Enabling guzzle library
 *   Implements more "Betfair object" to extend the API wrapping
 *   Add more PHPspec test
-*   PHPspec test refactoring
+*   ~~PHPspec test refactoring~~
 *   Guzzle client side caching system
+*   Handling login or app key errors in array and json RPC adapters (result is not set)
