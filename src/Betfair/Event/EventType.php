@@ -20,10 +20,7 @@ use Betfair\Factory\ParamFactoryInterface;
 
 class EventType extends AbstractBetfair
 {
-    /**
-     * The API METHOD NAME
-     */
-    const METHOD = "listEventTypes";
+    const API_METHOD_NAME = "listEventTypes";
 
     const EVENT_TYPE_IDS_FILTER = "eventTypeIds";
 
@@ -48,7 +45,7 @@ class EventType extends AbstractBetfair
      */
     public function getAllEventType()
     {
-        return $this->getAll(self::METHOD);
+        return $this->getAll(self::API_METHOD_NAME);
     }
 
     /**
@@ -63,7 +60,7 @@ class EventType extends AbstractBetfair
         $param = $this->getParamFilter($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 

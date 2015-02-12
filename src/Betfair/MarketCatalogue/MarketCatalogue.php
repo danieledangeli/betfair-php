@@ -25,10 +25,7 @@ use Betfair\Model\Param;
 
 class MarketCatalogue extends AbstractBetfair
 {
-    /**
-     * The API METHOD NAME
-     */
-    const METHOD = "listMarketCatalogue";
+    const API_METHOD_NAME = "listMarketCatalogue";
     const DEFAULT_MAX_RESULT = "100";
 
     /**
@@ -57,7 +54,7 @@ class MarketCatalogue extends AbstractBetfair
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 
@@ -71,7 +68,7 @@ class MarketCatalogue extends AbstractBetfair
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 
@@ -87,7 +84,7 @@ class MarketCatalogue extends AbstractBetfair
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 

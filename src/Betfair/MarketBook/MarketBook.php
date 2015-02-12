@@ -23,7 +23,7 @@ use Betfair\Model\ParamMarketBook;
 
 class MarketBook extends AbstractBetfair
 {
-    const METHOD = "listMarketBook";
+    const API_METHOD_NAME = "listMarketBook";
 
     /**
      * @param BetfairClientInterface $betfairClient
@@ -46,7 +46,7 @@ class MarketBook extends AbstractBetfair
         $param->setMarketIds($marketIds);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 

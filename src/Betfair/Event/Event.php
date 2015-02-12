@@ -32,7 +32,7 @@ class Event extends AbstractBetfair
     /**
      * The API METHOD NAME
      */
-    const METHOD = "listEvents";
+    const API_METHOD_NAME = "listEvents";
 
 
     /**
@@ -56,7 +56,7 @@ class Event extends AbstractBetfair
      */
     public function listEvents()
     {
-        return $this->getAll(self::METHOD);
+        return $this->getAll(self::API_METHOD_NAME);
     }
 
     /**
@@ -70,7 +70,7 @@ class Event extends AbstractBetfair
         $param = $this->getParamFilter($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 
@@ -86,7 +86,7 @@ class Event extends AbstractBetfair
         $param = $this->getParamFilter($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
         );
     }
 

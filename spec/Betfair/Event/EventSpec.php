@@ -54,7 +54,7 @@ class EventSpec extends ObjectBehavior
     )
     {
         $client->sportsApiNgRequest(
-            Event::METHOD,
+            Event::API_METHOD_NAME,
             FilterHelper::getEmptyFilter(),
             'https://api.betfair.com/exchange/betting/json-rpc/v1')
             ->willReturn('{ciao}');

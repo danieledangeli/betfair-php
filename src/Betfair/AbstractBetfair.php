@@ -85,7 +85,7 @@ abstract class AbstractBetfair
 
     public function executeCustomQuery(ParamInterface $param, $method = null)
     {
-        $method = $method !== null ? $method : $this::METHOD;
+        $method = $method !== null ? $method : $this::API_METHOD_NAME;
         $response = $this->doSportApiNgRequest($method, json_encode($param));
         return $this->adapter->adaptResponse($response);
     }

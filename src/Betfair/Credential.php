@@ -17,15 +17,11 @@ namespace Betfair;
 class Credential implements CredentialInterface
 {
     /**
-     * The application KEY.
-     *
      * @var string
      */
     private $applicationKey;
 
     /**
-     * The session token.
-     *
      * @var string
      */
     private $sessionToken;

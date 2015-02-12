@@ -25,27 +25,25 @@ class BetfairClient implements BetfairClientInterface
     {
         $this->credential = $credential;
         $this->httpClient = $httpClientInterface !== null ? $httpClientInterface : new JsonRpcClient();
+    }
 
+    public function authenticateCredential()
+    {
+        $sessionToken = $this->login();
+        $this->credential->setSessionToken($sessionToken);
     }
 
     public function sportsApiNgRequest($operation, $params, $endPointUrl)
     {
-        if(!$this->credential->getSessionToken()) {
-            $sessionToken = $this->login();
-            $this->credential->setSessionToken($sessionToken);
-        }
-
         return $this->httpClient->sportsApiNgRequest(
             $this->credential,
             $operation,
             $params,
             $endPointUrl
         );
-
-
     }
 
-    public function login()
+    private function login()
     {
         $login = "true";
         $redirectmethod = "POST";
