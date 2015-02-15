@@ -12,16 +12,15 @@ namespace Betfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Competition\Competition;
-use Betfair\Country\Country;
-use Betfair\Dependency\BetfairContainer;
-use Betfair\Event\Event;
-use Betfair\Event\EventType;
+use Betfair\BettingApi\Competition\Competition;
+use Betfair\BettingApi\Country\Country;
+use Betfair\BettingApi\Event\Event;
+use Betfair\BettingApi\Event\EventType;
 use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\ParamFactory;
-use Betfair\MarketBook\MarketBook;
-use Betfair\MarketCatalogue\MarketCatalogue;
-use Betfair\TimeRange\TimeRange;
+use Betfair\BettingApi\MarketBook\MarketBook;
+use Betfair\BettingApi\MarketCatalogue\MarketCatalogue;
+use Betfair\BettingApi\TimeRange\TimeRange;
 
 class Betfair
 {
@@ -47,13 +46,13 @@ class Betfair
     /** @var \Betfair\BetfairGeneric  */
     protected $paramFactory;
 
+    /** @var \Betfair\Factory\MarketFilterFactory  */
     protected $marketFilterFactory;
 
     public function __construct(
         BetfairClientInterface $client,
         AdapterInterface $adapter = null
-    )
-    {
+    ) {
         $this->betfairClient = $client;
         $this->adapter = (null !== $adapter) ? $adapter : new ArrayAdapter();
         $this->paramFactory = new ParamFactory();
@@ -92,7 +91,7 @@ class Betfair
 
     public function getBetfairCountry()
     {
-       return new Country($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+        return new Country($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
     public function getBetfairCompetition()

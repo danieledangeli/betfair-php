@@ -22,9 +22,7 @@ class ResponseLocation extends AbstractLocation implements ResponseLocationInter
         \GuzzleHttp\Command\Guzzle\Parameter $param,
         &$result,
         array $context = []
-    )
-    {
-
+    ) {
         $result = $response;
     }
 }

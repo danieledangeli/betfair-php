@@ -1,32 +1,27 @@
 <?php
 
-namespace spec\Betfair\TimeRange;
+namespace spec\Betfair\BettingApi\Competition;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\Model\MarketFilterInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class TimeRangeSpec extends ObjectBehavior
+class CompetitionSpec extends ObjectBehavior
 {
     protected $client;
     protected $adapterInterface;
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function let(
+    public function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->client = $client;
         $this->adapterInterface =  $adapterInterface;
         $this->paramFactory = $paramFactory;
@@ -40,8 +35,9 @@ class TimeRangeSpec extends ObjectBehavior
         );
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\TimeRange\TimeRange');
+        $this->shouldHaveType('Betfair\BettingApi\Competition\Competition');
+        $this->beAnInstanceOf('Betfair\AbstractBetfair');
     }
 }

@@ -5,9 +5,9 @@ namespace spec\Betfair;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class CredentialsSpec extends ObjectBehavior
+class CredentialSpec extends ObjectBehavior
 {
-    function let()
+    public function let()
     {
         $applicationKey = '5s4a5';
         $username = 'daniele';
@@ -15,23 +15,23 @@ class CredentialsSpec extends ObjectBehavior
 
         $this->beConstructedWith($applicationKey, $username, $password);
     }
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\Credential');
-        $this->shouldImplement('Betfair\CredentialInterface');
+        $this->shouldHaveType('Betfair\Credential\Credential');
+        $this->shouldImplement('Betfair\Credential\CredentialInterface');
     }
 
-    function it_is_have_getPassword()
+    public function it_is_have_getPassword()
     {
         $this->getPassword()->shouldReturn('pippo');
     }
 
-    function it_is_have_getUsername()
+    public function it_is_have_getUsername()
     {
         $this->getUsername()->shouldReturn('daniele');
     }
 
-    function it_is_have_getApplicationKey()
+    public function it_is_have_getApplicationKey()
     {
         $this->getUsername()->shouldReturn('5s4a5');
     }

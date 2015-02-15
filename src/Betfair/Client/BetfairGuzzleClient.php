@@ -2,8 +2,8 @@
 
 namespace Betfair\Client;
 
-
-class BetfairGuzzleClient {
+class BetfairGuzzleClient
+{
 
     private $guzzleClient;
 
@@ -29,4 +29,4 @@ class BetfairGuzzleClient {
 
         return $response;
     }
-} 
+}

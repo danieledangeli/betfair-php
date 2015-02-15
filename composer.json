@@ -16,7 +16,8 @@
     ],
 
     "require-dev": {
-        "phpspec/phpspec": "2.1.1"
+        "phpspec/phpspec": "2.1.1",
+        "fabpot/php-cs-fixer": "@stable"
     },
     "config": {
         "bin-dir": "bin"

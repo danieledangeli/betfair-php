@@ -6,14 +6,14 @@ use Betfair\Model\MarketFilterInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class MarketFilterfactorySpec extends ObjectBehavior
+class MarketFilterFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Factory\MarketFilterfactory');
     }
 
-    function it_is_have_create()
+    public function it_is_have_create()
     {
         $this->create()->shouldReturnAnInstanceOf('Betfair\Model\MarketFilterInterface');
     }

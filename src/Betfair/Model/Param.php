@@ -87,5 +87,4 @@ class Param extends BetfairSerializable implements ParamInterface
     {
         return $this->maxResults;
     }
-
 }

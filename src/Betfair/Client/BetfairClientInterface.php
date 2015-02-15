@@ -15,4 +15,4 @@ interface BetfairClientInterface
 {
     public function sportsApiNgRequest($operation, ParamInterface $param);
     public function authenticateCredential();
-} 
+}

@@ -9,7 +9,6 @@
  */
 namespace Betfair\Model;
 
-
 interface ParamInterface
 {
     public function jsonSerialize();
@@ -19,4 +18,4 @@ interface ParamInterface
      */
     public function setMarketProjection($marketProjection);
     public function setMaxResults($maxResult);
-} 
+}

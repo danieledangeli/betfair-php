@@ -57,9 +57,9 @@ class ParamMarketBook extends BetfairSerializable implements ParamInterface
     {
         $array = array();
         $properties = get_object_vars($this);
-        foreach($properties as $key => $value) {
-            if(null !== $value) {
-                if($key == 'priceProjection') {
+        foreach ($properties as $key => $value) {
+            if (null !== $value) {
+                if ($key == 'priceProjection') {
                     $priceProjections = new \stdClass;
                     $priceProjections->priceData = $value;
                     $array[$key] = $priceProjections;
@@ -67,7 +67,6 @@ class ParamMarketBook extends BetfairSerializable implements ParamInterface
                     $array[$key] = $value;
                 }
             }
-
         }
 
         return $array;

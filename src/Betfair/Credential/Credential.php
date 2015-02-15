@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Betfair;
+namespace Betfair\Credential;
 
 /**
  * Credentials class.
@@ -56,7 +56,7 @@ class Credential implements CredentialInterface
 
     public function getUsername()
     {
-       return $this->username;
+        return $this->username;
     }
 
     public function getPassword()
@@ -71,6 +71,6 @@ class Credential implements CredentialInterface
 
     public function isAuthenticated()
     {
-       return $this->sessionToken !== null;
+        return $this->sessionToken !== null;
     }
 }

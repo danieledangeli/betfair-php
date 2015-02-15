@@ -159,5 +159,4 @@ interface MarketFilterInterface
      * @return array
      */
     public function getWithOrders();
-
-} 
+}

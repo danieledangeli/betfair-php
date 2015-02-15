@@ -2,10 +2,9 @@
 
 namespace Betfair;
 
-
 use Betfair\Client\BetfairClient;
 use Betfair\Client\BetfairGuzzleClientFactory;
-use Betfair\Credential;
+use Betfair\Credential\Credential;
 
 class BetfairFactory
 {
@@ -18,5 +17,4 @@ class BetfairFactory
 
         return new Betfair($betfairClient);
     }
-
-} 
+}

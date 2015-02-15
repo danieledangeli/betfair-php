@@ -19,6 +19,6 @@ class MarketFilterFactory implements MarketFilterFactoryInterface
      */
     public function create()
     {
-       return new MarketFilter();
+        return new MarketFilter();
     }
 }

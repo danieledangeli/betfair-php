@@ -1,17 +1,11 @@
 <?php
 
-namespace spec\Betfair\MarketBook;
+namespace spec\Betfair\BettingApi\MarketBook;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\Model\MarketFilter;
-use Betfair\Model\MarketFilterInterface;
-use Betfair\Model\Param;
 use Betfair\Model\ParamMarketBook;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -23,13 +17,12 @@ class MarketBookSpec extends ObjectBehavior
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function let(
+    public function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->client = $client;
         $this->adapterInterface =  $adapterInterface;
         $this->paramFactory = $paramFactory;
@@ -43,15 +36,14 @@ class MarketBookSpec extends ObjectBehavior
         );
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\MarketBook\MarketBook');
+        $this->shouldHaveType('Betfair\BettingApi\MarketBook\MarketBook');
     }
 
-    function it_get_market_book_filter_by_market_ids(
+    public function it_get_market_book_filter_by_market_ids(
         ParamMarketBook $paramMarketBook
-    )
-    {
+    ) {
         $response = '{response}';
 
         $this->paramFactory
@@ -63,7 +55,7 @@ class MarketBookSpec extends ObjectBehavior
             ->setMarketIds(array(1))
             ->shouldBeCalled();
 
-        $this->client->sportsApiNgRequest('listMarketBook',$paramMarketBook)
+        $this->client->sportsApiNgRequest('listMarketBook', $paramMarketBook)
             ->shouldBeCalled()
             ->willReturn($response);
 
@@ -73,5 +65,4 @@ class MarketBookSpec extends ObjectBehavior
 
         $this->getMarketBookFilterByMarketIds(array(1));
     }
-
 }

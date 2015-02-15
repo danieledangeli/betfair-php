@@ -44,5 +44,3 @@ models:
         location: response
         additionalProperties:
             location: response
-
-

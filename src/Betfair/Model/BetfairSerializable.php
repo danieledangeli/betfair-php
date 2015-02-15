@@ -22,13 +22,12 @@ class BetfairSerializable implements \JsonSerializable
     {
         $array = array();
         $properties = get_object_vars($this);
-        foreach($properties as $key => $value) {
-            if(null !== $value) {
+        foreach ($properties as $key => $value) {
+            if (null !== $value) {
                 $array[$key] = $value;
             }
         }
 
         return $array;
     }
-
-} 
+}

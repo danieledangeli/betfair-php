@@ -1,19 +1,15 @@
 <?php
 
-namespace spec\Betfair\MarketCatalogue;
+namespace spec\Betfair\BettingApi\MarketCatalogue;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\MarketCatalogue\MarketCatalogue;
+use Betfair\BettingApi\MarketCatalogue\MarketCatalogue;
 use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\MarketProjection;
 use Betfair\Model\ParamInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use spec\Betfair\AbstractBetfairObjectSpec;
 
@@ -24,20 +20,19 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\MarketCatalogue\MarketCatalogue');
+        $this->shouldHaveType('Betfair\BettingApi\MarketCatalogue\MarketCatalogue');
     }
 
-    function it_get_market_catalogue_filtered_by_event(
+    public function it_get_market_catalogue_filtered_by_event(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory,
         ParamInterface $paramInterface,
         MarketFilterInterface $marketFilterInterface
-    )
-    {
+    ) {
         $eventIds = array(1,2);
 
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
@@ -54,15 +49,14 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $this->getMarketCatalogueFilteredByEventIds($eventIds)->shouldReturn(array("response"));
     }
 
-    function it_list_market_catalogue(
+    public function it_list_market_catalogue(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory,
         ParamInterface $paramInterface,
         MarketFilterInterface $marketFilterInterface
-    )
-    {
+    ) {
         $eventTypeIds = array(1,2);
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
@@ -75,15 +69,14 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $this->listMarketCatalogue($eventTypeIds)->shouldReturn(array("response"));
     }
 
-    function it_get_market_catalogue_filtered_by(
+    public function it_get_market_catalogue_filtered_by(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory,
         ParamInterface $paramInterface,
         MarketFilterInterface $marketFilterInterface
-    )
-    {
+    ) {
         $eventIds = array(1,2);
         $marketTypeCodes = array(1234,5555);
 

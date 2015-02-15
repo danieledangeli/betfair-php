@@ -2,7 +2,6 @@
 
 namespace Betfair\Client;
 
-
 use GuzzleHttp\Client;
 use GuzzleHttp\Command\Guzzle\Description;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
@@ -14,9 +13,11 @@ class BetfairGuzzleClientFactory
 {
     private $specificationDir;
 
-    public function __construct($specificationDir)
+    public function __construct($specificationDir = null)
     {
-        $this->specificationDir = $specificationDir;
+        $this->specificationDir = $specificationDir !== null
+            ? $specificationDir
+            :__DIR__."/../Resources/specification";
     }
 
     public function createBetfairGuzzleClient()
@@ -43,19 +44,17 @@ class BetfairGuzzleClientFactory
         $finder = new Finder();
         $finder->files()->in($specificationDir)->notName("api_version_description.yml");
 
-        foreach($finder as $file) {
+        foreach ($finder as $file) {
             $spec = $yamlLoader->parse(file_get_contents($file->getRealPath()));
-            foreach($spec['operations'] as $key => $operationArray) {
+            foreach ($spec['operations'] as $key => $operationArray) {
                 $headersArray['operations'][$key] = $operationArray;
             }
 
-            foreach($spec['models'] as $key => $operationModelArray) {
+            foreach ($spec['models'] as $key => $operationModelArray) {
                 $headersArray['models'][$key] = $operationModelArray;
             }
-
         }
 
         return $headersArray;
     }
-
-} 
+}

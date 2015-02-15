@@ -17,5 +17,4 @@ interface MarketFilterFactoryInterface
      * @return MarketFilterInterface
      */
     public function create();
-
-} 
+}

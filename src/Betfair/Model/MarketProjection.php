@@ -9,7 +9,6 @@
  */
 namespace Betfair\Model;
 
-
 abstract class MarketProjection
 {
     const COMPETITION = "COMPETITION"; //If not selected then the competition will not be returned with marketCatalogue
@@ -32,4 +31,4 @@ abstract class MarketProjection
             self::RUNNER_METADATA
         );
     }
-} 
+}

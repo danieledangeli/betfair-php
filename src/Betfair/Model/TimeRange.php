@@ -63,8 +63,8 @@ class TimeRange extends BetfairSerializable
     {
         $array = array();
         $properties = get_object_vars($this);
-        foreach($properties as $key => $value) {
-            if($value != NULL) {
+        foreach ($properties as $key => $value) {
+            if ($value != null) {
                 $array[$key] = $value->format('Y-m-d').'T'.$value->format('H:i:s').'Z';
             }
         }

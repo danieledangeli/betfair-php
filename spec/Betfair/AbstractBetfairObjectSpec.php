@@ -12,13 +12,12 @@ use PhpSpec\ObjectBehavior;
 
 class AbstractBetfairObjectSpec extends ObjectBehavior
 {
-    function let(
+    public function let(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->beConstructedWith(
             $betfairClient,
             $adapterInterface,
@@ -32,8 +31,7 @@ class AbstractBetfairObjectSpec extends ObjectBehavior
         ParamFactoryInterface $paramFactory,
         MarketFilterInterface $marketFilterInterface,
         ParamInterface $paramInterface
-    )
-    {
+    ) {
         $marketFilterFactory->create()
             ->shouldBeCalled()
             ->willReturn($marketFilterInterface);
@@ -43,4 +41,4 @@ class AbstractBetfairObjectSpec extends ObjectBehavior
             ->shouldBeCalled()
             ->willReturn($paramInterface);
     }
-} 
+}

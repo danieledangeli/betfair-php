@@ -17,7 +17,7 @@ class ParamFactory implements ParamFactoryInterface
 {
     public function create(MarketFilterInterface $marketFilter)
     {
-       return new Param($marketFilter);
+        return new Param($marketFilter);
     }
 
     public function createParamMarketBook()

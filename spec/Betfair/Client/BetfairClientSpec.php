@@ -4,7 +4,7 @@ namespace spec\Betfair\Client;
 
 use Betfair\Client\BetfairGuzzleClient;
 use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
+use Betfair\Credential\CredentialInterface;
 use Betfair\Model\Param;
 use GuzzleHttp\Message\Response;
 use PhpSpec\ObjectBehavior;
@@ -12,23 +12,22 @@ use Prophecy\Argument;
 
 class BetfairClientSpec extends ObjectBehavior
 {
-    function let(CredentialInterface $credential, BetfairGuzzleClient $betfairHttpClient)
+    public function let(CredentialInterface $credential, BetfairGuzzleClient $betfairHttpClient)
     {
         $this->beConstructedWith($credential, $betfairHttpClient);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Client\BetfairClient');
     }
 
-    function it_do_sport_api_ng_request_with_authenticated_credentials(
+    public function it_do_sport_api_ng_request_with_authenticated_credentials(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
         Param $param,
         Response $response
-    )
-    {
+    ) {
         $operationName = 'listApiThing';
 
         $credential->isAuthenticated()->willReturn(true);
@@ -51,12 +50,11 @@ class BetfairClientSpec extends ObjectBehavior
         $this->sportsApiNgRequest($operationName, $param)->shouldReturn("body response");
     }
 
-    function it_authenticate_credentials(
+    public function it_authenticate_credentials(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
         Response $response
-    )
-    {
+    ) {
         $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
         $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
         $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
@@ -72,12 +70,11 @@ class BetfairClientSpec extends ObjectBehavior
         $this->authenticateCredential();
     }
 
-    function it_raise_betfar_login_exception_when_user_authenticate_with_invalid_credentials(
+    public function it_raise_betfar_login_exception_when_user_authenticate_with_invalid_credentials(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
         Response $response
-    )
-    {
+    ) {
         $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
         $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
         $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
@@ -92,12 +89,11 @@ class BetfairClientSpec extends ObjectBehavior
             duringAuthenticateCredential();
     }
 
-    function it_raise_betfar_login_exception_when_response_not_have_set_cookie(
+    public function it_raise_betfar_login_exception_when_response_not_have_set_cookie(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
         Response $response
-    )
-    {
+    ) {
         $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
         $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
         $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
@@ -113,13 +109,12 @@ class BetfairClientSpec extends ObjectBehavior
             duringAuthenticateCredential();
     }
 
-    function it_do_sport_api_ng_request_with_not_authenticated_credentials(
+    public function it_do_sport_api_ng_request_with_not_authenticated_credentials(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
         Param $param,
         Response $response
-    )
-    {
+    ) {
         $operationName = 'listApiThing';
 
         $credential->isAuthenticated()->willReturn(false);

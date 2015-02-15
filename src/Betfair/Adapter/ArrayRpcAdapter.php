@@ -9,7 +9,6 @@
  */
 namespace Betfair\Adapter;
 
-
 class ArrayRpcAdapter implements AdapterInterface
 {
     public function adaptResponse($response)
@@ -17,5 +16,4 @@ class ArrayRpcAdapter implements AdapterInterface
         $data = json_decode($response, true);
         return $data[0]['result'];
     }
-
-} 
+}

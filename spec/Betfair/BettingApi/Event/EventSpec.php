@@ -1,13 +1,13 @@
 <?php
 
-namespace spec\Betfair\Event;
+namespace spec\Betfair\BettingApi\Event;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
 use Betfair\Client\JsonRpcClient;
-use Betfair\CredentialInterface;
-use Betfair\Event\Event;
+use Betfair\Credential\CredentialInterface;
+use Betfair\BettingApi\Event\Event;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
@@ -25,13 +25,12 @@ class EventSpec extends AbstractEventSpec
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function let(
+    public function let(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->beConstructedWith(
             $betfairClient,
             $adapterInterface,
@@ -40,20 +39,19 @@ class EventSpec extends AbstractEventSpec
         );
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\Event\Event');
+        $this->shouldHaveType('Betfair\BettingApi\Event\Event');
     }
 
-    function it_has_list_events(
+    public function it_has_list_events(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory,
         ParamInterface $paramInterface,
         MarketFilterInterface $marketFilterInterface
-    )
-    {
+    ) {
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
         $betfairClient->sportsApiNgRequest(Event::API_METHOD_NAME, $paramInterface)

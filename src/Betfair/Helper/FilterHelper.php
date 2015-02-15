@@ -20,12 +20,10 @@ class FilterHelper
     {
         $json_array = array();
 
-        foreach($paramArray as $key => $value) {
+        foreach ($paramArray as $key => $value) {
             $json_array['filter'][$key] = $value;
         }
 
         return json_encode($json_array);
-
     }
-
-} 
+}

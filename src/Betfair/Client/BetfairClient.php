@@ -9,9 +9,8 @@
  */
 namespace Betfair\Client;
 
-use Betfair\CredentialInterface;
+use Betfair\Credential\CredentialInterface;
 use Betfair\Exception\BetfairLoginException;
-use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
 use GuzzleHttp\Message\Response;
@@ -20,7 +19,7 @@ class BetfairClient implements BetfairClientInterface
 {
     const LOGIN_ENDPOINT = "https://identitysso.betfair.com/api/login";
 
-    /** @var \Betfair\CredentialInterface  */
+    /** @var \Betfair\Credential\CredentialInterface  */
     protected $credential;
 
     /** @var  GuzzleClient $client */
@@ -78,7 +77,7 @@ class BetfairClient implements BetfairClientInterface
         /** @var Response $result */
         $result = $this->betfairGuzzleClient->betfairLogin($this->builtLoginArrayParameters());
 
-        if($result && $result->getStatusCode() == 200) {
+        if ($result && $result->getStatusCode() == 200) {
             return $this->extractSessionTokenFromResponseCookie($result->getHeader('Set-Cookie'));
         }
 
@@ -88,7 +87,7 @@ class BetfairClient implements BetfairClientInterface
 
     private function getDefaultAuthHeaderArray()
     {
-        if(!$this->credential->isAuthenticated()) {
+        if (!$this->credential->isAuthenticated()) {
             $this->authenticateCredential();
         }
 
@@ -114,7 +113,7 @@ class BetfairClient implements BetfairClientInterface
         $start = strpos($ssoid, 'ssoid=');
 
         //needs to be refactored
-        if($start == 0 && $end) {
+        if ($start == 0 && $end) {
             $start = $start + 6;
             $sessionToken = substr($ssoid, $start, $end);
 

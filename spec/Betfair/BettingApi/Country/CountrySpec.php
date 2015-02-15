@@ -1,15 +1,11 @@
 <?php
 
-namespace spec\Betfair\Country;
+namespace spec\Betfair\BettingApi\Country;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\Model\MarketFilterInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -20,13 +16,12 @@ class CountrySpec extends ObjectBehavior
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function let(
+    public function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->client = $client;
         $this->adapterInterface =  $adapterInterface;
         $this->paramFactory = $paramFactory;
@@ -40,8 +35,8 @@ class CountrySpec extends ObjectBehavior
         );
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\Country\Country');
+        $this->shouldHaveType('Betfair\BettingApi\Country\Country');
     }
 }

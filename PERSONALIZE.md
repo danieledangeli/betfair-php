@@ -378,7 +378,7 @@ use examples\MyFactory\MyMarketFilterFactory;
 use Betfair\Client\JsonRpcClient;
 use examples\Adapter\CustomAdapter;
 
-$credential = new \Betfair\Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
+$credential = new \Betfair\Credential\Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
 $container = new \Betfair\Dependency\BetfairContainer();
 //betfair.market.filter.factory
 //betfair.param.filter.factory

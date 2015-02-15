@@ -85,7 +85,7 @@ In the __how to customize__ section you will be explained how to do it.
 ```php
 <?php
 require 'vendor/autoload.php';
-use Betfair\Credential;
+use Betfair\Credential\Credential;
 use Betfair\Betfair;
 use Betfair\Client\BetfairClient;
 use Betfair\Client\JsonRpcClient;

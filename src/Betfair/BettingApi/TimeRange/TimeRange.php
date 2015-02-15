@@ -7,15 +7,12 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Betfair\TimeRange;
+namespace Betfair\BettingApi\TimeRange;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Dependency\BetfairContainer;
-use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\MarketFilterFactoryInterface;
-use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
 
 class TimeRange extends AbstractBetfair
@@ -31,8 +28,7 @@ class TimeRange extends AbstractBetfair
         AdapterInterface $adapter,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
 }

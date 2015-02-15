@@ -9,7 +9,6 @@
  */
 namespace Betfair\Adapter;
 
-
 interface AdapterInterface
 {
     /**
@@ -17,5 +16,4 @@ interface AdapterInterface
      * @return mixed response
      */
     public function adaptResponse($response);
-
-} 
+}

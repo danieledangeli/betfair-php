@@ -325,6 +325,4 @@ class MarketFilter extends BetfairSerializable implements MarketFilterInterface
     {
         return $this->withOrders;
     }
-
-
 }

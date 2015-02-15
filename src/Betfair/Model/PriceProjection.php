@@ -27,4 +27,4 @@ abstract class PriceProjection
             self::EX_TRADED,
         );
     }
-} 
+}
