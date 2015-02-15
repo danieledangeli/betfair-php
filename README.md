@@ -17,9 +17,7 @@ This PHP 5.4+ library helps you to interact with the Betfair API via PHP.
 Menù
 ------------
 * [Main](README.md)
-* [The big view](BIGVIEW.md)
-* [How to personalize the library](PERSONALIZE.md)
-* [How to contribute](CONTRIBUTE.md)
+* [How it works and how to personalize the usage](BIGVIEW.md)
 
 Installation
 ===========
