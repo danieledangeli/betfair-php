@@ -7,6 +7,12 @@ betfair-php
 [![Monthly Downloads](https://poser.pugx.org/erlangb/betfair/d/monthly.png)](https://packagist.org/packages/erlangb/betfair)
 [![Daily Downloads](https://poser.pugx.org/erlangb/betfair/d/daily.png)](https://packagist.org/packages/erlangb/betfair)
 
+
+**Protip:** There was big chnages in the last days, please use the version 0.1.1 instead of dev-master id you wish
+to have something more stable. Have a look on:
+[`erlangb/betfair`](https://packagist.org/packages/erlangb/betfair)
+page to choose a stable version to use, instead of dev-master
+
 This PHP 5.4+ library helps you to interact with the Betfair API via PHP.
 Menù
 ------------
@@ -124,7 +130,7 @@ The following object are available:
 *   EventType: obtain the betfair's event type
 *   MarketBook: query the betfair market
 *   Market Catalogue: query the betfair market catalogue
-*   Time range: query teh betfair time range
+*   Time range: query the betfair time range
 
 How to contribute
 ===========
@@ -148,4 +154,7 @@ The library is actually "in dev" state and a lot of things to be done.
 *   ~~Add more PHPspec test~~
 *   ~~PHPspec test refactoring~~
 *   Guzzle client side caching system
-*   H~~andling login or app key errors in array and json RPC adapters (result is not set)~~
+*   ~~Handling login or app key errors in array and json RPC adapters (result is not set)~~
+*   Integration tests after the last changes
+*   Add betfair Account API
+*   Add betfaur hearthbreat API
