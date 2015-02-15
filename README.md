@@ -7,13 +7,17 @@ betfair-php
 [![Monthly Downloads](https://poser.pugx.org/erlangb/betfair/d/monthly.png)](https://packagist.org/packages/erlangb/betfair)
 [![Daily Downloads](https://poser.pugx.org/erlangb/betfair/d/daily.png)](https://packagist.org/packages/erlangb/betfair)
 
+
+**Protip:** There was big chnages in the last days, please use the version 0.1.1 instead of dev-master id you wish
+to have something more stable. Have a look on:
+[`erlangb/betfair`](https://packagist.org/packages/erlangb/betfair)
+page to choose a stable version to use, instead of dev-master
+
 This PHP 5.4+ library helps you to interact with the Betfair API via PHP.
 Menù
 ------------
 * [Main](README.md)
-* [The big view](BIGVIEW.md)
-* [How to personalize the library](PERSONALIZE.md)
-* [How to contribute](CONTRIBUTE.md)
+* [How it works and how to personalize the usage](BIGVIEW.md)
 
 Installation
 ===========
@@ -77,24 +81,35 @@ The simple usage
 **Protip:**  With the __simple usage__ you can have access to the already existing helpers. Please feel free to contribute to this library by adding more helpers.
 
 The first step is setting up the library and obtain the **Betfair** object.
-The **Betfair** object has to built up with a *BetfairClient*, *BetfairContainer* and an *Adapter*.
-
-We need to build these objects for the library to be customizable, if needed.
-In the __how to customize__ section you will be explained how to do it.
+The fastest way to do that is to use the __BetfairFactory__ object which simplify the process:
 
 ```php
 <?php
+use Betfair\BetfairFactory;
 require 'vendor/autoload.php';
-use Betfair\Credential\Credential;
+$betfair = BetfairFactory::createBetfair('APP_KEY','BETFAIR_USERNAME','BETFAIR_PWD');
+```
+**Protip:**  The __BETFAIR_USERNAME__ and the __BETFAIR_PWD__ are the credential which you're able to login on betfair.com website.
+
+You can also obtain a __Betfair__ object as showed below:
+```php
+<?php
 use Betfair\Betfair;
 use Betfair\Client\BetfairClient;
-use Betfair\Client\JsonRpcClient;
-use Betfair\Adapter\ArrayAdapter;
+use Betfair\Client\BetfairGuzzleClientFactory;
+use Betfair\Credential;
 
-$credential = new Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
-$betfairClient = new BetfairClient($credential, new JsonRpcClient());
-$betfair = new Betfair($betfairClient, new ArrayAdapter());
+require 'vendor/autoload.php';
+
+$credential = new Credential('APP_KEY','BETFAIR_USERNAME','BETFAIR_PWD');
+$factory = new BetfairGuzzleClientFactory();
+$betfairClient = new BetfairClient($credential, $factory->createBetfairGuzzleClient());
+
+$betfair = new Betfair($betfairClient);
 ```
+The benefit to built a Betfair object in this complex way is to customize the library
+like, for example, add your custom __response adapter__.
+
 With the **Betfair** object you can access to the API model to execute some query.
 For example, considering the Betfair __Event__ API, you can access to the relative object model by typing:
 ```php
@@ -113,12 +128,12 @@ The following object are available:
 *   EventType: obtain the betfair's event type
 *   MarketBook: query the betfair market
 *   Market Catalogue: query the betfair market catalogue
-*   Time range: query teh betfair time range
+*   Time range: query the betfair time range
 
 How to contribute
 ===========
 
-I'm very glad to be helped to maintain and extend this library. 
+I'm very glad to be helped to maintain and extend this library.
 Please read the [how to personalize the library](PERSONALIZE.md) section in order to understand how the library is built and how contribute on it
 
 Reporting Issues
@@ -131,10 +146,13 @@ Issue Tracker](https://github.com/danieledangeli/betfair-php/issues) or email me
 
 Todo
 ===========
-The library is actually "in dev" state and a lot of things to be done. 
-*   Enabling guzzle library
+The library is actually "in dev" state and a lot of things to be done.
+*   ~~Enabling guzzle library~~
 *   Implements more "Betfair object" to extend the API wrapping
-*   Add more PHPspec test
+*   ~~Add more PHPspec test~~
 *   ~~PHPspec test refactoring~~
 *   Guzzle client side caching system
-*   Handling login or app key errors in array and json RPC adapters (result is not set)
+*   ~~Handling login or app key errors in array and json RPC adapters (result is not set)~~
+*   Integration tests after the last changes
+*   Add betfair Account API
+*   Add betfaur hearthbreat API
