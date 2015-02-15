@@ -25,17 +25,14 @@ use Betfair\Model\Param;
 
 class MarketCatalogue extends AbstractBetfair
 {
-    /**
-     * The API METHOD NAME
-     */
-    const METHOD = "listMarketCatalogue";
+    const API_METHOD_NAME = "listMarketCatalogue";
     const DEFAULT_MAX_RESULT = "100";
 
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param ParamFactory $paramFactory
-     * @param MarketFilterFactory $marketFilterFactory
+     * @param \Betfair\Factory\ParamFactory|\Betfair\Factory\ParamFactoryInterface $paramFactory
+     * @param \Betfair\Factory\MarketFilterFactory|\Betfair\Factory\MarketFilterFactoryInterface $marketFilterFactory
      */
     public function __construct(
         BetfairClientInterface $betfairClient,
@@ -49,45 +46,44 @@ class MarketCatalogue extends AbstractBetfair
 
     public function listMarketCatalogue(array $eventTypes)
     {
-        $filter = $this->getMarketFilter();
+        $filter = $this->createMarketFilter();
         $filter->setEventTypeIds($eventTypes);
 
-        $param = $this->getParamFilter($filter);
+        $param = $this->createParamFilter($filter);
         $param->setMarketProjection(MarketProjection::getAll());
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
-    public function getMarketCatalogueFilteredByEvent(array $eventIds)
+    public function getMarketCatalogueFilteredByEventIds(array $eventIds)
     {
-        $marketFilter = $this->getMarketFilter();
+        $marketFilter = $this->createMarketFilter();
         $marketFilter->setEventIds($eventIds);
 
-        $param = $this->getParamFilter($marketFilter);
+        $param = $this->createParamFilter($marketFilter);
         $param->setMarketProjection(MarketProjection::getAll());
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
     public function getMarketCatalogueFilteredBy(array $eventIds, array $marketTypes)
     {
-        $marketFilter = $this->getMarketFilter();
+        $marketFilter = $this->createMarketFilter();
         $marketFilter->setEventIds($eventIds);
         $marketFilter->setMarketTypeCodes($marketTypes);
 
-        /** @var Param $param */
-        $param = $this->getParamFilter($marketFilter);
+        $param = $this->createParamFilter($marketFilter);
         $param->setMarketProjection(MarketProjection::getAll());
         $param->setMaxResults(self::DEFAULT_MAX_RESULT);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::METHOD, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

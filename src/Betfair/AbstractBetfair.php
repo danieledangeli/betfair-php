@@ -63,44 +63,38 @@ abstract class AbstractBetfair
 
     /**
      * @param $operation
-     * @param $params
+     * @param \Betfair\Model\Param|\Betfair\Model\ParamInterface $param
+     * @internal param $params
      * @return mixed
      */
-    public function doSportApiNgRequest($operation, $params)
+    public function doSportApiNgRequest($operation, ParamInterface $param)
     {
         $requestContent = $this->betfairClient->sportsApingRequest(
             $operation,
-            $params,
-            $this->endPointUrl
+            $param
         );
 
         return $requestContent;
     }
 
-    public function getAll($method)
-    {
-        $response = $this->doSportApiNgRequest($method, FilterHelper::getEmptyFilter());
-        return $this->adapter->adaptResponse($response);
-    }
-
     public function executeCustomQuery(ParamInterface $param, $method = null)
     {
-        $method = $method !== null ? $method : $this::METHOD;
-        $response = $this->doSportApiNgRequest($method, json_encode($param));
+        $method = $method !== null ? $method : $this::API_METHOD_NAME;
+        $response = $this->doSportApiNgRequest($method, $param);
         return $this->adapter->adaptResponse($response);
     }
 
-    public function getMarketFilter()
+    public function createMarketFilter()
     {
         return $this->marketFilterFactory->create();
     }
 
-    public function getParamFilter(MarketFilterInterface $marketFilterInterface)
+    public function createParamFilter(MarketFilterInterface $marketFilterInterface)
     {
         return $this->paramFilterFactory->create($marketFilterInterface);
     }
 
-    public function getParamMarketBook()
+    public function createParamMarketBook()
     {
         return $this->paramFilterFactory->createParamMarketBook();
     }
