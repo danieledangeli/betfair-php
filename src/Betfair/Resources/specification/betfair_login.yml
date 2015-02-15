@@ -1,0 +1,48 @@
+operations:
+    betfairLogin:
+          httpMethod: POST
+          uri: "https://identitysso.betfair.com/api/login"
+          responseModel: betfairLoginModel
+          parameters:
+              username:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: username
+              password:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: password
+              login:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: login
+                  default: "true"
+              redirectmethod:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: redirectmethod
+                  default: "POST"
+              product:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: product
+                  default: "home.betfair.int"
+              url:
+                  type: string
+                  location: postField
+                  required: true
+                  sentAs: url
+                  default: "https://www.betfair.com/"
+models:
+    betfairLoginModel:
+        type: array
+        location: response
+        additionalProperties:
+            location: response
+
+

@@ -23,8 +23,8 @@ class BetfairGeneric extends AbstractBetfair
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param ParamFactory $paramFactory
-     * @param MarketFilterFactory $marketFilterFactory
+     * @param \Betfair\Factory\ParamFactory|\Betfair\Factory\ParamFactoryInterface $paramFactory
+     * @param \Betfair\Factory\MarketFilterFactory|\Betfair\Factory\MarketFilterFactoryInterface $marketFilterFactory
      */
     public function __construct(
         BetfairClientInterface $betfairClient,

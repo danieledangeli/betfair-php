@@ -20,6 +20,7 @@ use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
+use Betfair\Helper\FilterHelper;
 use Betfair\JsonRPCClient;
 use Betfair\Model\MarketFilter;
 
@@ -56,7 +57,12 @@ class Event extends AbstractBetfair
      */
     public function listEvents()
     {
-        return $this->getAll(self::API_METHOD_NAME);
+        $response = $this->doSportApiNgRequest(
+            self::API_METHOD_NAME,
+            $this->createParamFilter($this->createMarketFilter())
+        );
+
+        return $this->adapter->adaptResponse($response);
     }
 
     /**
@@ -65,12 +71,12 @@ class Event extends AbstractBetfair
      */
     public function getAllEventFilteredByEventTypeIds(array $eventTypeIds)
     {
-        $marketFilter = $this->getMarketFilter();
+        $marketFilter = $this->createMarketFilter();
         $marketFilter->setEventTypeIds($eventTypeIds);
-        $param = $this->getParamFilter($marketFilter);
+        $param = $this->createParamFilter($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -80,13 +86,13 @@ class Event extends AbstractBetfair
      */
     public function getAllEventsFilteredByCompetition(array $competitionIds)
     {
-        $marketFilter = $this->getMarketFilter();
+        $marketFilter = $this->createMarketFilter();
         $marketFilter->setCompetitionIds($competitionIds);
 
-        $param = $this->getParamFilter($marketFilter);
+        $param = $this->createParamFilter($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

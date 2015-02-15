@@ -13,4 +13,10 @@ namespace Betfair\Model;
 interface ParamInterface
 {
     public function jsonSerialize();
+
+    /**
+     * @param array $marketProjection
+     */
+    public function setMarketProjection($marketProjection);
+    public function setMaxResults($maxResult);
 } 

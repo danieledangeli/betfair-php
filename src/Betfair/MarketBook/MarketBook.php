@@ -42,11 +42,11 @@ class MarketBook extends AbstractBetfair
     }
     public function getMarketBookFilterByMarketIds(array $marketIds)
     {
-        $param = $this->getParamMarketBook();
+        $param = $this->createParamMarketBook();
         $param->setMarketIds($marketIds);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, json_encode($param))
+            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

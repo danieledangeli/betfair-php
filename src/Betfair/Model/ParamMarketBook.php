@@ -72,4 +72,17 @@ class ParamMarketBook extends BetfairSerializable implements ParamInterface
 
         return $array;
     }
-} 
+
+    /**
+     * @param array $marketProjection
+     */
+    public function setMarketProjection($marketProjection)
+    {
+        // TODO: Implement setMarketProjection() method.
+    }
+
+    public function setMaxResults($maxResult)
+    {
+        // TODO: Implement setMaxResult() method.
+    }
+}

@@ -16,14 +16,9 @@ namespace Betfair;
  */
 class Credential implements CredentialInterface
 {
-    /**
-     * @var string
-     */
+
     private $applicationKey;
 
-    /**
-     * @var string
-     */
     private $sessionToken;
 
     protected $username;
@@ -72,5 +67,10 @@ class Credential implements CredentialInterface
     public function setSessionToken($sessionToken)
     {
         $this->sessionToken = $sessionToken;
+    }
+
+    public function isAuthenticated()
+    {
+       return $this->sessionToken !== null;
     }
 }

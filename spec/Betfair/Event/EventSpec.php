@@ -9,14 +9,16 @@ use Betfair\Client\JsonRpcClient;
 use Betfair\CredentialInterface;
 use Betfair\Event\Event;
 use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Helper\FilterHelper;
 use Betfair\Model\MarketFilterInterface;
+use Betfair\Model\ParamInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 
-class EventSpec extends ObjectBehavior
+class EventSpec extends AbstractEventSpec
 {
     protected $client;
     protected $adapterInterface;
@@ -24,22 +26,17 @@ class EventSpec extends ObjectBehavior
     protected $marketFilterFactory;
 
     function let(
-        BetfairClientInterface $client,
+        BetfairClientInterface $betfairClient,
         AdapterInterface $adapterInterface,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
     )
     {
-        $this->client = $client;
-        $this->adapterInterface =  $adapterInterface;
-        $this->paramFactory = $paramFactory;
-        $this->marketFilterFactory = $marketFilterFactory;
-
         $this->beConstructedWith(
-            $this->client,
-            $this->adapterInterface,
-            $this->paramFactory,
-            $this->marketFilterFactory
+            $betfairClient,
+            $adapterInterface,
+            $paramFactory,
+            $marketFilterFactory
         );
     }
 
@@ -49,18 +46,21 @@ class EventSpec extends ObjectBehavior
     }
 
     function it_has_list_events(
-        BetfairClientInterface $client,
-        AdapterInterface $adapter
+        BetfairClientInterface $betfairClient,
+        AdapterInterface $adapterInterface,
+        ParamFactoryInterface $paramFactory,
+        MarketFilterFactoryInterface $marketFilterFactory,
+        ParamInterface $paramInterface,
+        MarketFilterInterface $marketFilterInterface
     )
     {
-        $client->sportsApiNgRequest(
-            Event::API_METHOD_NAME,
-            FilterHelper::getEmptyFilter(),
-            'https://api.betfair.com/exchange/betting/json-rpc/v1')
-            ->willReturn('{ciao}');
+        $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
-        $this->adapterInterface->adaptResponse('{ciao}')->willReturn(array('ciao'));
+        $betfairClient->sportsApiNgRequest(Event::API_METHOD_NAME, $paramInterface)
+            ->shouldBeCalled()
+            ->willReturn("{response}");
 
-        $this->listEvents()->shouldReturn(array('ciao'));
+        $adapterInterface->adaptResponse("{response}")->willReturn(array("response"));
+        $this->listEvents()->shouldReturn(array("response"));
     }
 }

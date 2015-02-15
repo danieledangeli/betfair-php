@@ -63,17 +63,7 @@ class MarketBookSpec extends ObjectBehavior
             ->setMarketIds(array(1))
             ->shouldBeCalled();
 
-        $serializedValue = '{"marketIds":1}';
-
-        $paramMarketBook
-            ->jsonSerialize()
-            ->shouldBeCalled()
-            ->willReturn(array('marketIds' => 1));
-
-        $this->client->sportsApiNgRequest(
-            'listMarketBook',
-            $serializedValue,
-            "https://api.betfair.com/exchange/betting/json-rpc/v1")
+        $this->client->sportsApiNgRequest('listMarketBook',$paramMarketBook)
             ->shouldBeCalled()
             ->willReturn($response);
 
