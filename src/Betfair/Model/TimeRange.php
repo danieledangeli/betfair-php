@@ -15,10 +15,9 @@ class TimeRange extends BetfairSerializable
 
     protected $to;
 
-    public function __construct($from, $to)
+    public function __construct(\DateTime $from, \DateTime $to)
     {
-        $this->from = $from;
-        $this->to = $to;
+        $this->setWithFormat($from, $to, "Y-m-d\TH:i:s\Z");
     }
     /**
      * @param mixed $from
@@ -52,6 +51,12 @@ class TimeRange extends BetfairSerializable
         return $this->to;
     }
 
+    private function setWithFormat($from, $to, $format)
+    {
+        $this->from = $from !== null ? $from->format($format) : null;
+        $this->to = $to !== null ? $to->format($format) : null;
+    }
+
     /**
      * (PHP 5 &gt;= 5.4.0)<br/>
      * Specify data which should be serialized to JSON
@@ -63,9 +68,9 @@ class TimeRange extends BetfairSerializable
     {
         $array = array();
         $properties = get_object_vars($this);
-        foreach($properties as $key => $value) {
-            if($value != NULL) {
-                $array[$key] = $value->format('Y-m-d').'T'.$value->format('H:i:s').'Z';
+        foreach ($properties as $key => $value) {
+            if ($value != null) {
+                $array[$key] = $value;
             }
         }
 

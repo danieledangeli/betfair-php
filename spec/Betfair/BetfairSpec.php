@@ -5,64 +5,60 @@ namespace spec\Betfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\CredentialInterface;
-use Betfair\Dependency\BetfairContainer;
 use PhpSpec\ObjectBehavior;
 
 class BetfairSpec extends ObjectBehavior
 {
 
-    function let(
+    public function let(
         BetfairClientInterface $client,
         AdapterInterface $adapterInterface
-    )
-    {
-
+    ) {
         $this->beConstructedWith($client, $adapterInterface);
     }
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Betfair');
     }
 
-    function it_has_factory_event()
+    public function it_has_factory_event()
     {
-        $this->getBetfairEvent()->shouldReturnAnInstanceOf('Betfair\Event\Event');
+        $this->getBetfairEvent()->shouldReturnAnInstanceOf('Betfair\BettingApi\Event\Event');
     }
 
-    function it_has_factory_generic()
+    public function it_has_factory_generic()
     {
         $this->getBetfairGeneric()->shouldReturnAnInstanceOf('Betfair\BetfairGeneric');
     }
 
-    function it_has_factory_eventType()
+    public function it_has_factory_eventType()
     {
-        $this->getBetfairEventType()->shouldReturnAnInstanceOf('Betfair\Event\EventType');
+        $this->getBetfairEventType()->shouldReturnAnInstanceOf('Betfair\BettingApi\Event\EventType');
     }
 
-    function it_has_factory_MarketCatalogue()
+    public function it_has_factory_MarketCatalogue()
     {
-        $this->getBetfairMarketCatalogue()->shouldReturnAnInstanceOf('Betfair\MarketCatalogue\MarketCatalogue');
+        $this->getBetfairMarketCatalogue()->shouldReturnAnInstanceOf('Betfair\BettingApi\MarketCatalogue\MarketCatalogue');
     }
 
-    function it_has_factory_MarketBook()
+    public function it_has_factory_MarketBook()
     {
-        $this->getBetfairMarketBook()->shouldReturnAnInstanceOf('Betfair\MarketBook\MarketBook');
+        $this->getBetfairMarketBook()->shouldReturnAnInstanceOf('Betfair\BettingApi\MarketBook\MarketBook');
     }
 
-    function it_has_factory_Country()
+    public function it_has_factory_Country()
     {
-        $this->getBetfairCountry()->shouldReturnAnInstanceOf('Betfair\Country\Country');
+        $this->getBetfairCountry()->shouldReturnAnInstanceOf('Betfair\BettingApi\Country\Country');
     }
 
-    function it_is_factory_Competition()
+    public function it_is_factory_Competition()
     {
-        $this->getBetfairCompetition()->shouldReturnAnInstanceOf('Betfair\Competition\Competition');
+        $this->getBetfairCompetition()->shouldReturnAnInstanceOf('Betfair\BettingApi\Competition\Competition');
     }
 
-    function it_is_factory_TimeRange()
+    public function it_is_factory_TimeRange()
     {
-        $this->getBetfairTimeRange()->shouldReturnAnInstanceOf('Betfair\TimeRange\TimeRange');
+        $this->getBetfairTimeRange()->shouldReturnAnInstanceOf('Betfair\BettingApi\TimeRange\TimeRange');
     }
 }

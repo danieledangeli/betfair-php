@@ -9,7 +9,6 @@
  */
 namespace Betfair\Model;
 
-
 abstract class MarketProjection
 {
     const COMPETITION = "COMPETITION"; //If not selected then the competition will not be returned with marketCatalogue
@@ -18,7 +17,7 @@ abstract class MarketProjection
     const MARKET_START_TIME = "MARKET_START_TIME"; //If not selected then the start time will not be returned with marketCatalogue
     const MARKET_DESCRIPTION = "MARKET_DESCRIPTION"; //If not selected then the description will not be returned with marketCatalogue
     const RUNNER_DESCRIPTION = "RUNNER_DESCRIPTION";// not selected then the runners will not be returned with marketCatalogue
-    const  RUNNER_METADATA = "RUNNER_METADATA";//If not selected then the runner metadata will not be returned with marketCatalogue. If selected then RUNNER_DESCRIPTION will also be returned regardless of whether it is included as a market projection.
+    const RUNNER_METADATA = "RUNNER_METADATA";//If not selected then the runner metadata will not be returned with marketCatalogue. If selected then RUNNER_DESCRIPTION will also be returned regardless of whether it is included as a market projection.
 
     public static function getAll()
     {
@@ -32,4 +31,4 @@ abstract class MarketProjection
             self::RUNNER_METADATA
         );
     }
-} 
+}

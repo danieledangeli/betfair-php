@@ -7,13 +7,16 @@ betfair-php
 [![Monthly Downloads](https://poser.pugx.org/erlangb/betfair/d/monthly.png)](https://packagist.org/packages/erlangb/betfair)
 [![Daily Downloads](https://poser.pugx.org/erlangb/betfair/d/daily.png)](https://packagist.org/packages/erlangb/betfair)
 
+
+**Protip:** There was big chnages in the last days, please use the version 0.1.1 instead of dev-master for back compatibility.
+Have a look on:
+[`erlangb/betfair`](https://packagist.org/packages/erlangb/betfair)
+page to choose a stable version to use, instead of dev-master
+
 This PHP 5.4+ library helps you to interact with the Betfair API via PHP.
 Menù
 ------------
 * [Main](README.md)
-* [The big view](BIGVIEW.md)
-* [How to personalize the library](PERSONALIZE.md)
-* [How to contribute](CONTRIBUTE.md)
 
 Installation
 ===========
@@ -57,14 +60,6 @@ Now you can add the autoloader, and you will have access to the library:
 require 'vendor/autoload.php';
 ```
 
-If you don't use neither **Composer** nor a _ClassLoader_ in your application, just require the provided autoloader:
-
-```php
-<?php
-
-require_once 'src/autoload.php';
-```
-
 Usage
 ======
 
@@ -72,54 +67,136 @@ Obtain an APP_KEY
 ------------
 To use this library you have to obtain an APP_KEY from [Betfair](https://developer.betfair.com/)
 
-The simple usage
+Obtain a Betfair Object
 ------------
+
+*  By using the factory interface
+
+```php
+
+use Betfair\BetfairFactory;
+require 'vendor/autoload.php';
+
+$betfair = BetfairFactory::createBetfair(
+        $appKey,
+        $username,
+        $pwd
+        array()
+    );
+
+```
+
+The last parameters are the options, which you can customize the Betfair object.
+The following options are available:
+*  __loginEndpoint__: array('loginEndpoint' => 'https://identitysso.betfair.it/api/login') to change the login endpoint
+*  __responseAdapter__: array('responseAdapter' => new ArrayAdapter()) to change the response adapter
+  *  The available adapters are:
+    *  ArrayAdapter
+    *  ArrayRpcAdapter
+    *  JsonRpcAdapter
+
+**Protip:** You can also implement your own *Adapter* by implement the *AdapterInterface* and pass it as an option
+
+Query the Betfair API with the helpers objects.
+------------
+Once you got a *Betfair* object you can query the Betfair API.
+
+There are several ways to do that.
+
+The simplest one is just to use the available helpers methods.
+For instance, if you want to get all the events "filtered by event type ids" you can simply:
+
+```php
+require 'vendor/autoload.php';
+
+$eventBetfairHelper = $betfair->getBetfairEvent();
+$eventBetfairHelper->getAllEventFilteredByEventTypeIds(array(1,2));
+```
+
+The available helpers are:
+
+*  $betfair->getBetfairEvent();
+*  $betfair->getBetfairEventType();
+*  $betfair->getBetfairCompetition();
+*  $betfair->getBetfairCountry();
+*  $betfair->getBetfairMarketBook();
+*  $betfair->getBetfairMarketCatalogue();
+*  $betfair->getBetfairMarketType();
+*  $betfair->getClearedOrder();
+*  $betfair->getCurrentOrder();
+*  $betfair->getVenues();
+
 **Protip:**  With the __simple usage__ you can have access to the already existing helpers. Please feel free to contribute to this library by adding more helpers.
 
-The first step is setting up the library and obtain the **Betfair** object.
-The **Betfair** object has to built up with a *BetfairClient*, *BetfairContainer* and an *Adapter*.
+If an helper method is not present, you can simply use the object by specifying the parameters to execute a custom query:
 
-We need to build these objects for the library to be customizable, if needed.
-In the __how to customize__ section you will be explained how to do it.
 
 ```php
-<?php
-require 'vendor/autoload.php';
-use Betfair\Credential;
-use Betfair\Betfair;
-use Betfair\Client\BetfairClient;
-use Betfair\Client\JsonRpcClient;
-use Betfair\Adapter\ArrayAdapter;
-
-$credential = new Credential("APP_KEY", "BETFAIR_USERNAME", 'BETFAIR_PWD');
-$betfairClient = new BetfairClient($credential, new JsonRpcClient());
-$betfair = new Betfair($betfairClient, new ArrayAdapter());
-```
-With the **Betfair** object you can access to the API model to execute some query.
-For example, considering the Betfair __Event__ API, you can access to the relative object model by typing:
-```php
+$seriaACompetition = 81;
 $betfairEvent = $betfair->getBetfairEvent();
-```
-Following an helper to access the list of events API by typing:
-```php
-$result = $betfairEvent->getAllEventFilteredByEventTypeIds(array(1));
-```
-The result object  is a list of betfair events with event type = 1 (Soccer)
+$marketFilter = MarketFilter::create();
+$marketFilter->setTextQuery("Lazio")
+    ->setCompetitionIds(array($seriaACompetition));
 
-The following object are available:
-*   Competition: get betfair competition list
-*   Country: get the betfair country list
-*   Event: query the betfair events
-*   EventType: obtain the betfair's event type
-*   MarketBook: query the betfair market
-*   Market Catalogue: query the betfair market catalogue
-*   Time range: query teh betfair time range
+$betfairEvent->withMarketFilter($marketFilter);
+$events = $betfairEvent->getResults();
+```
+
+If an object doesn't require a Betfair Market Filter, you can simply specify the __Param__:
+```php
+$betfair = BetfairFactory::createBetfair(
+        $appKey,
+        $username,
+        $pwd
+    );
+
+$clearedOrder = $betfair->getBetfairClearedOrder();
+$param = $clearedOrder->createParam();
+$param->setBetStatus(BetStatus::SETTLED);
+$clearedOrder->withParam($param);
+$results = $clearedOrder->getResults();
+```
+
+
+Query the Betfair API without the helpers
+------------
+
+In any case you want to query the API without using the helpers you can just use the "api" function on the betfair object:
+```php
+public function api(ParamInterface $param, $method);
+```
+
+It will accept a __Param__ and a method name (listEevents, listMarketCatalogue ...)
+
+To Obtain a __Param__ object just use the proper factory:
+```php
+$param = Param::create();
+```
+
+if you want to add a market filter to the param just use the factory and then set is as following:
+```php
+$marketFilter = MarketFilter::create();
+$param->setMarketFilter($marketFilter);
+```
+
+Both __Param__ and __MarketFilter__ object have a list of methods to set the properties in a "builder" style:
+
+```php
+$marketFilter = MarketFilter::create()
+    ->setEventIds(array($events))
+    ->setCompetitionIds(array($competitions))
+    ->setBspOnly(true)
+    ->setInPlayOnly(true);
+
+```
+
+Read carefully the Betfair documentation API to use the proper properties with these objects.
 
 How to contribute
 ===========
 
-I'm very glad to be helped to maintain and extend this library. 
-Please read the [how to personalize the library](PERSONALIZE.md) section in order to understand how the library is built and how contribute on it
+I'm very glad to be helped to maintain and extend this library.
+Please feeling free to clone the repository and  collaborate with me.
 
 Reporting Issues
 ------------
@@ -131,10 +208,12 @@ Issue Tracker](https://github.com/danieledangeli/betfair-php/issues) or email me
 
 Todo
 ===========
-The library is actually "in dev" state and a lot of things to be done. 
-*   Enabling guzzle library
-*   Implements more "Betfair object" to extend the API wrapping
-*   Add more PHPspec test
+The library is actually "in dev" state and a lot of things to be done.
+*   ~~Enabling guzzle library~~
+*   Implements the last "Betfairs objects" to extend the API
+*   ~~Add more PHPspec test~~
 *   ~~PHPspec test refactoring~~
-*   Guzzle client side caching system
-*   Handling login or app key errors in array and json RPC adapters (result is not set)
+*   ~~Handling login or app key errors in array and json RPC adapters (result is not set)~~
+*   Integration tests after the last changes
+*   Add betfair Account API
+*   Add betfaur hearthbreat API

@@ -11,10 +11,7 @@ namespace Betfair;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Dependency\BetfairContainer;
-use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\MarketFilterFactoryInterface;
-use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Model\ParamInterface;
 
@@ -23,16 +20,15 @@ class BetfairGeneric extends AbstractBetfair
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter
-     * @param ParamFactory $paramFactory
-     * @param MarketFilterFactory $marketFilterFactory
+     * @param \Betfair\Factory\ParamFactory|\Betfair\Factory\ParamFactoryInterface $paramFactory
+     * @param \Betfair\Factory\MarketFilterFactory|\Betfair\Factory\MarketFilterFactoryInterface $marketFilterFactory
      */
     public function __construct(
         BetfairClientInterface $betfairClient,
         AdapterInterface $adapter,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
     }
 
@@ -40,4 +36,4 @@ class BetfairGeneric extends AbstractBetfair
     {
         return parent::executeCustomQuery($param, $method);
     }
-} 
+}

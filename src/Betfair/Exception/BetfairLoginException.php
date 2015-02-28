@@ -15,4 +15,5 @@ use HttpRequestException;
 class BetfairLoginException
     extends \Exception
     implements Exception
-{}
+{
+}

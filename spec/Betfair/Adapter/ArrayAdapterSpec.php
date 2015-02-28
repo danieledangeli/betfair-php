@@ -7,12 +7,12 @@ use Prophecy\Argument;
 
 class ArrayAdapterSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Adapter\ArrayAdapter');
     }
 
-    function it_have_adaptResponse()
+    public function it_have_adaptResponse()
     {
         $this->adaptResponse('{"ciao" : "hello"}')->shouldReturn(array('ciao' => 'hello'));
     }

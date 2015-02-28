@@ -14,317 +14,230 @@ class MarketFilter extends BetfairSerializable implements MarketFilterInterface
     /**
      * @var string
      */
-    public $textQuery;
+    protected $textQuery;
 
     /**
      * @var array
      */
-    public $exchangeIds;
+    protected $exchangeIds;
 
     /**
      * @var array
      */
-    public $eventTypeIds;
+    protected $eventTypeIds;
 
     /**
      * @var array
      */
-    public $eventIds;
+    protected $eventIds;
 
     /**
      * @var array
      */
-    public $competitionIds;
+    protected $competitionIds;
 
     /**
      * @var array
      */
-    public $marketIds;
+    protected $marketIds;
 
     /**
      * @var array
      */
-    public $venues;
+    protected $venues;
 
     /**
      * @var boolean
      */
-    public $bspOnly;
+    protected $bspOnly;
 
     /**
      * @var boolean
      */
-    public $turnInPlayEnabled;
+    protected $turnInPlayEnabled;
 
     /**
      * @var boolean
      */
-    public $inPlayOnly;
+    protected $inPlayOnly;
 
     /**
      * @var array
      */
-    public $marketBettingTypes;
+    protected $marketBettingTypes;
 
     /**
      * @var array
      */
-    public $marketCountries;
+    protected $marketCountries;
 
     /**
      * @var array
      */
-    public $marketTypeCodes;
+    protected $marketTypeCodes;
 
     /**
      * @var TimeRange
      */
-    public $marketStartTime;
+    protected $marketStartTime;
 
     /**
      * @var array OrderStatus
      */
-    public $withOrders;
+    protected $withOrders;
+
+    public static function create()
+    {
+        return new MarketFilter();
+    }
 
     /**
      * @param boolean $bspOnly
+     * @return $this
      */
     public function setBspOnly($bspOnly)
     {
         $this->bspOnly = $bspOnly;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getBspOnly()
-    {
-        return $this->bspOnly;
+        return $this;
     }
 
     /**
      * @param array $competitionIds
+     * @return $this|mixed
      */
     public function setCompetitionIds($competitionIds)
     {
         $this->competitionIds = $competitionIds;
-    }
-
-    /**
-     * @return array
-     */
-    public function getCompetitionIds()
-    {
-        return $this->competitionIds;
+        return $this;
     }
 
     /**
      * @param array $eventIds
+     * @return $this
      */
-    public function setEventIds($eventIds)
+    public function setEventIds(array $eventIds)
     {
         $this->eventIds = $eventIds;
-    }
-
-    /**
-     * @return array
-     */
-    public function getEventIds()
-    {
-        return $this->eventIds;
+        return $this;
     }
 
     /**
      * @param array $eventTypeIds
+     * @return $this
      */
     public function setEventTypeIds($eventTypeIds)
     {
         $this->eventTypeIds = $eventTypeIds;
-    }
-
-    /**
-     * @return array
-     */
-    public function getEventTypeIds()
-    {
-        return $this->eventTypeIds;
+        return $this;
     }
 
     /**
      * @param array $exchangeIds
+     * @return $this
      */
     public function setExchangeIds($exchangeIds)
     {
         $this->exchangeIds = $exchangeIds;
-    }
-
-    /**
-     * @return array
-     */
-    public function getExchangeIds()
-    {
-        return $this->exchangeIds;
+        return $this;
     }
 
     /**
      * @param boolean $inPlayOnly
+     * @return $this
      */
     public function setInPlayOnly($inPlayOnly)
     {
         $this->inPlayOnly = $inPlayOnly;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getInPlayOnly()
-    {
-        return $this->inPlayOnly;
+        return $this;
     }
 
     /**
      * @param array $marketBettingTypes
+     * @return $this
      */
     public function setMarketBettingTypes($marketBettingTypes)
     {
         $this->marketBettingTypes = $marketBettingTypes;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMarketBettingTypes()
-    {
-        return $this->marketBettingTypes;
+        return $this;
     }
 
     /**
      * @param array $marketCountries
+     * @return $this
      */
     public function setMarketCountries($marketCountries)
     {
         $this->marketCountries = $marketCountries;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMarketCountries()
-    {
-        return $this->marketCountries;
+        return $this;
     }
 
     /**
      * @param array $marketIds
+     * @return $this
      */
     public function setMarketIds($marketIds)
     {
         $this->marketIds = $marketIds;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMarketIds()
-    {
-        return $this->marketIds;
+        return $this;
     }
 
     /**
      * @param \Betfair\Model\TimeRange $marketStartTime
+     * @return $this
      */
     public function setMarketStartTime($marketStartTime)
     {
         $this->marketStartTime = $marketStartTime;
-    }
-
-    /**
-     * @return \Betfair\Model\TimeRange
-     */
-    public function getMarketStartTime()
-    {
-        return $this->marketStartTime;
-    }
-
-    /**
-     * @param array $marketTypeCodes
-     */
-    public function setMarketTypeCodes($marketTypeCodes)
-    {
-        $this->marketTypeCodes = $marketTypeCodes;
-    }
-
-    /**
-     * @return array
-     */
-    public function getMarketTypeCodes()
-    {
-        return $this->marketTypeCodes;
+        return $this;
     }
 
     /**
      * @param string $textQuery
+     * @return $this|mixed
      */
     public function setTextQuery($textQuery)
     {
         $this->textQuery = $textQuery;
-    }
-
-    /**
-     * @return string
-     */
-    public function getTextQuery()
-    {
-        return $this->textQuery;
+        return $this;
     }
 
     /**
      * @param boolean $turnInPlayEnabled
+     * @return $this
      */
     public function setTurnInPlayEnabled($turnInPlayEnabled)
     {
         $this->turnInPlayEnabled = $turnInPlayEnabled;
-    }
-
-    /**
-     * @return boolean
-     */
-    public function getTurnInPlayEnabled()
-    {
-        return $this->turnInPlayEnabled;
+        return $this;
     }
 
     /**
      * @param array $venues
+     * @return $this
      */
     public function setVenues($venues)
     {
         $this->venues = $venues;
-    }
-
-    /**
-     * @return array
-     */
-    public function getVenues()
-    {
-        return $this->venues;
+        return $this;
     }
 
     /**
      * @param array $withOrders
+     * @return $this|mixed
      */
     public function setWithOrders($withOrders)
     {
         $this->withOrders = $withOrders;
+        return $this;
     }
 
     /**
-     * @return array
+     * @param $marketTypeCodes
+     * @return $this
      */
-    public function getWithOrders()
+    public function setMarketTypeCodes($marketTypeCodes)
     {
-        return $this->withOrders;
+        $this->marketTypeCodes = $marketTypeCodes;
+        return $this;
     }
-
-
 }

@@ -9,7 +9,6 @@
  */
 namespace Betfair\Adapter;
 
-
 class JsonRpcAdapter implements AdapterInterface
 {
     public function adaptResponse($response)

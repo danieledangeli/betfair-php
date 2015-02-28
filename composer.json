@@ -16,18 +16,23 @@
     ],
 
     "require-dev": {
-        "phpspec/phpspec": "2.0.*@dev"
+        "phpspec/phpspec": "2.1.1",
+        "fabpot/php-cs-fixer": "@stable"
     },
     "config": {
         "bin-dir": "bin"
     },
 
     "require": {
-        "php": ">=5.4.0"
+        "php": ">=5.4.0",
+        "guzzlehttp/guzzle": "~5.0",
+        "guzzlehttp/command": "0.7.*",
+        "guzzlehttp/guzzle-services": "0.5.*"
     },
 
     "autoload": {
         "psr-0": { "Betfair": "src/" }
-    }
+    },
 
+    "minimum-stability ": "dev"
 }

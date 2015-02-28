@@ -23,6 +23,4 @@ abstract class MarketBettingType
      * This type is deprecated and will be removed in future releases,
      * when Sportsbook markets will be represented as ODDS market but with a different product type.
      */
-
-
-} 
+}

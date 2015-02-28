@@ -8,25 +8,19 @@
  * file that was distributed with this source code.
  */
 namespace Betfair;
+
 use Betfair\Adapter\AdapterInterface;
-use Betfair\Client\BetfairClient;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\Dependency\BetfairContainer;
-use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\MarketFilterFactoryInterface;
-use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\Helper\FilterHelper;
-use Betfair\Model\MarketFilter;
 use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
-use Betfair\Model\QueryManager;
 
 abstract class AbstractBetfair
 {
     const END_POINT_URL = "https://api.betfair.com/exchange/betting/json-rpc/v1";
+    const API_METHOD_NAME = "default";
 
     protected $betfairClient;
 
@@ -34,12 +28,9 @@ abstract class AbstractBetfair
 
     protected $adapter;
 
-    /** @var \Betfair\Model\QueryManager  */
-    protected $queryManager;
-
     protected $marketFilterFactory;
 
-    protected $paramFilterFactory;
+    protected $paramFactory;
 
     /**
      * @param BetfairClientInterface $betfairClient
@@ -52,57 +43,50 @@ abstract class AbstractBetfair
         AdapterInterface $adapter,
         ParamFactoryInterface $paramFactory,
         MarketFilterFactoryInterface $marketFilterFactory
-    )
-    {
+    ) {
         $this->betfairClient = $betfairClient;
         $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
         $this->marketFilterFactory = $marketFilterFactory;
-        $this->paramFilterFactory =  $paramFactory;
+        $this->paramFactory =  $paramFactory;
     }
 
     /**
      * @param $operation
-     * @param $params
+     * @param \Betfair\Model\Param|\Betfair\Model\ParamInterface $param
+     * @internal param $params
      * @return mixed
      */
-    public function doSportApiNgRequest($operation, $params)
+    public function doSportApiNgRequest($operation, ParamInterface $param)
     {
         $requestContent = $this->betfairClient->sportsApingRequest(
             $operation,
-            $params,
-            $this->endPointUrl
+            $param
         );
 
         return $requestContent;
     }
 
-    public function getAll($method)
-    {
-        $response = $this->doSportApiNgRequest($method, FilterHelper::getEmptyFilter());
-        return $this->adapter->adaptResponse($response);
-    }
-
     public function executeCustomQuery(ParamInterface $param, $method = null)
     {
-        $method = $method !== null ? $method : $this::METHOD;
-        $response = $this->doSportApiNgRequest($method, json_encode($param));
+        $method = $method !== null ? $method : $this::API_METHOD_NAME;
+        $response = $this->doSportApiNgRequest($method, $param);
         return $this->adapter->adaptResponse($response);
     }
 
-    public function getMarketFilter()
+    public function createMarketFilter()
     {
         return $this->marketFilterFactory->create();
     }
 
-    public function getParamFilter(MarketFilterInterface $marketFilterInterface)
+    public function createParam(MarketFilterInterface $marketFilter = null)
     {
-        return $this->paramFilterFactory->create($marketFilterInterface);
-    }
+        $param = $this->paramFactory->create();
 
-    public function getParamMarketBook()
-    {
-        return $this->paramFilterFactory->createParamMarketBook();
-    }
+        if ($marketFilter !== null) {
+            $param->setMarketFilter($marketFilter);
+        }
 
-} 
+        return $param;
+    }
+}

@@ -9,9 +9,10 @@
  */
 namespace Betfair\Client;
 
+use Betfair\Model\ParamInterface;
+
 interface BetfairClientInterface
 {
-    public function sportsApiNgRequest($operation, $params, $endPointUrl);
-    public function login();
-
-} 
+    public function sportsApiNgRequest($operation, ParamInterface $param);
+    public function authenticateCredential();
+}

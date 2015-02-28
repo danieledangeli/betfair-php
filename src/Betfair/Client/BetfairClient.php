@@ -9,107 +9,129 @@
  */
 namespace Betfair\Client;
 
-use Betfair\CredentialInterface;
+use Betfair\Credential\CredentialInterface;
 use Betfair\Exception\BetfairLoginException;
+use Betfair\Model\ParamInterface;
+use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use GuzzleHttp\Message\Response;
 
 class BetfairClient implements BetfairClientInterface
 {
     const LOGIN_ENDPOINT = "https://identitysso.betfair.com/api/login";
 
-    /** @var \Betfair\CredentialInterface  */
+    /** @var \Betfair\Credential\CredentialInterface  */
     protected $credential;
-    /** @var  BetfairJsonRpcClientInterface */
-    protected $httpClient;
 
-    public function __construct(CredentialInterface $credential, BetfairJsonRpcClientInterface $httpClientInterface = null)
+    /** @var  GuzzleClient $client */
+    protected $betfairGuzzleClient;
+
+    public function __construct(CredentialInterface $credential, BetfairGuzzleClient $guzzleClient)
     {
         $this->credential = $credential;
-        $this->httpClient = $httpClientInterface !== null ? $httpClientInterface : new JsonRpcClient();
-
+        $this->betfairGuzzleClient = $guzzleClient;
     }
 
-    public function sportsApiNgRequest($operation, $params, $endPointUrl)
+    /**
+     * @param $operationName operation name
+     * @param ParamInterface $param Param to be serialized in the request
+     * @return string $bodyString
+     */
+    public function sportsApiNgRequest($operationName, ParamInterface $param)
     {
-        if(!$this->credential->getSessionToken()) {
-            $sessionToken = $this->login();
-            $this->credential->setSessionToken($sessionToken);
-        }
-
-        return $this->httpClient->sportsApiNgRequest(
-            $this->credential,
-            $operation,
-            $params,
-            $endPointUrl
+        $requestParameters = array_merge(
+                $this->getDefaultAuthHeaderArray(),
+                $this->builtJsonRpcArrayParameters($operationName, $param)
         );
 
+        $response = $this->betfairGuzzleClient->sportApiNgRequest(
+            $requestParameters
+        );
 
+        return $response->getBody();
     }
 
-    public function login()
+    private function builtJsonRpcArrayParameters($operationName, ParamInterface $param)
     {
-        $login = "true";
-        $redirectmethod = "POST";
-        $product = "home.betfair.int";
-        $url = "https://www.betfair.com/";
-        $cookie = null;
+        $jsonRpcArrayParameters = array();
+        $jsonRpcArrayParameters['method'] = "SportsAPING/v1.0/" . $operationName;
+        $jsonRpcArrayParameters['params'] = $param;
 
-        $fields = array
-        (
-            'username'       => urlencode($this->credential->getUsername()),
-            'password'       => urlencode($this->credential->getPassword()),
-            'login'          => urlencode($login),
-            'redirectmethod' => urlencode($redirectmethod),
-            'product'        => urlencode($product),
-            'url'            => urlencode($url)
+        return $jsonRpcArrayParameters;
+    }
+
+    /**
+     * Login and set the sessionToken in Credential object
+     */
+    public function authenticateCredential()
+    {
+        $sessionToken = $this->login();
+        $this->credential->setSessionToken($sessionToken);
+    }
+
+    /**
+     * @return string $sessionToken
+     * @throws \Betfair\Exception\BetfairLoginException
+     */
+    private function login()
+    {
+        /** @var Response $result */
+        $result = $this->betfairGuzzleClient->betfairLogin($this->builtLoginArrayParameters());
+
+        if ($result && $result->getStatusCode() == 200) {
+            return $this->extractSessionTokenFromResponseBody($result->getBody());
+        }
+
+        throw new BetfairLoginException(sprintf("Error during credentials verification."));
+    }
+
+
+    private function getDefaultAuthHeaderArray()
+    {
+        if (!$this->credential->isAuthenticated()) {
+            $this->authenticateCredential();
+        }
+
+        return array(
+            "X-Application" => $this->credential->getApplicationKey(),
+            "X-Authentication" => $this->credential->getSessionToken()
         );
+    }
 
-        //open connection
-        $ch = curl_init(self::LOGIN_ENDPOINT);
-        //url-ify the data for the POST
-        $counter = 0;
-        $fields_string = "&";
+    private function builtLoginArrayParameters()
+    {
+        return array(
+            'X-Application' => $this->credential->getApplicationKey(),
+            'username' => $this->credential->getUsername(),
+            'password' => $this->credential->getPassword()
+        );
+    }
 
-        foreach($fields as $key=>$value)
-        {
-            if ($counter > 0)
-            {
-                $fields_string .= '&';
-            }
-            $fields_string .= $key.'='.$value;
-            $counter++;
+    private function extractSessionTokenFromResponseCookie($headerSetCookie)
+    {
+        $ssoid = explode(";", $headerSetCookie)[0];
+
+        $end = strlen($ssoid);
+        $start = strpos($ssoid, 'ssoid=');
+
+        //needs to be refactored
+        if ($start == 0 && $end) {
+            $start = $start + 6;
+            $sessionToken = substr($ssoid, $start, $end);
+
+            return $sessionToken;
         }
 
-        rtrim($fields_string,'&');
+        throw new BetfairLoginException(sprintf("Error during credentials verification."));
+    }
 
-        curl_setopt($ch, CURLOPT_URL, self::LOGIN_ENDPOINT);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_POSTFIELDS,$fields_string);
-        curl_setopt($ch, CURLOPT_HEADER, true);  // DO  RETURN HTTP HEADERS
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);  // DO RETURN THE CONTENTS OF THE CALL
+    private function extractSessionTokenFromResponseBody($responseBody)
+    {
+        $bodyArray = json_decode($responseBody, true);
 
-        //execute post
-
-        $result = curl_exec($ch);
-
-        if($result) {
-            $temp = explode(";", $result);
-            $result = $temp[0];
-
-            $end = strlen($result);
-            $start = strpos($result, 'ssoid=');
-
-            //needs to be refactored
-            if($start && $end) {
-                $start = $start + 6;
-                $cookie = substr($result, $start, $end);
-                $this->credential->setSessionToken($cookie);
-                curl_close($ch);
-                return $cookie;
-            }
+        if (isset($bodyArray["status"]) && $bodyArray["status"] == "SUCCESS") {
+            return $bodyArray["token"];
         }
 
-        curl_close($ch);
         throw new BetfairLoginException(sprintf("Error during credentials verification."));
     }
 }
