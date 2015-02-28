@@ -157,6 +157,14 @@ $clearedOrder->withParam($param);
 $results = $clearedOrder->getResults();
 ```
 
+The following object are available:
+*   Competition: get betfair competition list
+*   Country: get the betfair country list
+*   Event: query the betfair events
+*   EventType: obtain the betfair's event type
+*   MarketBook: query the betfair market
+*   Market Catalogue: query the betfair market catalogue
+*   Time range: query the betfair time range
 
 Query the Betfair API without the helpers
 ------------
