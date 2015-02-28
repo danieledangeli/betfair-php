@@ -17,7 +17,7 @@ class ClearedOrderSpec extends ObjectBehavior
     protected $paramFactory;
     protected $marketFilterFactory;
 
-    function it_is_initializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\BettingApi\Order\ClearedOrder');
     }

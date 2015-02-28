@@ -15,6 +15,7 @@ class CredentialSpec extends ObjectBehavior
 
         $this->beConstructedWith($applicationKey, $username, $password);
     }
+
     public function it_is_initializable()
     {
         $this->shouldHaveType('Betfair\Credential\Credential');

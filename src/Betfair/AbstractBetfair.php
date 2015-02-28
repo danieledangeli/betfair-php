@@ -20,6 +20,7 @@ use Betfair\Model\ParamInterface;
 abstract class AbstractBetfair
 {
     const END_POINT_URL = "https://api.betfair.com/exchange/betting/json-rpc/v1";
+    const API_METHOD_NAME = "default";
 
     protected $betfairClient;
 

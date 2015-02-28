@@ -1,26 +1,20 @@
 <?php
 
-namespace spec\Betfair\BettingApi\Order;
+namespace spec\Betfair\BettingApi\Venues;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class CurrentOrderSpec extends ObjectBehavior
+class VenuesSpec extends ObjectBehavior
 {
     protected $client;
     protected $adapterInterface;
     protected $paramFactory;
     protected $marketFilterFactory;
-
-    public function it_is_initializable()
-    {
-        $this->shouldHaveType('Betfair\BettingApi\Order\CurrentOrder');
-    }
 
     public function let(
         BetfairClientInterface $client,
@@ -39,5 +33,10 @@ class CurrentOrderSpec extends ObjectBehavior
             $this->paramFactory,
             $this->marketFilterFactory
         );
+    }
+
+    public function it_is_initializable()
+    {
+        $this->shouldHaveType('Betfair\BettingApi\Venues\Venues');
     }
 }

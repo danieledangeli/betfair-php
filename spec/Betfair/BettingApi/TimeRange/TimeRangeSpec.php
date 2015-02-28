@@ -6,6 +6,7 @@ use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
+
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

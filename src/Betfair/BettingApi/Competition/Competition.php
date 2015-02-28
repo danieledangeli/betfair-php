@@ -9,8 +9,8 @@
  */
 namespace Betfair\BettingApi\Competition;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairMarketFilterObject;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
@@ -19,7 +19,7 @@ use Betfair\Factory\ParamFactoryInterface;
  * Class Competition
  * @package Betfair\BettingApi\Competition
  */
-class Competition extends AbstractBetfair
+class Competition extends BetfairMarketFilterObject
 {
     /**
      * @param BetfairClientInterface $betfairClient

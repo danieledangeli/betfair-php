@@ -83,6 +83,8 @@ class Param extends BetfairSerializable implements ParamInterface
     /** @var  $sortDir */
     protected $sortDir;
 
+    protected $betStatus;
+
     public static function create()
     {
         return new Param();
@@ -327,6 +329,12 @@ class Param extends BetfairSerializable implements ParamInterface
     public function setSortDir($sortDir)
     {
         $this->sortDir = $sortDir;
+        return $this;
+    }
+
+    public function setBetStatus($betStatus)
+    {
+        $this->betStatus = $betStatus;
         return $this;
     }
 }

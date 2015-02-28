@@ -4,13 +4,14 @@ namespace Betfair\BettingApi\Order;
 
 use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairParamObject;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
 
-class CurrentOrder extends AbstractBetfair
+class CurrentOrder extends BetfairParamObject
 {
-    const API_METHOD_NAME = "listClearedOrders";
+    const API_METHOD_NAME = "listCurrentOrders";
 
     /**
      * @param BetfairClientInterface $betfairClient

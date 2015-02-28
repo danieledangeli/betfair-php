@@ -14,77 +14,77 @@ class MarketFilter extends BetfairSerializable implements MarketFilterInterface
     /**
      * @var string
      */
-    public $textQuery;
+    protected $textQuery;
 
     /**
      * @var array
      */
-    public $exchangeIds;
+    protected $exchangeIds;
 
     /**
      * @var array
      */
-    public $eventTypeIds;
+    protected $eventTypeIds;
 
     /**
      * @var array
      */
-    public $eventIds;
+    protected $eventIds;
 
     /**
      * @var array
      */
-    public $competitionIds;
+    protected $competitionIds;
 
     /**
      * @var array
      */
-    public $marketIds;
+    protected $marketIds;
 
     /**
      * @var array
      */
-    public $venues;
+    protected $venues;
 
     /**
      * @var boolean
      */
-    public $bspOnly;
+    protected $bspOnly;
 
     /**
      * @var boolean
      */
-    public $turnInPlayEnabled;
+    protected $turnInPlayEnabled;
 
     /**
      * @var boolean
      */
-    public $inPlayOnly;
+    protected $inPlayOnly;
 
     /**
      * @var array
      */
-    public $marketBettingTypes;
+    protected $marketBettingTypes;
 
     /**
      * @var array
      */
-    public $marketCountries;
+    protected $marketCountries;
 
     /**
      * @var array
      */
-    public $marketTypeCodes;
+    protected $marketTypeCodes;
 
     /**
      * @var TimeRange
      */
-    public $marketStartTime;
+    protected $marketStartTime;
 
     /**
      * @var array OrderStatus
      */
-    public $withOrders;
+    protected $withOrders;
 
     public static function create()
     {

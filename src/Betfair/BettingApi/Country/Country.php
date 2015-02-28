@@ -9,16 +9,16 @@
  */
 namespace Betfair\BettingApi\Country;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairMarketFilterObject;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Factory\MarketFilterFactory;
 use Betfair\Factory\MarketFilterFactoryInterface;
-use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
 
-class Country extends AbstractBetfair
+class Country extends BetfairMarketFilterObject
 {
+    const API_METHOD_NAME = "listCountries";
+
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter

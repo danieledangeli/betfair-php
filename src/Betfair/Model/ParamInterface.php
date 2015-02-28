@@ -156,4 +156,10 @@ interface ParamInterface
      * @return $this
      */
     public function setSortDir($sortDir);
+
+    /**
+     * @param $betStatus
+     * @return mixed
+     */
+    public function setBetStatus($betStatus);
 }

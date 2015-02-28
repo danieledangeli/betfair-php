@@ -14,6 +14,12 @@ class BetfairFactory
         $factory = new BetfairGuzzleClientFactory(__DIR__."/Resources/specification");
         $betfairClient = new BetfairClient($credential, $factory->createBetfairGuzzleClient($options));
 
-        return new Betfair($betfairClient);
+        $responseAdapter = null;
+
+        if (isset($options["responseAdapter"])) {
+            $responseAdapter = $options["responseAdapter"];
+        }
+
+        return new Betfair($betfairClient, $responseAdapter);
     }
 }

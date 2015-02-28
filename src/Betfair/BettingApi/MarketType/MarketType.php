@@ -2,13 +2,13 @@
 
 namespace Betfair\BettingApi\MarketType;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairMarketFilterObject;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
 
-class MarketType extends AbstractBetfair
+class MarketType extends BetfairMarketFilterObject
 {
     const API_METHOD_NAME = "listMarketTypes";
 

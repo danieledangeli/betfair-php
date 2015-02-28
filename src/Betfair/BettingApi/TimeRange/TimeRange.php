@@ -9,14 +9,16 @@
  */
 namespace Betfair\BettingApi\TimeRange;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairMarketFilterObject;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
 
-class TimeRange extends AbstractBetfair
+class TimeRange extends BetfairMarketFilterObject
 {
+    const API_METHOD_NAME = "listTimeRanges";
+
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter

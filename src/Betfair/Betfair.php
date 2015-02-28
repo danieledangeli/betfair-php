@@ -12,6 +12,10 @@ namespace Betfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
 use Betfair\Adapter\ArrayRpcAdapter;
+use Betfair\BettingApi\MarketType\MarketType;
+use Betfair\BettingApi\Order\ClearedOrder;
+use Betfair\BettingApi\Order\CurrentOrder;
+use Betfair\BettingApi\Venues\Venues;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\BettingApi\Competition\Competition;
 use Betfair\BettingApi\Country\Country;
@@ -71,6 +75,15 @@ class Betfair
     }
 
     /**
+     * @return BetfairGeneric
+     */
+    public function getBetfairGeneric()
+    {
+        $this->betfairGeneric = new BetfairGeneric($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+        return $this->betfairGeneric;
+    }
+
+    /**
      * @return EventType
      */
     public function getBetfairEventType()
@@ -79,14 +92,6 @@ class Betfair
     }
 
     /**
-     * @return BetfairGeneric
-     */
-    public function getBetfairGeneric()
-    {
-        $this->betfairGeneric = new BetfairGeneric($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
-        return $this->betfairGeneric;
-    }
-    /**
      * @return Event
      */
     public function getBetfairEvent()
@@ -94,28 +99,72 @@ class Betfair
         return new Event($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return MarketCatalogue
+     */
     public function getBetfairMarketCatalogue()
     {
         return new MarketCatalogue($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return MarketBook
+     */
     public function getBetfairMarketBook()
     {
         return new MarketBook($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return Country
+     */
     public function getBetfairCountry()
     {
         return new Country($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return Competition
+     */
     public function getBetfairCompetition()
     {
         return new Competition($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return TimeRange
+     */
     public function getBetfairTimeRange()
     {
         return new TimeRange($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+    /**
+     * @return MarketType
+     */
+    public function getBetfairMarketType()
+    {
+        return new MarketType($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+    /**
+     * @return ClearedOrder
+     */
+    public function getBetfairClearedOrder()
+    {
+        return new ClearedOrder($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+    /**
+     * @return CurrentOrder
+     */
+    public function getBetfairCurrentOrder()
+    {
+        return new CurrentOrder($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+    public function getVenues()
+    {
+        return new Venues($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 }

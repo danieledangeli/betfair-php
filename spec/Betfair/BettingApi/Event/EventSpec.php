@@ -4,8 +4,6 @@ namespace spec\Betfair\BettingApi\Event;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
-use Betfair\Client\BetfairJsonRpcClientInterface;
-use Betfair\Client\JsonRpcClient;
 use Betfair\Credential\CredentialInterface;
 use Betfair\BettingApi\Event\Event;
 use Betfair\Factory\MarketFilterFactoryInterface;

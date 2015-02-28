@@ -9,8 +9,8 @@
  */
 namespace Betfair\BettingApi\Event;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
+use Betfair\BettingApi\BetfairMarketFilterObject;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
@@ -19,13 +19,12 @@ use Betfair\Factory\ParamFactoryInterface;
  * Class Event
  * @package Betfair\BettingApi\Event
  */
-class Event extends AbstractBetfair
+class Event extends BetfairMarketFilterObject
 {
     /**
      * The API METHOD NAME
      */
     const API_METHOD_NAME = "listEvents";
-
 
     /**
      * @param BetfairClientInterface $betfairClient
