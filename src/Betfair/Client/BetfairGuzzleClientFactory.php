@@ -20,12 +20,12 @@ class BetfairGuzzleClientFactory
             :__DIR__."/../Resources/specification";
     }
 
-    public function createBetfairGuzzleClient()
+    public function createBetfairGuzzleClient($options = array())
     {
         $httpClient = new Client();
 
         $description = new Description(
-            $this->getConfigDescriptionArrayFromSpecificationDir($this->specificationDir)
+            $this->getConfigDescriptionArrayFromSpecificationDir($this->specificationDir, $options)
         );
 
         $guzzleClient = new GuzzleClient($httpClient, $description, [
@@ -35,11 +35,13 @@ class BetfairGuzzleClientFactory
         return new BetfairGuzzleClient($guzzleClient);
     }
 
-    public function getConfigDescriptionArrayFromSpecificationDir($specificationDir)
+    public function getConfigDescriptionArrayFromSpecificationDir($specificationDir, $options = array())
     {
         $guzzleHeaderSpec = sprintf("%s/api_version_description.yml", $specificationDir);
         $yamlLoader = new Yaml();
         $headersArray = $yamlLoader->parse($guzzleHeaderSpec);
+        $headersArray = $this->mergeUserHeaderOptions($headersArray, $options);
+
         $headersArray['operations'] = array();
         $finder = new Finder();
         $finder->files()->in($specificationDir)->notName("api_version_description.yml");
@@ -47,6 +49,9 @@ class BetfairGuzzleClientFactory
         foreach ($finder as $file) {
             $spec = $yamlLoader->parse(file_get_contents($file->getRealPath()));
             foreach ($spec['operations'] as $key => $operationArray) {
+                if ($key == "betfairLogin") {
+                    $operationArray = $this->mergeUserLoginOptions($operationArray, $options);
+                }
                 $headersArray['operations'][$key] = $operationArray;
             }
 
@@ -56,5 +61,23 @@ class BetfairGuzzleClientFactory
         }
 
         return $headersArray;
+    }
+
+    private function mergeUserHeaderOptions($headersArray, array $options)
+    {
+        if (isset($options['baseUrl'])) {
+            $headersArray['baseUrl'] = $options['baseUrl'];
+        }
+
+        return $headersArray;
+    }
+
+    private function mergeUserLoginOptions($operationArray, array $options)
+    {
+        if (isset($options['loginEndpoint'])) {
+            $operationArray['uri'] = $options['loginEndpoint'];
+        }
+
+        return $operationArray;
     }
 }

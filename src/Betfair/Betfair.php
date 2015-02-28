@@ -11,6 +11,7 @@ namespace Betfair;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
+use Betfair\Adapter\ArrayRpcAdapter;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\BettingApi\Competition\Competition;
 use Betfair\BettingApi\Country\Country;
@@ -21,6 +22,7 @@ use Betfair\Factory\ParamFactory;
 use Betfair\BettingApi\MarketBook\MarketBook;
 use Betfair\BettingApi\MarketCatalogue\MarketCatalogue;
 use Betfair\BettingApi\TimeRange\TimeRange;
+use Betfair\Model\ParamInterface;
 
 class Betfair
 {
@@ -49,14 +51,23 @@ class Betfair
     /** @var \Betfair\Factory\MarketFilterFactory  */
     protected $marketFilterFactory;
 
+    /** @var  BetfairGeneric */
+    protected $betfairGeneric;
+
     public function __construct(
         BetfairClientInterface $client,
         AdapterInterface $adapter = null
     ) {
         $this->betfairClient = $client;
-        $this->adapter = (null !== $adapter) ? $adapter : new ArrayAdapter();
+        $this->adapter = (null !== $adapter) ? $adapter : new ArrayRpcAdapter();
         $this->paramFactory = new ParamFactory();
         $this->marketFilterFactory = new MarketFilterFactory();
+    }
+
+    public function api(ParamInterface $param, $method)
+    {
+        $betfairGeneric = $this->getBetfairGeneric();
+        return $betfairGeneric->executeCustomQuery($param, $method);
     }
 
     /**
@@ -67,9 +78,13 @@ class Betfair
         return new EventType($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 
+    /**
+     * @return BetfairGeneric
+     */
     public function getBetfairGeneric()
     {
-        return new BetfairGeneric($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+        $this->betfairGeneric = new BetfairGeneric($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+        return $this->betfairGeneric;
     }
     /**
      * @return Event

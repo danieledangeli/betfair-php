@@ -14,6 +14,7 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Model\MarketFilterInterface;
+use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
 
 abstract class AbstractBetfair
@@ -28,7 +29,7 @@ abstract class AbstractBetfair
 
     protected $marketFilterFactory;
 
-    protected $paramFilterFactory;
+    protected $paramFactory;
 
     /**
      * @param BetfairClientInterface $betfairClient
@@ -46,7 +47,7 @@ abstract class AbstractBetfair
         $this->adapter    = $adapter;
         $this->endPointUrl = self::END_POINT_URL;
         $this->marketFilterFactory = $marketFilterFactory;
-        $this->paramFilterFactory =  $paramFactory;
+        $this->paramFactory =  $paramFactory;
     }
 
     /**
@@ -77,13 +78,14 @@ abstract class AbstractBetfair
         return $this->marketFilterFactory->create();
     }
 
-    public function createParamFilter(MarketFilterInterface $marketFilterInterface)
+    public function createParam(MarketFilterInterface $marketFilter = null)
     {
-        return $this->paramFilterFactory->create($marketFilterInterface);
-    }
+        $param = $this->paramFactory->create();
 
-    public function createParamMarketBook()
-    {
-        return $this->paramFilterFactory->createParamMarketBook();
+        if ($marketFilter !== null) {
+            $param->setMarketFilter($marketFilter);
+        }
+
+        return $param;
     }
 }

@@ -43,7 +43,7 @@ class EventType extends AbstractBetfair
     {
         $response = $this->doSportApiNgRequest(
             self::API_METHOD_NAME,
-            $this->createParamFilter($this->createMarketFilter())
+            $this->createParam($this->createMarketFilter())
         );
 
         return $this->adapter->adaptResponse($response);
@@ -58,7 +58,7 @@ class EventType extends AbstractBetfair
         $marketFilter = $this->createMarketFilter();
         $marketFilter->setEventTypeIds($eventTypeIds);
 
-        $param = $this->createParamFilter($marketFilter);
+        $param = $this->createParam($marketFilter);
 
         return $this->adapter->adaptResponse(
             $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)

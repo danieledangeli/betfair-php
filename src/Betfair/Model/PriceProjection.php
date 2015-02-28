@@ -1,30 +1,88 @@
 <?php
-/**
- * This file is part of the Betfair library.
- *
- * (c) Daniele D'Angeli <dangeli88.daniele@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
+
 namespace Betfair\Model;
 
-abstract class PriceProjection
+class PriceProjection extends BetfairSerializable
 {
-    const SP_AVAILABLE = "SP_AVAILABLE";
-    const SP_TRADED = "SP_TRADED";
-    const EX_BEST_OFFERS = "EX_BEST_OFFERS";
-    const EX_ALL_OFFERS = "EX_ALL_OFFERS";
-    const EX_TRADED = "EX_TRADED";
 
-    public static function getAll()
+    /** @var  array  */
+    protected $priceData;
+
+    /** @var  ExBestOffersOverrides */
+    protected $exBestOffersOverrides;
+
+    /** @var  boolean */
+    protected $virtualise;
+
+    /** @var  boolean */
+    protected $rolloverStakes;
+
+    public function __construct($priceData = array())
     {
-        return array(
-            self::SP_AVAILABLE,
-            self::SP_TRADED,
-            self::EX_BEST_OFFERS,
-            self::EX_ALL_OFFERS,
-            self::EX_TRADED,
-        );
+        $this->priceData = $priceData;
+    }
+
+    /**
+     * @param \Betfair\Model\ExBestOffersOverrides $exBestOffersOverrides
+     */
+    public function setExBestOffersOverrides($exBestOffersOverrides)
+    {
+        $this->exBestOffersOverrides = $exBestOffersOverrides;
+    }
+
+    /**
+     * @return \Betfair\Model\ExBestOffersOverrides
+     */
+    public function getExBestOffersOverrides()
+    {
+        return $this->exBestOffersOverrides;
+    }
+
+    /**
+     * @param array $priceData
+     */
+    public function setPriceData($priceData)
+    {
+        $this->priceData = $priceData;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPriceData()
+    {
+        return $this->priceData;
+    }
+
+    /**
+     * @param boolean $rolloverStakes
+     */
+    public function setRolloverStakes($rolloverStakes)
+    {
+        $this->rolloverStakes = $rolloverStakes;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getRolloverStakes()
+    {
+        return $this->rolloverStakes;
+    }
+
+    /**
+     * @param boolean $virtualise
+     */
+    public function setVirtualise($virtualise)
+    {
+        $this->virtualise = $virtualise;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getVirtualise()
+    {
+        return $this->virtualise;
     }
 }

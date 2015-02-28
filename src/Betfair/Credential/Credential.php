@@ -34,8 +34,8 @@ class Credential implements CredentialInterface
     public function __construct($applicationKey, $username, $password)
     {
         $this->applicationKey   = $applicationKey;
-        $this->password         = $password;
         $this->username         = $username;
+        $this->password         = $password;
     }
 
     /**

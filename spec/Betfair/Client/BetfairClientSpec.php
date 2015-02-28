@@ -57,16 +57,22 @@ class BetfairClientSpec extends ObjectBehavior
     ) {
         $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
         $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
-        $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
+        $credential->getApplicationKey()->shouldBeCalled()->willReturn('appkey');
+
+        $expectedLoginGuzzleParameters = array(
+            'X-Application' => 'appkey',
+            'username' => 'usr1',
+            'password' => 'pwd1',
+        );
 
         $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)
             ->shouldBeCalled()
             ->willReturn($response);
 
         $response->getStatusCode()->shouldBeCalled()->willReturn(200);
-        $response->getHeader('Set-Cookie')->shouldBeCalled()->willReturn("ssoid:123456");
+        $response->getBody()->shouldBeCalled()->willReturn(json_encode(array("status" => "SUCCESS", "token" => "12345")));
 
-        $credential->setSessionToken("123456")->shouldBeCalled();
+        $credential->setSessionToken("12345")->shouldBeCalled();
         $this->authenticateCredential();
     }
 
@@ -77,66 +83,74 @@ class BetfairClientSpec extends ObjectBehavior
     ) {
         $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
         $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
-        $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
+        $credential->getApplicationKey()->shouldBeCalled()->willReturn('appkey');
 
-        $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)
-        ->shouldBeCalled()
-        ->willReturn($response);
-
-        $response->getStatusCode()->shouldBeCalled()->willReturn(401);
-
-        $this->shouldThrow('Betfair\Exception\BetfairLoginException')->
-            duringAuthenticateCredential();
-    }
-
-    public function it_raise_betfar_login_exception_when_response_not_have_set_cookie(
-        CredentialInterface $credential,
-        BetfairGuzzleClient $betfairHttpClient,
-        Response $response
-    ) {
-        $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
-        $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
-        $expectedLoginGuzzleParameters = array('username' => 'usr1', 'password' => 'pwd1');
+        $expectedLoginGuzzleParameters = array(
+            'username' => 'usr1',
+            'password' => 'pwd1',
+            'X-Application' => 'appkey'
+        );
 
         $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)
             ->shouldBeCalled()
             ->willReturn($response);
 
         $response->getStatusCode()->shouldBeCalled()->willReturn(200);
-        $response->getHeader('Set-Cookie')->shouldBeCalled()->willReturn(null);
+        $response->getBody()->shouldBeCalled()->willReturn(json_encode(array("status" => "FAILED")));
 
         $this->shouldThrow('Betfair\Exception\BetfairLoginException')->
             duringAuthenticateCredential();
     }
 
-    public function it_do_sport_api_ng_request_with_not_authenticated_credentials(
+    public function it_raise_betfar_login_exception_when_response_not_have_a_valid_body(
         CredentialInterface $credential,
         BetfairGuzzleClient $betfairHttpClient,
-        Param $param,
         Response $response
     ) {
-        $operationName = 'listApiThing';
+        $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
+        $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
+        $credential->getApplicationKey()->shouldBeCalled()->willReturn('appkey');
 
-        $credential->isAuthenticated()->willReturn(false);
-
-        $this->it_authenticate_credentials($credential, $betfairHttpClient, $response);
-
-        $credential->getApplicationKey()->willReturn('app-key');
-        $credential->getSessionToken()->willReturn('session-token');
-
-        $expectedGuzzleParameters = array(
-            "X-Application" => 'app-key',
-            "X-Authentication" => 'session-token',
-            'method' => "SportsAPING/v1.0/" . $operationName,
-            'params' => $param
+        $expectedLoginGuzzleParameters = array(
+            'username' => 'usr1',
+            'password' => 'pwd1',
+            'X-Application' => 'appkey'
         );
 
-        $betfairHttpClient->sportApiNgRequest($expectedGuzzleParameters)
+        $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)
             ->shouldBeCalled()
             ->willReturn($response);
 
-        $response->getBody()->shouldBeCalled()->willReturn('body response');
+        $response->getStatusCode()->shouldBeCalled()->willReturn(200);
+        $response->getBody()->shouldBeCalled()->willReturn(null);
 
-        $this->sportsApiNgRequest($operationName, $param)->shouldReturn("body response");
+        $this->shouldThrow('Betfair\Exception\BetfairLoginException')->
+            duringAuthenticateCredential();
+    }
+
+    public function it_raise_betfar_login_exception_when_response_not_have_a_200_status_code(
+        CredentialInterface $credential,
+        BetfairGuzzleClient $betfairHttpClient,
+        Response $response
+    ) {
+        $credential->getUsername()->shouldBeCalled()->willReturn('usr1');
+        $credential->getPassword()->shouldBeCalled()->willReturn('pwd1');
+        $credential->getApplicationKey()->shouldBeCalled()->willReturn('appkey');
+
+        $expectedLoginGuzzleParameters = array(
+            'username' => 'usr1',
+            'password' => 'pwd1',
+            'X-Application' => 'appkey'
+        );
+
+        $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)
+            ->shouldBeCalled()
+            ->willReturn($response);
+
+        $response->getStatusCode()->shouldBeCalled()->willReturn(401);
+        $response->getBody()->shouldNotBeCalled();
+
+        $this->shouldThrow('Betfair\Exception\BetfairLoginException')->
+            duringAuthenticateCredential();
     }
 }

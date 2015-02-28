@@ -1,22 +1,26 @@
 <?php
 
-namespace spec\Betfair\BettingApi\MarketBook;
+namespace spec\Betfair\BettingApi\MarketType;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
-use Betfair\Model\Param;
-use Betfair\Model\ParamMarketBook;
+
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class MarketBookSpec extends ObjectBehavior
+class MarketTypeSpec extends ObjectBehavior
 {
     protected $client;
     protected $adapterInterface;
     protected $paramFactory;
     protected $marketFilterFactory;
+
+    function it_is_initializable()
+    {
+        $this->shouldHaveType('Betfair\BettingApi\MarketType\MarketType');
+    }
 
     public function let(
         BetfairClientInterface $client,
@@ -35,35 +39,5 @@ class MarketBookSpec extends ObjectBehavior
             $this->paramFactory,
             $this->marketFilterFactory
         );
-    }
-
-    public function it_is_initializable()
-    {
-        $this->shouldHaveType('Betfair\BettingApi\MarketBook\MarketBook');
-    }
-
-    public function it_get_market_book_filtered_by_market_ids(
-        Param $param
-    ) {
-        $response = '{response}';
-
-        $this->paramFactory
-            ->create()
-            ->shouldBeCalled()
-            ->willReturn($param);
-
-        $param
-            ->setMarketIds(array(1))
-            ->shouldBeCalled();
-
-        $this->client->sportsApiNgRequest('listMarketBook', $param)
-            ->shouldBeCalled()
-            ->willReturn($response);
-
-        $this->adapterInterface->adaptResponse($response)
-            ->shouldBeCalled()
-            ->willReturn(array('response'));
-
-        $this->getMarketBookFilterByMarketIds(array(1));
     }
 }

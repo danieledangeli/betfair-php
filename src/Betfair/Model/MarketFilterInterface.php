@@ -13,150 +13,85 @@ interface MarketFilterInterface
 {
     /**
      * @param $competitionIds
-     * @return mixed
+     * @return $this
      */
     public function setCompetitionIds($competitionIds);
 
     /**
-     * @return array
-     */
-    public function getCompetitionIds();
-
-    /**
      * @param $eventIds
-     * @return mixed
+     * @return $this
      */
-    public function setEventIds($eventIds);
-
-    /**
-     * @return array
-     */
-    public function getEventIds();
+    public function setEventIds(array $eventIds);
 
     /**
      * @param $eventTypeIds
-     * @return mixed
+     * @return $this
      */
     public function setEventTypeIds($eventTypeIds);
 
     /**
-     * @return array
-     */
-    public function getEventTypeIds();
-
-    /**
      * @param $exchangeIds
-     * @return mixed
+     * @return $this
      */
     public function setExchangeIds($exchangeIds);
-    /**
-     * @return array
-     */
-    public function getExchangeIds();
 
     /**
      * @param $inPlayOnly
-     * @return mixed
+     * @return $this
      */
     public function setInPlayOnly($inPlayOnly);
-    /**
-     * @return boolean
-     */
-    public function getInPlayOnly();
 
     /**
      * @param $marketBettingTypes
-     * @return mixed
+     * @return $this
      */
     public function setMarketBettingTypes($marketBettingTypes);
-    /**
-     * @return array
-     */
-    public function getMarketBettingTypes();
 
     /**
      * @param $contries
-     * @return mixed
+     * @return $this
      */
     public function setMarketCountries($contries);
 
     /**
-     * @return array
-     */
-    public function getMarketCountries();
-
-    /**
      * @param $marketIds
-     * @return mixed
+     * @return $this
      */
     public function setMarketIds($marketIds);
-    /**
-     * @return array
-     */
-    public function getMarketIds();
 
     /**
      * @param $marketStartTime
-     * @return mixed
+     * @return $this
      */
     public function setMarketStartTime($marketStartTime);
 
     /**
-     * @return \Betfair\Model\TimeRange
-     */
-    public function getMarketStartTime();
-
-    /**
      * @param $marketTypeCodes
-     * @return mixed
+     * @return $this
      */
     public function setMarketTypeCodes($marketTypeCodes);
 
     /**
-     * @return array
-     */
-    public function getMarketTypeCodes();
-
-    /**
      * @param $textQuery
-     * @return mixed
+     * @return $this
      */
     public function setTextQuery($textQuery);
 
     /**
-     * @return string
-     */
-    public function getTextQuery();
-
-    /**
      * @param $inPlay
-     * @return mixed
+     * @return $this
      */
     public function setTurnInPlayEnabled($inPlay);
 
     /**
-     * @return boolean
-     */
-    public function getTurnInPlayEnabled();
-
-    /**
      * @param $venues
-     * @return mixed
+     * @return $this
      */
     public function setVenues($venues);
 
     /**
-     * @return array
-     */
-    public function getVenues();
-
-    /**
      * @param $withOrders
-     * @return mixed
+     * @return $this
      */
     public function setWithOrders($withOrders);
-    /**
-     * @return array
-     */
-    public function getWithOrders();
 }

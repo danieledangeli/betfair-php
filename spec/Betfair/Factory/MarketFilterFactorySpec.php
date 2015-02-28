@@ -10,7 +10,7 @@ class MarketFilterFactorySpec extends ObjectBehavior
 {
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\Factory\MarketFilterfactory');
+        $this->shouldHaveType('Betfair\Factory\MarketFilterFactory');
     }
 
     public function it_is_have_create()

@@ -14,12 +14,19 @@ use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
+use Betfair\Model\MarketFilter;
 use Betfair\Model\MarketProjection;
 
 class MarketCatalogue extends AbstractBetfair
 {
     const API_METHOD_NAME = "listMarketCatalogue";
-    const DEFAULT_MAX_RESULT = "100";
+    const MAX_RESULT = "100";
+
+    private $maxResults;
+    private $marketProjections;
+    private $marketSort;
+    private $locale;
+    private $marketFilter;
 
     /**
      * @param BetfairClientInterface $betfairClient
@@ -34,6 +41,20 @@ class MarketCatalogue extends AbstractBetfair
         MarketFilterFactoryInterface $marketFilterFactory
     ) {
         parent::__construct($betfairClient, $adapter, $paramFactory, $marketFilterFactory);
+        $this->restoreDefaultsProperties();
+    }
+
+    public function getResults()
+    {
+        $param = $this->createParam($this->marketFilter)
+            ->setMaxResults($this->maxResults)
+            ->setLocale($this->locale)
+            ->setMarketSort($this->marketSort)
+            ->setMarketProjection($this->marketProjections);
+
+        $this->restoreDefaultsProperties();
+
+        return $this->executeCustomQuery($param);
     }
 
     public function listMarketCatalogue(array $eventTypes)
@@ -41,9 +62,11 @@ class MarketCatalogue extends AbstractBetfair
         $filter = $this->createMarketFilter();
         $filter->setEventTypeIds($eventTypes);
 
-        $param = $this->createParamFilter($filter);
-        $param->setMarketProjection(MarketProjection::getAll());
-        $param->setMaxResults(self::DEFAULT_MAX_RESULT);
+        $param = $this->createParam($filter);
+
+        $param->setMaxResults(self::MAX_RESULT);
+
+        $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
             $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
@@ -55,9 +78,11 @@ class MarketCatalogue extends AbstractBetfair
         $marketFilter = $this->createMarketFilter();
         $marketFilter->setEventIds($eventIds);
 
-        $param = $this->createParamFilter($marketFilter);
-        $param->setMarketProjection(MarketProjection::getAll());
-        $param->setMaxResults(self::DEFAULT_MAX_RESULT);
+        $param = $this->createParam($marketFilter);
+
+        $param->setMaxResults(self::MAX_RESULT);
+
+        $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
             $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
@@ -70,12 +95,54 @@ class MarketCatalogue extends AbstractBetfair
         $marketFilter->setEventIds($eventIds);
         $marketFilter->setMarketTypeCodes($marketTypes);
 
-        $param = $this->createParamFilter($marketFilter);
-        $param->setMarketProjection(MarketProjection::getAll());
-        $param->setMaxResults(self::DEFAULT_MAX_RESULT);
+        $param = $this->createParam($marketFilter);
+
+        if ($this->maxResults == null) {
+            $param->setMaxResults(self::MAX_RESULT);
+        }
+
+        $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
             $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
         );
+    }
+
+    private function restoreDefaultsProperties()
+    {
+        $this->marketSort = null;
+        $this->locale = null;
+        $this->marketProjections = MarketProjection::getAll();
+        $this->maxResults = self::MAX_RESULT;
+    }
+
+    public function withMarketFilter(MarketFilter $marketFilter)
+    {
+        $this->marketFilter = $marketFilter;
+        return $this;
+    }
+
+    public function withMarketSort($marketSort)
+    {
+        $this->marketSort = $marketSort;
+        return $this;
+    }
+
+    public function withMarketProjections(array $marketProjections)
+    {
+        $this->marketProjections = $marketProjections;
+        return $this;
+    }
+
+    public function withMaxResult($maxResult)
+    {
+        $this->maxResults = $maxResult;
+        return $this;
+    }
+
+    public function withLocale($locale)
+    {
+        $this->locale = $locale;
+        return $this;
     }
 }

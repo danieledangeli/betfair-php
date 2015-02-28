@@ -1,6 +1,6 @@
 <?php
 
-namespace spec\Betfair;
+namespace spec\Betfair\Credential;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -33,6 +33,6 @@ class CredentialSpec extends ObjectBehavior
 
     public function it_is_have_getApplicationKey()
     {
-        $this->getUsername()->shouldReturn('5s4a5');
+        $this->getApplicationKey()->shouldReturn('5s4a5');
     }
 }

@@ -78,7 +78,7 @@ class BetfairClient implements BetfairClientInterface
         $result = $this->betfairGuzzleClient->betfairLogin($this->builtLoginArrayParameters());
 
         if ($result && $result->getStatusCode() == 200) {
-            return $this->extractSessionTokenFromResponseCookie($result->getHeader('Set-Cookie'));
+            return $this->extractSessionTokenFromResponseBody($result->getBody());
         }
 
         throw new BetfairLoginException(sprintf("Error during credentials verification."));
@@ -100,6 +100,7 @@ class BetfairClient implements BetfairClientInterface
     private function builtLoginArrayParameters()
     {
         return array(
+            'X-Application' => $this->credential->getApplicationKey(),
             'username' => $this->credential->getUsername(),
             'password' => $this->credential->getPassword()
         );
@@ -118,6 +119,17 @@ class BetfairClient implements BetfairClientInterface
             $sessionToken = substr($ssoid, $start, $end);
 
             return $sessionToken;
+        }
+
+        throw new BetfairLoginException(sprintf("Error during credentials verification."));
+    }
+
+    private function extractSessionTokenFromResponseBody($responseBody)
+    {
+        $bodyArray = json_decode($responseBody, true);
+
+        if (isset($bodyArray["status"]) && $bodyArray["status"] == "SUCCESS") {
+            return $bodyArray["token"];
         }
 
         throw new BetfairLoginException(sprintf("Error during credentials verification."));

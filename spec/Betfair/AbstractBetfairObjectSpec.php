@@ -37,8 +37,12 @@ class AbstractBetfairObjectSpec extends ObjectBehavior
             ->willReturn($marketFilterInterface);
 
         $paramFactory
-            ->create($marketFilterInterface)
+            ->create()
             ->shouldBeCalled()
             ->willReturn($paramInterface);
+
+        $paramInterface
+            ->setMarketFilter($marketFilterInterface)
+            ->shouldBeCalled();
     }
 }

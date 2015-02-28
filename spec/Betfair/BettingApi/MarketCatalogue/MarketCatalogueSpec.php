@@ -42,8 +42,8 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
             ->willReturn("{response}");
 
         $marketFilterInterface->setEventIds($eventIds)->shouldBeCalled();
-        $paramInterface->setMarketProjection(MarketProjection::getAll())->shouldBeCalled();
-        $paramInterface->setMaxResults(MarketCatalogue::DEFAULT_MAX_RESULT)->shouldBeCalled();
+
+        $paramInterface->setMaxResults(MarketCatalogue::MAX_RESULT)->shouldBeCalled();
 
         $adapterInterface->adaptResponse("{response}")->willReturn(array("response"));
         $this->getMarketCatalogueFilteredByEventIds($eventIds)->shouldReturn(array("response"));
@@ -61,6 +61,9 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
         $marketFilterInterface->setEventTypeIds($eventTypeIds);
+
+        $paramInterface->setMaxResults(MarketCatalogue::MAX_RESULT)->shouldBeCalled();
+
         $betfairClient->sportsApiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface)
             ->shouldBeCalled()
             ->willReturn("{response}");
@@ -83,8 +86,6 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
         $marketFilterInterface->setEventIds($eventIds)->shouldBeCalled();
         $marketFilterInterface->setMarketTypeCodes($marketTypeCodes)->shouldBeCalled();
-        $paramInterface->setMarketProjection(MarketProjection::getAll())->shouldBeCalled();
-        $paramInterface->setMaxResults(MarketCatalogue::DEFAULT_MAX_RESULT)->shouldBeCalled();
 
         $betfairClient->sportsApiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface)
             ->shouldBeCalled()

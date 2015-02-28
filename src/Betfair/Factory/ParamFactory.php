@@ -15,13 +15,8 @@ use Betfair\Model\ParamMarketBook;
 
 class ParamFactory implements ParamFactoryInterface
 {
-    public function create(MarketFilterInterface $marketFilter)
+    public function create()
     {
-        return new Param($marketFilter);
-    }
-
-    public function createParamMarketBook()
-    {
-        return new ParamMarketBook();
+        return new Param();
     }
 }

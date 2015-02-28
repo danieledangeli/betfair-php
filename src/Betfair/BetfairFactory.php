@@ -8,12 +8,11 @@ use Betfair\Credential\Credential;
 
 class BetfairFactory
 {
-    public static function createBetfair($applicationId, $betfairUsername, $betfairPassword)
+    public static function createBetfair($applicationId, $betfairUsername, $betfairPassword, $options = array())
     {
         $credential = new Credential($applicationId, $betfairUsername, $betfairPassword);
         $factory = new BetfairGuzzleClientFactory(__DIR__."/Resources/specification");
-        $betfairClient = new BetfairClient($credential, $factory->createBetfairGuzzleClient());
-
+        $betfairClient = new BetfairClient($credential, $factory->createBetfairGuzzleClient($options));
 
         return new Betfair($betfairClient);
     }
