@@ -9,9 +9,7 @@
  */
 namespace Betfair\Factory;
 
-use Betfair\Model\MarketFilterInterface;
 use Betfair\Model\ParamInterface;
-use Betfair\Model\ParamMarketBook;
 
 interface ParamFactoryInterface
 {

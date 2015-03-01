@@ -2,7 +2,6 @@
 
 namespace Betfair\BettingApi\Order;
 
-use Betfair\AbstractBetfair;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\BettingApi\BetfairParamObject;
 use Betfair\Client\BetfairClientInterface;

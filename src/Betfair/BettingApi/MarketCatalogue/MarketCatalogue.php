@@ -69,7 +69,7 @@ class MarketCatalogue extends AbstractBetfair
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->apiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -85,7 +85,7 @@ class MarketCatalogue extends AbstractBetfair
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->apiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -97,14 +97,14 @@ class MarketCatalogue extends AbstractBetfair
 
         $param = $this->createParam($marketFilter);
 
-        if ($this->maxResults == null) {
+        if ($this->maxResults === null) {
             $param->setMaxResults(self::MAX_RESULT);
         }
 
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->apiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

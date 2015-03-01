@@ -12,7 +12,6 @@ namespace Betfair;
 use Betfair\AccountApi\AccountDetails;
 use Betfair\AccountApi\AccountFunds;
 use Betfair\Adapter\AdapterInterface;
-use Betfair\Adapter\ArrayAdapter;
 use Betfair\Adapter\ArrayRpcAdapter;
 use Betfair\BettingApi\MarketType\MarketType;
 use Betfair\BettingApi\Order\ClearedOrder;
@@ -174,7 +173,6 @@ class Betfair
     {
         return new AccountFunds($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
-
 
     public function getBetfairAccountDetails()
     {

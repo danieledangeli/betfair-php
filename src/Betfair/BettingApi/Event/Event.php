@@ -46,7 +46,7 @@ class Event extends BetfairMarketFilterObject
      */
     public function listEvents()
     {
-        $response = $this->ApiNgRequest(
+        $response = $this->apiNgRequest(
             self::API_METHOD_NAME,
             $this->createParam($this->createMarketFilter())
         );
@@ -65,7 +65,7 @@ class Event extends BetfairMarketFilterObject
         $param = $this->createParam($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->apiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -82,7 +82,7 @@ class Event extends BetfairMarketFilterObject
         $param = $this->createParam($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->apiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 }

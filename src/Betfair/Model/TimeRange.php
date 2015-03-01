@@ -69,7 +69,7 @@ class TimeRange extends BetfairSerializable
         $array = array();
         $properties = get_object_vars($this);
         foreach ($properties as $key => $value) {
-            if ($value != null) {
+            if ($value !== null) {
                 $array[$key] = $value;
             }
         }

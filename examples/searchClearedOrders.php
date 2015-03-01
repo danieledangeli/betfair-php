@@ -2,30 +2,26 @@
 
 use Betfair\BetfairFactory;
 use Betfair\Model\BetStatus;
-use Betfair\Model\MarketFilter;
 
-require '../vendor/autoload.php';
-
-$soccerEvents = searchClearedOrder('app_key', 'user', 'pass');
-
-$a = $soccerEvents;
-
-function searchClearedOrder($appKey, $username, $pwd)
+class SearchClearedOrdersExample
 {
-    $betfair = BetfairFactory::createBetfair(
-        $appKey,
-        $username,
-        $pwd
-    );
+    public function searchClearedOrder($appKey, $username, $pwd)
+    {
+        $betfair = BetfairFactory::createBetfair(
+            $appKey,
+            $username,
+            $pwd
+        );
 
-    $clearedOrder = $betfair->getBetfairClearedOrder();
+        $clearedOrder = $betfair->getBetfairClearedOrder();
 
-    $param = $clearedOrder->createParam();
-    $param->setBetStatus(BetStatus::SETTLED);
+        $param = $clearedOrder->createParam();
+        $param->setBetStatus(BetStatus::SETTLED);
 
-    $clearedOrder->withParam($param);
+        $clearedOrder->withParam($param);
 
-    $results = $clearedOrder->getResults();
+        $results = $clearedOrder->getResults();
 
-    return $results;
+        return $results;
+    }
 }

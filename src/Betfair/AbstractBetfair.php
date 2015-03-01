@@ -52,7 +52,7 @@ abstract class AbstractBetfair
     public function executeCustomQuery(ParamInterface $param, $method = null, $type = "betting")
     {
         $method = $method !== null ? $method : $this::API_METHOD_NAME;
-        $response = $this->ApiNgRequest($method, $param, $type);
+        $response = $this->apiNgRequest($method, $param, $type);
         return $this->adapter->adaptResponse($response);
     }
 
@@ -63,7 +63,7 @@ abstract class AbstractBetfair
      * @internal param $params
      * @return mixed
      */
-    public function ApiNgRequest($operation, ParamInterface $param, $type = "betting")
+    public function apiNgRequest($operation, ParamInterface $param, $type = "betting")
     {
         $requestContent = $this->betfairClient->apiNgRequest(
             $operation,

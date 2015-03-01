@@ -3,8 +3,6 @@
 namespace Betfair\BettingApi;
 
 use Betfair\AbstractBetfair;
-use Betfair\Model\MarketFilter;
-use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
 
 class BetfairParamObject extends AbstractBetfair

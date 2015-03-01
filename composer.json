@@ -1,4 +1,6 @@
 {
+    "minimum-stability ": "dev",
+
     "name"       : "erlangb/betfair",
     "type"       : "library",
     "description": "Betfair API PHP 5.4+ library",
@@ -32,7 +34,5 @@
 
     "autoload": {
         "psr-0": { "Betfair": "src/" }
-    },
-
-    "minimum-stability ": "dev"
+    }
 }

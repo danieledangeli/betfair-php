@@ -111,24 +111,6 @@ class BetfairClient implements BetfairClientInterface
         );
     }
 
-    private function extractSessionTokenFromResponseCookie($headerSetCookie)
-    {
-        $ssoid = explode(";", $headerSetCookie)[0];
-
-        $end = strlen($ssoid);
-        $start = strpos($ssoid, 'ssoid=');
-
-        //needs to be refactored
-        if ($start == 0 && $end) {
-            $start = $start + 6;
-            $sessionToken = substr($ssoid, $start, $end);
-
-            return $sessionToken;
-        }
-
-        throw new BetfairLoginException(sprintf("Error during credentials verification."));
-    }
-
     private function extractSessionTokenFromResponseBody($responseBody)
     {
         $bodyArray = json_decode($responseBody, true);
