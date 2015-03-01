@@ -1,5 +1,5 @@
 {
-    "minimum-stability ": "dev",
+    "minimum-stability": "dev",
 
     "name"       : "erlangb/betfair",
     "type"       : "library",
