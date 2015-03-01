@@ -41,7 +41,7 @@ class EventType extends BetfairMarketFilterObject
      */
     public function getAllEventType()
     {
-        $response = $this->doSportApiNgRequest(
+        $response = $this->ApiNgRequest(
             self::API_METHOD_NAME,
             $this->createParam($this->createMarketFilter())
         );
@@ -61,7 +61,7 @@ class EventType extends BetfairMarketFilterObject
         $param = $this->createParam($marketFilter);
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 }

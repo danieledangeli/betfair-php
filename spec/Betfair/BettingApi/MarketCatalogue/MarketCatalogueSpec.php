@@ -37,7 +37,7 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
 
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
-        $betfairClient->sportsApiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface)
+        $betfairClient->apiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
             ->willReturn("{response}");
 
@@ -64,7 +64,7 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
 
         $paramInterface->setMaxResults(MarketCatalogue::MAX_RESULT)->shouldBeCalled();
 
-        $betfairClient->sportsApiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface)
+        $betfairClient->apiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
             ->willReturn("{response}");
 
@@ -87,7 +87,7 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $marketFilterInterface->setEventIds($eventIds)->shouldBeCalled();
         $marketFilterInterface->setMarketTypeCodes($marketTypeCodes)->shouldBeCalled();
 
-        $betfairClient->sportsApiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface)
+        $betfairClient->apiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
             ->willReturn("{response}");
 

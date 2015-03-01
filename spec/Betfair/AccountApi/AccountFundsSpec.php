@@ -1,17 +1,18 @@
 <?php
 
-namespace spec\Betfair\BettingApi\MarketBook;
+namespace spec\Betfair\AccountApi;
 
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
+use Betfair\Factory\ParamFactory;
 use Betfair\Factory\ParamFactoryInterface;
+
 use Betfair\Model\Param;
-use Betfair\Model\ParamMarketBook;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class MarketBookSpec extends ObjectBehavior
+class AccountFundsSpec extends ObjectBehavior
 {
     protected $client;
     protected $adapterInterface;
@@ -39,31 +40,15 @@ class MarketBookSpec extends ObjectBehavior
 
     public function it_is_initializable()
     {
-        $this->shouldHaveType('Betfair\BettingApi\MarketBook\MarketBook');
+        $this->shouldHaveType('Betfair\AccountApi\AccountFunds');
     }
 
-    public function it_get_market_book_filtered_by_market_ids(
-        Param $param
-    ) {
-        $response = '{response}';
+    public function it_get_account_funds(ParamFactory $paramFactory, Param $param, BetfairClientInterface $client, AdapterInterface $adapterInterface)
+    {
+        $paramFactory->create()->shouldBeCalled()->willReturn($param);
+        $client->apiNgRequest("getAccountFunds", $param, "account")->shouldBeCalled()->willReturn("{account}");
 
-        $this->paramFactory
-            ->create()
-            ->shouldBeCalled()
-            ->willReturn($param);
-
-        $param
-            ->setMarketIds(array(1))
-            ->shouldBeCalled();
-
-        $this->client->apiNgRequest('listMarketBook', $param, "betting")
-            ->shouldBeCalled()
-            ->willReturn($response);
-
-        $this->adapterInterface->adaptResponse($response)
-            ->shouldBeCalled()
-            ->willReturn(array('response'));
-
-        $this->getMarketBookFilterByMarketIds(array(1));
+        $adapterInterface->adaptResponse("{account}")->willReturn(array("account"));
+        $this->getAccountFunds()->shouldReturn(array("account"));
     }
 }

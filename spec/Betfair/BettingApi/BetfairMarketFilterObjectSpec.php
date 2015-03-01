@@ -53,7 +53,7 @@ class BetfairMarketFilterObjectSpec extends ObjectBehavior
         $param->setMarketFilter($this->marketFilter)->shouldBeCalled();
         $param->setLocale($this->locale)->shouldBeCalled();
 
-        $betfairClient->sportsApiNgRequest("default", $param)->shouldBeCalled()->willReturn("response");
+        $betfairClient->apiNgRequest("default", $param, "betting")->shouldBeCalled()->willReturn("response");
         $adapter->adaptResponse("response")->shouldBeCalled();
 
         $this->getResults();

@@ -13,6 +13,6 @@ use Betfair\Model\ParamInterface;
 
 interface BetfairClientInterface
 {
-    public function sportsApiNgRequest($operation, ParamInterface $param);
+    public function apiNgRequest($operation, ParamInterface $param, $type = "betting");
     public function authenticateCredential();
 }

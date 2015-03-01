@@ -9,10 +9,12 @@
  */
 namespace Betfair\Client;
 
+use Betfair\BetfairActionType;
 use Betfair\Credential\CredentialInterface;
 use Betfair\Exception\BetfairLoginException;
 use Betfair\Model\ParamInterface;
 use GuzzleHttp\Command\Guzzle\GuzzleClient;
+use GuzzleHttp\Command\Guzzle\Operation;
 use GuzzleHttp\Message\Response;
 
 class BetfairClient implements BetfairClientInterface
@@ -34,26 +36,29 @@ class BetfairClient implements BetfairClientInterface
     /**
      * @param $operationName operation name
      * @param ParamInterface $param Param to be serialized in the request
+     * @param string $type
      * @return string $bodyString
      */
-    public function sportsApiNgRequest($operationName, ParamInterface $param)
+    public function apiNgRequest($operationName, ParamInterface $param, $type = "betting")
     {
         $requestParameters = array_merge(
                 $this->getDefaultAuthHeaderArray(),
-                $this->builtJsonRpcArrayParameters($operationName, $param)
+                $this->builtJsonRpcArrayParameters($operationName, $param, $type),
+                array("type" => $type)
         );
 
-        $response = $this->betfairGuzzleClient->sportApiNgRequest(
+        $response = $this->betfairGuzzleClient->apiNgRequest(
             $requestParameters
         );
 
         return $response->getBody();
     }
 
-    private function builtJsonRpcArrayParameters($operationName, ParamInterface $param)
+    private function builtJsonRpcArrayParameters($operationName, ParamInterface $param, $type)
     {
+        $methodName = $type === BetfairActionType::BETTING ? "SportsAPING" : "AccountAPING";
         $jsonRpcArrayParameters = array();
-        $jsonRpcArrayParameters['method'] = "SportsAPING/v1.0/" . $operationName;
+        $jsonRpcArrayParameters['method'] = $methodName . "/v1.0/" . $operationName;
         $jsonRpcArrayParameters['params'] = $param;
 
         return $jsonRpcArrayParameters;

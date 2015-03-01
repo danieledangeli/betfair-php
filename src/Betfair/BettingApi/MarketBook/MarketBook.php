@@ -65,7 +65,7 @@ class MarketBook extends AbstractBetfair
         $this->restoreDefaults();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -79,7 +79,7 @@ class MarketBook extends AbstractBetfair
         $this->restoreDefaults();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -92,7 +92,7 @@ class MarketBook extends AbstractBetfair
         $this->restoreDefaults();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

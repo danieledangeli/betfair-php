@@ -19,7 +19,6 @@ use Betfair\Model\ParamInterface;
 
 abstract class AbstractBetfair
 {
-    const END_POINT_URL = "https://api.betfair.com/exchange/betting/json-rpc/v1";
     const API_METHOD_NAME = "default";
 
     protected $betfairClient;
@@ -45,33 +44,34 @@ abstract class AbstractBetfair
         MarketFilterFactoryInterface $marketFilterFactory
     ) {
         $this->betfairClient = $betfairClient;
-        $this->adapter    = $adapter;
-        $this->endPointUrl = self::END_POINT_URL;
+        $this->adapter = $adapter;
         $this->marketFilterFactory = $marketFilterFactory;
         $this->paramFactory =  $paramFactory;
+    }
+
+    public function executeCustomQuery(ParamInterface $param, $method = null, $type = "betting")
+    {
+        $method = $method !== null ? $method : $this::API_METHOD_NAME;
+        $response = $this->ApiNgRequest($method, $param, $type);
+        return $this->adapter->adaptResponse($response);
     }
 
     /**
      * @param $operation
      * @param \Betfair\Model\Param|\Betfair\Model\ParamInterface $param
+     * @param string $type
      * @internal param $params
      * @return mixed
      */
-    public function doSportApiNgRequest($operation, ParamInterface $param)
+    public function ApiNgRequest($operation, ParamInterface $param, $type = "betting")
     {
-        $requestContent = $this->betfairClient->sportsApingRequest(
+        $requestContent = $this->betfairClient->apiNgRequest(
             $operation,
-            $param
+            $param,
+            $type
         );
 
         return $requestContent;
-    }
-
-    public function executeCustomQuery(ParamInterface $param, $method = null)
-    {
-        $method = $method !== null ? $method : $this::API_METHOD_NAME;
-        $response = $this->doSportApiNgRequest($method, $param);
-        return $this->adapter->adaptResponse($response);
     }
 
     public function createMarketFilter()

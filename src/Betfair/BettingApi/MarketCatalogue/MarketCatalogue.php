@@ -69,7 +69,7 @@ class MarketCatalogue extends AbstractBetfair
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -85,7 +85,7 @@ class MarketCatalogue extends AbstractBetfair
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 
@@ -104,7 +104,7 @@ class MarketCatalogue extends AbstractBetfair
         $this->restoreDefaultsProperties();
 
         return $this->adapter->adaptResponse(
-            $this->doSportApiNgRequest(self::API_METHOD_NAME, $param)
+            $this->ApiNgRequest(self::API_METHOD_NAME, $param)
         );
     }
 

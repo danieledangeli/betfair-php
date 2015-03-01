@@ -9,6 +9,8 @@
  */
 namespace Betfair;
 
+use Betfair\AccountApi\AccountDetails;
+use Betfair\AccountApi\AccountFunds;
 use Betfair\Adapter\AdapterInterface;
 use Betfair\Adapter\ArrayAdapter;
 use Betfair\Adapter\ArrayRpcAdapter;
@@ -166,5 +168,16 @@ class Betfair
     public function getVenues()
     {
         return new Venues($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+    public function getBetfairAccountFunds()
+    {
+        return new AccountFunds($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
+    }
+
+
+    public function getBetfairAccountDetails()
+    {
+        return new AccountDetails($this->betfairClient, $this->adapter, $this->paramFactory, $this->marketFilterFactory);
     }
 }

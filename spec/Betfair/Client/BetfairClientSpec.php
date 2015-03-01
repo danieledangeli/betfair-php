@@ -38,16 +38,17 @@ class BetfairClientSpec extends ObjectBehavior
             "X-Application" => 'app-key',
             "X-Authentication" => 'session-token',
             'method' => "SportsAPING/v1.0/" . $operationName,
+            'type' => 'betting',
             'params' => $param
         );
 
-        $betfairHttpClient->sportApiNgRequest($expectedGuzzleParameters)
+        $betfairHttpClient->apiNgRequest($expectedGuzzleParameters)
             ->shouldBeCalled()
             ->willReturn($response);
 
         $response->getBody()->shouldBeCalled()->willReturn('body response');
 
-        $this->sportsApiNgRequest($operationName, $param)->shouldReturn("body response");
+        $this->apiNgRequest($operationName, $param, "betting")->shouldReturn("body response");
     }
 
     public function it_authenticate_credentials(
@@ -62,7 +63,7 @@ class BetfairClientSpec extends ObjectBehavior
         $expectedLoginGuzzleParameters = array(
             'X-Application' => 'appkey',
             'username' => 'usr1',
-            'password' => 'pwd1',
+            'password' => 'pwd1'
         );
 
         $betfairHttpClient->betfairLogin($expectedLoginGuzzleParameters)

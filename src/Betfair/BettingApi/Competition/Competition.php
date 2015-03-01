@@ -21,6 +21,8 @@ use Betfair\Factory\ParamFactoryInterface;
  */
 class Competition extends BetfairMarketFilterObject
 {
+    const API_METHOD_NAME = "listCompetitions";
+
     /**
      * @param BetfairClientInterface $betfairClient
      * @param AdapterInterface $adapter

@@ -47,7 +47,7 @@ class EventTypeSpec extends AbstractEventSpec
     ) {
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
 
-        $betfairClient->sportsApiNgRequest(EventType::API_METHOD_NAME, $paramInterface)
+        $betfairClient->apiNgRequest(EventType::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
             ->willReturn("{response}");
 
@@ -70,7 +70,7 @@ class EventTypeSpec extends AbstractEventSpec
 
         $marketFilterInterface->setEventTypeIds($eventTypeIds)->shouldBeCalled();
 
-        $betfairClient->sportsApiNgRequest(EventType::API_METHOD_NAME, $paramInterface)
+        $betfairClient->apiNgRequest(EventType::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
             ->willReturn("{response}");
 

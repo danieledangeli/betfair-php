@@ -45,7 +45,7 @@ class BetfairParamObjectSpec extends ObjectBehavior
 
     public function it_get_results(BetfairClientInterface $betfairClient, AdapterInterface $adapter)
     {
-        $betfairClient->sportsApiNgRequest("default", $this->param)->shouldBeCalled()->willReturn("response");
+        $betfairClient->apiNgRequest("default", $this->param, "betting")->shouldBeCalled()->willReturn("response");
         $adapter->adaptResponse("response")->shouldBeCalled();
 
         $this->getResults();

@@ -1,7 +1,8 @@
 operations:
-    sportApiNgRequest:
+    apiNgRequest:
           httpMethod: POST
           responseModel: betfairJsonRpcResponseModel
+          uri: "{type}/json-rpc/v1/"
           parameters:
               X-Application:
                   type: string
@@ -29,6 +30,12 @@ operations:
                   location: json
                   required: true
                   default: 1
+              type:
+                  type: string
+                  location: uri
+                  required: true
+                  default: betting
+                  sentAs: type
 models:
     betfairJsonRpcResponseModel:
         type: array

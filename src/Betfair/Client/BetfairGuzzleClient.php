@@ -12,9 +12,9 @@ class BetfairGuzzleClient
         $this->guzzleClient = $guzzleClient;
     }
 
-    public function sportApiNgRequest(array $guzzleParameters)
+    public function apiNgRequest(array $guzzleParameters)
     {
-        $response = $this->guzzleClient->sportApiNgRequest(
+        $response = $this->guzzleClient->apiNgRequest(
             $guzzleParameters
         );
 

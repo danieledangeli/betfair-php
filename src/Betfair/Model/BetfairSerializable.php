@@ -28,6 +28,10 @@ class BetfairSerializable implements \JsonSerializable
             }
         }
 
+        if (count($array) == 0) {
+            return new \StdClass;
+        }
+
         return $array;
     }
 }
