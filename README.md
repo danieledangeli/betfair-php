@@ -133,16 +133,20 @@ If an helper method is not present, you can simply use the object by specifying 
 
 ```php
 $seriaACompetition = 81;
+
 $betfairEvent = $betfair->getBetfairEvent();
-$marketFilter = MarketFilter::create();
-$marketFilter->setTextQuery("Lazio")
+
+$marketFilter = MarketFilter::create()
+    ->setTextQuery("Lazio")
     ->setCompetitionIds(array($seriaACompetition));
 
 $betfairEvent->withMarketFilter($marketFilter);
+
 $events = $betfairEvent->getResults();
 ```
 
 If an object doesn't require a Betfair Market Filter, you can simply specify the __Param__:
+
 ```php
 $betfair = BetfairFactory::createBetfair(
         $appKey,
@@ -151,25 +155,20 @@ $betfair = BetfairFactory::createBetfair(
     );
 
 $clearedOrder = $betfair->getBetfairClearedOrder();
+
 $param = $clearedOrder->createParam();
 $param->setBetStatus(BetStatus::SETTLED);
+
 $clearedOrder->withParam($param);
+
 $results = $clearedOrder->getResults();
 ```
-
-The following object are available:
-*   Competition: get betfair competition list
-*   Country: get the betfair country list
-*   Event: query the betfair events
-*   EventType: obtain the betfair's event type
-*   MarketBook: query the betfair market
-*   Market Catalogue: query the betfair market catalogue
-*   Time range: query the betfair time range
 
 Query the Betfair API without the helpers
 ------------
 
-In any case you want to query the API without using the helpers you can just use the "api" function on the betfair object:
+If in any case you want to query the API without using the helpers you can just use the "api" function on the Betfair object:
+
 ```php
 public function api(ParamInterface $param, $method);
 ```
@@ -177,11 +176,13 @@ public function api(ParamInterface $param, $method);
 It will accept a __Param__ and a method name (listEevents, listMarketCatalogue ...)
 
 To Obtain a __Param__ object just use the proper factory:
+
 ```php
 $param = Param::create();
 ```
 
-if you want to add a market filter to the param just use the factory and then set is as following:
+if you want to add a market filter to the Param Object, just use the factory and then set it as following:
+
 ```php
 $marketFilter = MarketFilter::create();
 $param->setMarketFilter($marketFilter);
@@ -190,6 +191,7 @@ $param->setMarketFilter($marketFilter);
 Both __Param__ and __MarketFilter__ object have a list of methods to set the properties in a "builder" style:
 
 ```php
+
 $marketFilter = MarketFilter::create()
     ->setEventIds(array($events))
     ->setCompetitionIds(array($competitions))
@@ -204,12 +206,12 @@ How to contribute
 ===========
 
 I'm very glad to be helped to maintain and extend this library.
-Please feeling free to clone the repository and  collaborate with me.
+Please feeling free to clone the repository and collaborate with me.
 
 Reporting Issues
 ------------
 
-We would love to hear your feedback. Report issues using the [Github
+I would love to hear your feedback. Report issues using the [Github
 Issue Tracker](https://github.com/danieledangeli/betfair-php/issues) or email me at
 [dangeli88.daniele@gmail.com](mailto:dangeli88.daniele@gmail.com).
 
