@@ -1,6 +1,6 @@
 betfair-php
 ===========
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a44b7517-9af2-4651-8c45-6c75ef94ca1d/mini.png)](https://insight.sensiolabs.com/projects/a44b7517-9af2-4651-8c45-6c75ef94ca1d)
+[![SensioLabsInsight](https://insight.sensiolabs.com/projects/a44b7517-9af2-4651-8c45-6c75ef94ca1d/mini.png)](https://insight.sensiolabs.com/projects/a44b7517-9af2-4651-8c45-6c75ef94ca1d) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/danieledangeli/betfair-php/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/danieledangeli/betfair-php/?branch=master)
 
 [![Latest Stable Version](https://poser.pugx.org/erlangb/betfair/v/stable.png)](https://packagist.org/packages/erlangb/betfair)
 [![Total Downloads](https://poser.pugx.org/erlangb/betfair/downloads.png)](https://packagist.org/packages/erlangb/betfair)
