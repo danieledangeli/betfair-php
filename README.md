@@ -82,7 +82,7 @@ require 'vendor/autoload.php';
 $betfair = BetfairFactory::createBetfair(
         $appKey,
         $username,
-        $pwd
+        $pwd,
         array()
     );
 
