@@ -97,9 +97,7 @@ class MarketCatalogue extends AbstractBetfair
 
         $param = $this->createParam($marketFilter);
 
-        if ($this->maxResults === null) {
-            $param->setMaxResults(self::MAX_RESULT);
-        }
+        $param->setMaxResults(self::MAX_RESULT);
 
         $this->restoreDefaultsProperties();
 
