@@ -29,7 +29,9 @@
         "php": ">=5.4.0",
         "guzzlehttp/guzzle": "~5.0",
         "guzzlehttp/command": "0.7.*",
-        "guzzlehttp/guzzle-services": "0.5.*"
+        "guzzlehttp/guzzle-services": "0.5.*",
+        "symfony/yaml": "~2.6",
+        "symfony/finder": "~2.6"
     },
 
     "autoload": {
