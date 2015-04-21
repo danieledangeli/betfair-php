@@ -222,10 +222,10 @@ Todo
 ===========
 The library is actually "in dev" state and a lot of things to be done.
 *   ~~Enabling guzzle library~~
-*   Implements more "Betfairs objects" to extend the API
+*   Implements more "Betfairs objects" to extend the API (priority on Order object)
 *   ~~Add more PHPspec test~~
 *   ~~PHPspec test refactoring~~
 *   ~~Handling login or app key errors in array and json RPC adapters (result is not set)~~
 *   ~~Integration tests after the last changes~~
 *   Add more betfair Account API helpers
-*   Release first stable version
+*   ~~Release first stable version~~    
