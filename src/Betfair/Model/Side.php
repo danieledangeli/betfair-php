@@ -2,12 +2,12 @@
 
 namespace Betfair\Model;
 
-abstract class Side
+abstract class Side implements ArrayableInterface
 {
     const LAY = "LAY";
     const BACK = "BACK";
 
-    public static function getAll()
+    public static function toArray()
     {
         return array(
             self::LAY,

@@ -11,6 +11,6 @@ namespace Betfair\Exception;
 
 use Betfair\Exception;
 
-class BetfairLoginException extends \Exception implements Exception
+class ModelException extends \Exception implements Exception
 {
 }

@@ -86,6 +86,7 @@ class MarketCatalogueSpec extends AbstractBetfairObjectSpec
         $this->it_create_empty_param_filter($marketFilterFactory, $paramFactory, $marketFilterInterface, $paramInterface);
         $marketFilterInterface->setEventIds($eventIds)->shouldBeCalled();
         $marketFilterInterface->setMarketTypeCodes($marketTypeCodes)->shouldBeCalled();
+        $paramInterface->setMaxResults(MarketCatalogue::MAX_RESULT)->shouldBeCalled();
 
         $betfairClient->apiNgRequest(MarketCatalogue::API_METHOD_NAME, $paramInterface, "betting")
             ->shouldBeCalled()
