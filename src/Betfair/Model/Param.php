@@ -288,7 +288,7 @@ class Param extends BetfairSerializable implements ParamInterface
      */
     public function setFromRecord($fromRecord)
     {
-        $this->fromRecourd = $fromRecord;
+        $this->fromRecord = $fromRecord;
         return $this;
     }
 
