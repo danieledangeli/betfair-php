@@ -294,7 +294,7 @@ class Param extends BetfairSerializable implements ParamInterface
 
     /**
      * @param $recordCount
-     * @return int
+     * @return $this
      */
     public function setRecordCount($recordCount)
     {
