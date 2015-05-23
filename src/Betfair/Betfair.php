@@ -50,7 +50,7 @@ class Betfair
     /** @var \Betfair\BetfairGeneric  */
     protected $genericBetfair;
 
-    /** @var \Betfair\BetfairGeneric  */
+    /** @var \Betfair\Factory\ParamFactory  */
     protected $paramFactory;
 
     /** @var \Betfair\Factory\MarketFilterFactory  */
