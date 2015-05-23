@@ -135,7 +135,7 @@ interface ParamInterface
 
     /**
      * @param $recordCount
-     * @return int
+     * @return $this
      */
     public function setRecordCount($recordCount);
 
