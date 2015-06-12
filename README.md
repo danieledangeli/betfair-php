@@ -228,4 +228,3 @@ The library is actually "in dev" state and a lot of things to be done.
 *   ~~Handling login or app key errors in array and json RPC adapters (result is not set)~~
 *   ~~Integration tests after the last changes~~
 *   Add more betfair Account API helpers
-*   ~~Release first stable version~~    
