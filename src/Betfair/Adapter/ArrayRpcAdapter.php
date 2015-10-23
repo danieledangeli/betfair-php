@@ -14,6 +14,21 @@ class ArrayRpcAdapter implements AdapterInterface
     public function adaptResponse($response)
     {
         $data = json_decode($response, true);
-        return $data['result'];
+        
+        // check if $data contains result from Betfair API
+        
+        if(isset($data['result'])){
+            
+        	return $data['result'];
+        	
+        }
+        
+        // check if $data contains error from Betfair API
+        
+        if(isset($data['error'])){
+            
+        	return $data['error'];
+        	
+        }
     }
 }
