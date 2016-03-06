@@ -2,6 +2,7 @@
 
 namespace Betfair\Model\PlaceOrders;
 
+use Betfair\Model\BetfairSerializable;
 
 class PlaceOrderParam extends BetfairSerializable
 {
@@ -28,4 +29,4 @@ class PlaceOrderParam extends BetfairSerializable
     {
         $this->customRef = $customRef;
     }
-} 
+}

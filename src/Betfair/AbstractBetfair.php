@@ -14,7 +14,6 @@ use Betfair\Client\BetfairClientInterface;
 use Betfair\Factory\MarketFilterFactoryInterface;
 use Betfair\Factory\ParamFactoryInterface;
 use Betfair\Model\MarketFilterInterface;
-use Betfair\Model\Param;
 use Betfair\Model\ParamInterface;
 
 abstract class AbstractBetfair
@@ -57,8 +56,8 @@ abstract class AbstractBetfair
     }
 
     /**
-     * @param $operation
-     * @param \Betfair\Model\Param|\Betfair\Model\ParamInterface $param
+     * @param string $operation
+     * @param ParamInterface $param
      * @param string $type
      * @internal param $params
      * @return mixed

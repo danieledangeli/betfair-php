@@ -2,6 +2,7 @@
 
 namespace Betfair\Model\PlaceOrders;
 
+use Betfair\Model\Side;
 
 class PlaceInstructionFactory
 {
@@ -17,6 +18,4 @@ class PlaceInstructionFactory
     {
 
     }
-
-
-} 
+}

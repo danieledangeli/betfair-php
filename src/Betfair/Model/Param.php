@@ -23,7 +23,7 @@ class Param extends BetfairSerializable implements ParamInterface
     /** @var  MatchProjection */
     protected $matchProjection;
 
-    /** @var  MarketFilter */
+    /** @var  MarketFilterInterface */
     protected $filter;
 
     /** @var  int */
@@ -97,10 +97,10 @@ class Param extends BetfairSerializable implements ParamInterface
     }
 
     /**
-     * @param array $marketProjection
+     * @param MarketProjection $marketProjection
      * @return $this
      */
-    public function setMarketProjection($marketProjection)
+    public function setMarketProjection(MarketProjection $marketProjection)
     {
         $this->marketProjection = $marketProjection;
         return $this;
@@ -163,10 +163,10 @@ class Param extends BetfairSerializable implements ParamInterface
     }
 
     /**
-     * @param MarketProjection $matchProjection
+     * @param MatchProjection $matchProjection
      * @return $this
      */
-    public function setMatchProjection(MarketProjection $matchProjection)
+    public function setMatchProjection(MatchProjection $matchProjection)
     {
         $this->matchProjection = $matchProjection;
         return $this;

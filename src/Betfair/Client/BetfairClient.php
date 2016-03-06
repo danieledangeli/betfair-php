@@ -13,18 +13,16 @@ use Betfair\BetfairActionType;
 use Betfair\Credential\CredentialInterface;
 use Betfair\Exception\BetfairLoginException;
 use Betfair\Model\ParamInterface;
-use GuzzleHttp\Command\Guzzle\GuzzleClient;
-use GuzzleHttp\Command\Guzzle\Operation;
 use GuzzleHttp\Message\Response;
 
 class BetfairClient implements BetfairClientInterface
 {
     const LOGIN_ENDPOINT = "https://identitysso.betfair.com/api/login";
 
-    /** @var \Betfair\Credential\CredentialInterface  */
+    /** @var  CredentialInterface */
     protected $credential;
 
-    /** @var  GuzzleClient $client */
+    /** @var  BetfairGuzzleClient $client */
     protected $betfairGuzzleClient;
 
     public function __construct(CredentialInterface $credential, BetfairGuzzleClient $guzzleClient)
@@ -34,7 +32,7 @@ class BetfairClient implements BetfairClientInterface
     }
 
     /**
-     * @param $operationName operation name
+     * @param string $operationName operation name
      * @param ParamInterface $param Param to be serialized in the request
      * @param string $type
      * @return string $bodyString

@@ -20,7 +20,7 @@ class MarketBook extends AbstractBetfair
 {
     const API_METHOD_NAME = "listMarketBook";
 
-    private $marketIds;
+    private $marketIds = [];
     private $priceProjection;
     private $orderProjection;
     private $matchProjection;
