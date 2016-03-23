@@ -51,12 +51,6 @@ class TimeRange extends BetfairSerializable
         return $this->to;
     }
 
-    private function setWithFormat($from, $to, $format)
-    {
-        $this->from = $from !== null ? $from->format($format) : null;
-        $this->to = $to !== null ? $to->format($format) : null;
-    }
-
     /**
      * (PHP 5 &gt;= 5.4.0)<br/>
      * Specify data which should be serialized to JSON
@@ -75,5 +69,11 @@ class TimeRange extends BetfairSerializable
         }
 
         return $array;
+    }
+
+    private function setWithFormat(\DateTime $from, \DateTime $to, $format)
+    {
+        $this->from = $from !== null ? $from->format($format) : null;
+        $this->to = $to !== null ? $to->format($format) : null;
     }
 }

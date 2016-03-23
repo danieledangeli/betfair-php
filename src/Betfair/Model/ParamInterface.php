@@ -14,10 +14,10 @@ interface ParamInterface
     public function jsonSerialize();
 
     /**
-     * @param $marketProjection
+     * @param MarketProjection $marketProjection
      * @return $this
      */
-    public function setMarketProjection($marketProjection);
+    public function setMarketProjection(MarketProjection $marketProjection);
 
     /**
      * @param $maxResult
@@ -56,10 +56,10 @@ interface ParamInterface
     public function setMarketIds(array $marketIds);
 
     /**
-     * @param MarketProjection $matchProjection
+     * @param MatchProjection $matchProjection
      * @return $this
      */
-    public function setMatchProjection(MarketProjection $matchProjection);
+    public function setMatchProjection(MatchProjection $matchProjection);
 
     /**
      * @param $orderProjection
