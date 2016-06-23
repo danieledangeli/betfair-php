@@ -37,7 +37,7 @@ class BetfairGuzzleClientFactory
 
     public function getConfigDescriptionArrayFromSpecificationDir($specificationDir, $options = array())
     {
-        $guzzleHeaderSpec = sprintf("%s/api_version_description.yml", $specificationDir);
+        $guzzleHeaderSpec = file_get_contents(sprintf("%s/api_version_description.yml", $specificationDir));
         $yamlLoader = new Yaml();
         $headersArray = $yamlLoader->parse($guzzleHeaderSpec);
         $headersArray = $this->mergeUserHeaderOptions($headersArray, $options);
