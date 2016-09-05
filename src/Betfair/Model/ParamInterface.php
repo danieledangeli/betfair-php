@@ -17,7 +17,7 @@ interface ParamInterface
      * @param MarketProjection $marketProjection
      * @return $this
      */
-    public function setMarketProjection(MarketProjection $marketProjection);
+    public function setMarketProjection(array $marketProjection);
 
     /**
      * @param $maxResult
